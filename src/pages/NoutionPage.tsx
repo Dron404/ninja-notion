@@ -1,9 +1,9 @@
 import React from "react";
 
-export function HomePage() {
+export function NoutionPage() {
   return (
     <>
-      <h1>HomePage</h1>
+      <h1>NoutionPage</h1>
     </>
   );
 }

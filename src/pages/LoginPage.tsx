@@ -1,9 +1,9 @@
 import React from "react";
 
-export function HomePage() {
+export function LoginPage() {
   return (
     <>
-      <h1>HomePage</h1>
+      <h1>LoginPage</h1>
     </>
   );
 }
