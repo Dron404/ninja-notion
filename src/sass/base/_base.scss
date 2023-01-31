@@ -1,5 +1,6 @@
 html {
   font-size: 10px;
+  font-family: "Open Sans", sans-serif;
 }
 
 .body {
@@ -17,7 +18,7 @@ menu,
 nav,
 section,
 summary {
-  display: block
+  display: block;
 }
 
 h1 {
@@ -29,6 +30,5 @@ h2 {
 }
 
 h3 {
-  @include font($style: normal, $weight: 700, $size: 3.0rem, $height: 3.6rem);
+  @include font($style: normal, $weight: 700, $size: 3rem, $height: 3.6rem);
 }
-

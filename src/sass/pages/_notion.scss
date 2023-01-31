@@ -1,0 +1,12 @@
+.notion {
+  display: flex;
+  flex-flow: column nowrap;
+
+  &__aside {
+    flex: 0 0 200px;
+  }
+
+  &__section {
+    flex: 1 1 auto;
+  }
+}
