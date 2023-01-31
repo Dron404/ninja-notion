@@ -1,0 +1,33 @@
+.row {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  font-size: 16px;
+  position: relative;
+
+  &:hover .row__controls {
+    opacity: 1;
+  }
+
+  &__controls {
+    opacity: 0;
+    transition: opacity 700ms ease 0s, color 700ms ease 0s,
+      background-color 700ms ease 0s;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    margin-right: 4px;
+  }
+
+  &__button {
+    cursor: grab;
+  }
+
+  &__block {
+    width: 100%;
+  }
+
+  .button_control {
+    cursor: grab;
+  }
+}
