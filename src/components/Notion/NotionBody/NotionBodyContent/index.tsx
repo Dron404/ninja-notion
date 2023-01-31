@@ -6,7 +6,7 @@ import { ReactComponent as CoverSVG } from "../../../../assets/img/svg/cover.svg
 
 export const NotionBodyContent = (): React.ReactElement => {
   const widthPageDivision = 2;
-
+  const dataEmoji = "📗";
   return (
     <>
       <div className={styles.content}>
@@ -15,9 +15,12 @@ export const NotionBodyContent = (): React.ReactElement => {
           style={{ width: `${100 / widthPageDivision}%` }}
         >
           <div className={styles.content__header}>
-            <div className={styles.content__icon}>
-              <span className={styles.content__emoji}>📗</span>
-            </div>
+            {dataEmoji && (
+              <div className={styles.content__icon}>
+                <span className={styles.content__emoji}>{dataEmoji}</span>
+              </div>
+            )}
+
             <div className={styles.content__toolbar}>
               <div
                 className={styles.content__toolbar_button + " button_control"}

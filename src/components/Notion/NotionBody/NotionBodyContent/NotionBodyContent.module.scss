@@ -12,7 +12,8 @@
   &__icon {
     cursor: pointer;
     font-size: 64px;
-    transform: translateY(-34px);
+    transform: translateY(-82px);
+    position: absolute;
   }
 
   &__emoji {
@@ -28,6 +29,7 @@
     gap: 15px;
     transition: opacity 700ms ease 0s, color 700ms ease 0s,
       background-color 700ms ease 0s;
+    margin-top: 42px;
 
     &:hover {
       opacity: 1;
