@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./NotionBodyCover.module.scss";
 
-import cover_url from "../../../../assets/img/cover/nasa_robert_stewart_spacewalk_2.jpg";
+import cover_url from "../../../../assets/img/cover/web_001.jpg";
 
 export const NotionBodyCover = (): React.ReactElement => {
   return (
