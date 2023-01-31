@@ -1,17 +1,18 @@
 import React from "react";
+import { NotionBody } from "../components/Notion/NotionBody";
+import { NotionHeader } from "../components/Notion/NotionHeader";
+import { NotionSidebar } from "../components/Notion/NotionSidebar";
 
 export function NoutionPage() {
   return (
     <>
       <div className="notion">
-        <aside className="notion__aside">
-          sidebar
-          <nav></nav>
+        <aside className="notion__aside notion__aside--active">
+          <NotionSidebar />
         </aside>
-
         <section className="notion__section">
-          <header className="notion__header">header</header>
-          <div className="notion__body">body</div>
+          <NotionHeader />
+          <NotionBody />
         </section>
       </div>
     </>

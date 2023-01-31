@@ -1,9 +1,14 @@
 .notion {
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
+  font-size: 14px;
 
   &__aside {
-    flex: 0 0 200px;
+    flex: 0 0 15px;
+  }
+
+  &__aside--active {
+    flex: 0 0 233px;
   }
 
   &__section {
