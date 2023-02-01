@@ -5,19 +5,29 @@
   height: 100vh;
 
   &__aside {
-    flex: 0 0 15px;
+    transition: all 700ms ease;
+    flex: 0 0 233px;
     flex-grow: 0;
     flex-shrink: 0;
-    pointer-events: none;
-    position: relative;
-    z-index: 111;
     background: rgb(251, 251, 250);
     transition: box-shadow 300ms ease 0s;
     box-shadow: rgb(0 0 0 / 2%) -1px 0px 0px 0px inset;
   }
 
-  &__aside--active {
-    flex: 0 0 233px;
+  &__aside[data-status="false"] {
+    flex: 0 0 auto;
+
+    .doubleChevronLeft {
+      transform: rotate(180deg);
+    }
+
+    .sidebar_topbar {
+      padding: 0;
+    }
+
+    .aside_status {
+      display: none;
+    }
   }
 
   &__section {
@@ -28,6 +38,7 @@
   &-h1-block,
   &-h2-block,
   &-h3-block {
+    font-family: "golos_bold", sans-serif;
     white-space: pre-wrap;
     word-break: break-word;
     caret-color: rgb(55, 53, 47);
@@ -81,6 +92,7 @@
 }
 
 .button_control {
+  cursor: pointer;
   display: flex;
   flex-flow: row nowrap;
   color: #b9b8b6;
@@ -96,7 +108,8 @@
   height: 28px;
   padding: 1px 7px;
   margin-right: 2px;
-  fill: #37352f59;
+  fill: #b9b8b6;
+
   &:hover {
     background-color: #37352f14;
   }

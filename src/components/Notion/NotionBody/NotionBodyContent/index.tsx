@@ -1,12 +1,18 @@
 import React from "react";
 import styles from "./NotionBodyContent.module.scss";
 import { NotionBodyContentRow } from "./NotionBodyContentRow";
+import { UserAvatar } from "../../../User/UserAvatar";
 import { ReactComponent as EmojiSVG } from "../../../../assets/img/svg/emoji.svg";
 import { ReactComponent as CoverSVG } from "../../../../assets/img/svg/cover.svg";
 
 export const NotionBodyContent = (): React.ReactElement => {
-  const widthPageDivision = 2;
+  const widthPageDivision = 1.75;
   const dataEmoji = "📗";
+
+  const avatarUrl =
+    "https://lh3.googleusercontent.com/a-/AFdZucrnvCnEsd0erWUTqf6_bmSJLRbWfPGvfHrSb5w1yg=s100";
+  const avatarSize = "25";
+
   return (
     <>
       <div className={styles.content}>
@@ -43,9 +49,7 @@ export const NotionBodyContent = (): React.ReactElement => {
 
             <div className={styles.content__title}>Object pages</div>
             <div className={styles.content__comment}>
-              <div className={styles.content__comment_avatar}>
-                <img src="https://lh3.googleusercontent.com/a-/AFdZucrnvCnEsd0erWUTqf6_bmSJLRbWfPGvfHrSb5w1yg=s100" />
-              </div>
+              <UserAvatar url={avatarUrl} size={avatarSize} />
               <div
                 className={styles.content__comment_input}
                 placeholder="Add a comment…"

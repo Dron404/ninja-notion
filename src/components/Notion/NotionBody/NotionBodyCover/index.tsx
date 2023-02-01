@@ -15,7 +15,9 @@ export const NotionBodyCover = ({
             style={{
               backgroundImage: "url(" + coverUrl + ")",
             }}
-          ></div>
+          >
+            <div className={styles.cover__button}>Change cover</div>
+          </div>
         )}
       </div>
     </>

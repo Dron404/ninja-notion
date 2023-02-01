@@ -13,10 +13,17 @@
   &__icon {
     cursor: pointer;
     font-size: 64px;
-    transform: translateY(-32px);
+    transform: translateY(-45px);
+    display: inline-block;
   }
 
   &__emoji {
+    &:hover {
+      background-color: #37352f14;
+    }
+  }
+
+  &__button {
     &:hover {
       background-color: #37352f14;
     }
