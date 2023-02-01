@@ -14,7 +14,7 @@ import { IAsideStatus } from "../../../types/interface";
 
 export const NotionSidebar = ({
   asideStatus,
-  setAsideStaus,
+  setAsideStatus,
 }: IAsideStatus): React.ReactElement => {
   const avatarUrl =
     "https://lh3.googleusercontent.com/a-/AFdZucrnvCnEsd0erWUTqf6_bmSJLRbWfPGvfHrSb5w1yg=s100";
@@ -27,7 +27,7 @@ export const NotionSidebar = ({
   const text_search = "Search";
 
   const handleAsideToggle = () => {
-    setAsideStaus(!asideStatus);
+    setAsideStatus(!asideStatus);
   };
 
   return (
