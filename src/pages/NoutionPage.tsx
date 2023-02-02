@@ -7,7 +7,7 @@ import { IStateContext } from "../types/interface";
 export const StateContext = React.createContext<Partial<IStateContext>>({});
 
 export function NoutionPage() {
-  const theme: string = "light" || "light";
+  const theme: string = "dark" || "light";
   const [asideStatus, setAsideStatus] = React.useState<boolean>(true);
   const handleAsideToggle = () => {
     setAsideStatus(!asideStatus);

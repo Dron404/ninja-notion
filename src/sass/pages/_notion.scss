@@ -2,15 +2,10 @@
   --color-grey-400: #ababab; // icon
   --color-grey-500: #4f4f4f; // user
   --color-grey-600: #5c5c5c; // user
-  --color-grey-800: $color-grey-800;
 
   --сolor-base-110: #e6e6e6;
-  --сolor-base-120: $color-base-120;
-  --сolor-base-130: $color-base-130;
-  --сolor-base-200: $color-base-200;
   --color-base-140: #efefef; // hover button
 
-  --color-dark-400: $color-dark-400;
   --color-bg: #ffffff;
   --color-text: #222222;
   --color-aside: #fbfbfa;
@@ -22,20 +17,15 @@
   --color-grey-400: #e1e1e1ad; // icon
   --color-grey-500: #e1e1e1cb; // user
   --color-grey-600: #ffffff; // user
-  --color-grey-800: #ffffff99;
 
   --сolor-base-110: #373c3f;
-  --сolor-base-120: #ffffff99;
-  --сolor-base-130: #ffffff99;
-  --сolor-base-200: #ffffff99;
   --color-base-140: #464c50; // hover button
 
-  --color-dark-400: #ffffff99;
   --color-bg: #272727;
   --color-text: #f0f0f0;
   --color-aside: #373c3f;
   --color-icon: #e1e1e1ad;
-  --color-bg-code: #ffffff99;
+  --color-bg-code: #343434;
 }
 
 button {
@@ -55,11 +45,10 @@ button {
       margin-top: 0.5rem;
 
       position: absolute;
-      background-color: rgb(255 255 255);
+      background-color: var(--color-bg-code);
       transform: translate(0px, 0px);
       padding: 2px;
       border-radius: 4px;
-      background: white;
       box-shadow: rgb(15 15 15 / 5%) 0px 0px 0px 1px,
         rgb(15 15 15 / 10%) 0px 3px 6px, rgb(15 15 15 / 20%) 0px 9px 24px;
       overflow: hidden;
