@@ -5,13 +5,16 @@ $color-light: rgb(255 255 255/77%);
 $color-grey: rgb(0 0 0/10%);
 $color-grey-200: rgb(0 0 0/20%);
 $color-grey-300: rgb(0 0 0/40%);
-$color-grey-400: rgb(0 0 0/60%);
+$color-grey-400: rgb(0 0 0/60%); // icon
+$color-grey-500: rgb(0 0 0/70%);
 $color-grey-600: #111;
 $color-grey-800: #040404;
 
 $color-base-100: #fff;
+$color-base-110: #fbfbfa; // aside
 $color-base-120: #fcfcfc;
-$color-base-140: #f9f9f9;
+$color-base-130: rgba(55, 53, 47, 0.08);
+$color-base-140: #f9f9f9; // hover button
 $color-base-200: #f6f5f4;
 $color-base-250: #f1efee;
 $color-base-300: #fffefc;

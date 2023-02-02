@@ -5,12 +5,31 @@ export interface IUserAvatar {
 
 export interface INotionButton {
   text?: string;
-  src?: string;
+  icon?: React.ReactNode;
   link?: string;
-  width?: string;
+  cName?: string;
+  toggle?: boolean | undefined;
+}
+
+export interface INotionButtonMini {
+  icon?: React.ReactNode;
+  link?: string;
+  cName?: string;
 }
 
 export interface IAsideStatus {
   asideStatus: boolean;
   setAsideStatus: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface IContentRow {
+  block: string;
+  color: string;
+  placeholder: string;
+  content: string;
+}
+
+export interface IStateContext {
+  handleAsideToggle: () => void;
+  asideStatus: boolean;
 }

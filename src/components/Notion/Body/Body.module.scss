@@ -1,0 +1,12 @@
+.body {
+  overflow-y: scroll;
+  height: calc(100% - 45px);
+
+  &::-webkit-scrollbar {
+    background: var(--сolor-bg);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-base-140);
+  }
+}
