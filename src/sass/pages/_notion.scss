@@ -38,13 +38,41 @@
   --color-bg-code: #ffffff99;
 }
 
+button {
+  border: unset;
+  padding: unset;
+  background-color: unset;
+}
+
 .notion {
+  &-popup {
+    position: relative;
+    display: inline-block;
+    text-align: left;
+
+    &__body {
+      transform-origin: top right;
+      margin-top: 0.5rem;
+
+      position: absolute;
+      background-color: rgb(255 255 255);
+      transform: translate(0px, 0px);
+      padding: 2px;
+      border-radius: 4px;
+      background: white;
+      box-shadow: rgb(15 15 15 / 5%) 0px 0px 0px 1px,
+        rgb(15 15 15 / 10%) 0px 3px 6px, rgb(15 15 15 / 20%) 0px 9px 24px;
+      overflow: hidden;
+    }
+  }
+
   display: flex;
   flex-flow: row nowrap;
   font-size: 14px;
   height: 100vh;
 
   &__aside {
+    z-index: 101;
     color: var(--color-grey-500);
     transition: all 700ms ease;
     flex: 0 0 233px;
@@ -129,7 +157,6 @@
     color: rgb(55, 53, 47);
     white-space: pre;
     min-width: 0px;
-    width: 100%;
 
     &::-webkit-scrollbar {
       background: var(--сolor-bg);
@@ -142,10 +169,10 @@
 }
 
 .home-icon {
-  div:nth-child(1) {
+  .button__icon {
     background-color: $color-orange-200;
     border-radius: 4px;
-    padding-top: 2px 4px;
+    padding: 2px 4px;
     svg {
       width: 18px;
       height: 18px;
@@ -153,11 +180,23 @@
   }
 }
 
-.button__icon {
-  display: flex;
-  align-items: center;
+.button {
+  &__icon {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .toggle-active {
   transform: rotate(-90deg);
+}
+
+.button-page-more {
+  opacity: 0;
+}
+
+.aside-page-row {
+  &:hover .button-page-more {
+    opacity: 1;
+  }
 }

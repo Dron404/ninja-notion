@@ -14,13 +14,6 @@
     align-items: center;
   }
 
-  &__row {
-    padding: 4px 13px;
-    display: flex;
-    gap: 4px;
-    align-items: center;
-  }
-
   &__list {
     padding: 0 0 0 0px;
   }
@@ -28,5 +21,21 @@
   &__svg {
     padding: 4px;
     fill: var(--color-dark-400);
+  }
+
+  &__more {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  &__row {
+    position: relative;
+  }
+
+  &__popup {
+    right: 0;
+    transform: translate(245px, -25px);
+    width: 265px;
   }
 }

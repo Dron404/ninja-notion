@@ -10,6 +10,7 @@ export const Button: React.FC<INotionButton> = ({
   link,
   cName = "",
   toggle,
+  hotkey,
 }) => {
   const toggleStyle =
     typeof toggle === "boolean" ? (toggle ? "toggle-active" : "") : "";
@@ -17,24 +18,42 @@ export const Button: React.FC<INotionButton> = ({
     <>
       <div className={styles.button + " " + cName}>
         {link ? (
-          <Link to={link} className={styles.button__link} tabIndex={0}>
-            {typeof toggle === "boolean" && (
-              <div className={"button__toggle " + toggleStyle}>
-                <ToggleSVG />
+          <Link
+            to={link}
+            className={styles.button__link + " button__link"}
+            tabIndex={0}
+          >
+            <div className={styles.button__group}>
+              {typeof toggle === "boolean" && (
+                <div className={"button__toggle " + toggleStyle}>
+                  <ToggleSVG />
+                </div>
+              )}
+              {icon && <div className="button__icon">{icon}</div>}
+              {text && <div className="button__text">{text}</div>}
+            </div>
+            {hotkey && (
+              <div className={"button__hotkey " + styles.button__hotkey}>
+                {hotkey}
               </div>
             )}
-            {icon && <div className="button__icon">{icon}</div>}
-            {text && <div className="button__text">{text}</div>}
           </Link>
         ) : (
-          <div className={styles.button__link} tabIndex={0}>
-            {typeof toggle === "boolean" && (
-              <div className={"button__toggle " + toggleStyle}>
-                <ToggleSVG />
+          <div className={styles.button__link + " button__link"} tabIndex={0}>
+            <div className={styles.button__group}>
+              {typeof toggle === "boolean" && (
+                <div className={"button__toggle " + toggleStyle}>
+                  <ToggleSVG />
+                </div>
+              )}
+              {icon && <div className="button__icon">{icon}</div>}
+              {text && <div className="button__text">{text}</div>}
+            </div>
+            {hotkey && (
+              <div className={"button__hotkey " + styles.button__hotkey}>
+                {hotkey}
               </div>
             )}
-            {icon && <div className="button__icon">{icon}</div>}
-            {text && <div className="button__text">{text}</div>}
           </div>
         )}
       </div>

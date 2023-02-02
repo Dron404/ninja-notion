@@ -9,6 +9,7 @@ export interface INotionButton {
   link?: string;
   cName?: string;
   toggle?: boolean | undefined;
+  hotkey?: string;
 }
 
 export interface INotionButtonMini {
