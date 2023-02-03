@@ -24,13 +24,13 @@ export const Sidebar = (): React.ReactElement => {
           <Button
             icon={<TopbarSettingSVG />}
             text={text_setting}
-            cName="button-row"
+            cName={styles.sidebar__button}
           />
 
           <Button
             icon={<TopbarSearchSVG />}
             text={text_search}
-            cName="button-row"
+            cName={styles.sidebar__button}
           />
 
           <SidebarPages />
@@ -40,7 +40,7 @@ export const Sidebar = (): React.ReactElement => {
               <Button
                 icon={<TopbarTrashSVG />}
                 text={text_trash}
-                cName="button-row"
+                cName={styles.sidebar__button}
               />
             </div>
           </div>

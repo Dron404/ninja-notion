@@ -3,6 +3,10 @@
   display: flex;
   flex-flow: column nowrap;
   height: 100vh;
+
+  &__button {
+    padding: 2px 0;
+  }
 }
 
 .trash {
