@@ -15,7 +15,6 @@ function MobileMenu(props: {
       }}
       onKeyDown={() => {
         setActive(!active);
-        console.log("Menu closed");
       }}
       width="22px"
       height="22px"
