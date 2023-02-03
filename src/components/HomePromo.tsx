@@ -13,7 +13,7 @@ export function HomePromo() {
     return (
       <div className="promo__description">
         <h1 className="promo__description-title">One workspace.<br></br>Every team.</h1>
-        <p className="promo__description-text">We’re more than a doc. Or a table. Customize Notion to work the way you do.</p>
+        <p className="promo__description-text">We’re more than a doc. Or a table. Customize <br/> Notion to work the way you do.</p>
         <button className="button_header promo__description-button">Try Notion free</button>
         <div className="promo__description-subtext">Trusted by teams at</div>
         <div className="promo__description-brands">

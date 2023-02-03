@@ -8,26 +8,12 @@
   display: flex;
   justify-content: space-between;
 
-  & .logo {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-
-    .logo__image {
-        display: block;
-        width: 31px;
-        height: 32px;
-      }
-
-      .logo__title {
-        @include font($style: normal, $weight: 600, $size: 1.4rem, $height: 1.682rem);
-        margin-left: 5px;
-      }
-  }
-
   & .registration {
     display: flex;
     align-items: center;
+    @include media-tablet {
+      display: none;
+    }
 
     .registration__log {
       display: block;
@@ -45,6 +31,42 @@
 
   }
 
+
+
+}
+
+.burger-menu {
+  display: none;
+
+  @include media-tablet {
+    display: block;
+  }
+
+  .burger-icon {
+    fill: $color-dark-500;
+    cursor: pointer;
+  }
+}
+
+.burger-icon:hover {
+  fill: $button-header;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  .logo__image {
+    display: block;
+    width: 31px;
+    height: 32px;
+  }
+
+  .logo__title {
+    @include font($style: normal, $weight: 600, $size: 1.4rem, $height: 1.682rem);
+    margin-left: 5px;
+  }
 }
 
 //----------------- PROMO ---------------------
@@ -53,12 +75,34 @@
   display: flex;
   padding: 60px;
   margin: 0 auto;
+  @include media-small-descktop {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 
   .promo__description {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 54%;
+    @include media-small-descktop {
+      align-items: center;
+    }
+
+    .promo__description-title {
+      @include media-small-descktop {
+        @include font ($style: normal, $weight: 700, $size: 4.8rem, $height: 5.76rem);
+        text-align: center;
+      }
+      @include media-tablet {
+        @include font ($style: normal, $weight: 700, $size: 4.0rem, $height: 4.8rem);
+        text-align: center;
+      }
+      @include media-mobile {
+        @include font ($style: normal, $weight: 700, $size: 3.0rem, $height: 3.6rem);
+        text-align: center;
+      }
+    }
 
     .promo__description-text {
       @include font ($style: normal, $weight: 600, $size: 1.8rem, $height: 2.3rem);
@@ -66,6 +110,17 @@
       letter-spacing: 0;
       margin: 0;
       margin: 20px 0;
+      @include media-small-descktop {
+        text-align: center;
+      }
+      @include media-tablet {
+        @include font ($style: normal, $weight: 600, $size: 1.6rem, $height: 1.92rem);
+        text-align: center;
+      }
+      @include media-mobile {
+        @include font ($style: normal, $weight: 600, $size: 1.4rem, $height: 1.68rem);
+          text-align: center;
+      }
     }
 
     .promo__description-button {
@@ -87,6 +142,14 @@
       grid-template-columns: repeat(5, 1fr);
       gap: 10px;
       align-items: center;
+      @include media-tablet {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+      }
+      @include media-mobile {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+      }
 
       .promo__brand {
         display: block;
@@ -102,5 +165,220 @@
   .promo__image {
     width: 45%;
     height: auto;
+  }
+}
+
+// ---------------- FOOTER -----------------------------------
+
+.footer__wrapper {
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  @include media-mobile {
+    flex-direction: column-reverse;
+    // align-items: center;
+  }
+
+  .tools {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    @include media-small-descktop {
+      flex-direction: column;
+    }
+  }
+
+  .social-container__list {
+    display: flex;
+    align-items: flex-start;
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0 15px;
+
+    .social-container__image {
+      display: block;
+      width: 22px;
+      height: 22px;
+      margin-right: 5px;
+      filter: grayscale(100%);
+    }
+  }
+
+  .dropdown {
+    width: 150px;
+    position: relative;
+    user-select: none;
+
+    .dropdown-btn {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 7px 5px;
+      background-color: $lang-hover;
+      border: 1px solid $button-home-select;
+      border-radius: 5px;
+      @include font ($style: normal, $weight: 600, $size: 1.5rem, $height: 1.7rem);
+      letter-spacing: 0;
+      color: $color-grey-800;
+      cursor: pointer;
+
+      .geography {
+        display: block;
+        width: 14px;
+        height: 14px;
+        filter: contrast(70%);
+      }
+
+      .arrow-down {
+        display: block;
+        width: 12px;
+        height: 10px;
+        filter: contrast(50%);
+      }
+    }
+
+    .dropdown-content {
+      position: absolute;
+      top: 120%;
+      left: 0;
+      width: 120%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px;
+      background-color: $color-base-100;
+      border-radius: 5px;
+      box-shadow: 0 4px 18px rgba(0 0 0 / 4%),
+      0 2px 8px rgba(0 0 0 / 3%),
+      0 1px 3px rgba(0 0 0 / 2%),
+      0 0.5px 1px rgba(0 0 0 / 1%);
+      @include font ($style: normal, $weight: 400, $size: 1.4rem, $height: 1.5rem);
+      letter-spacing: 0;
+      color: $color-dark-400;
+
+      .dropdown-item {
+        width: 100%;
+        margin-bottom: 15px;
+        cursor: pointer;
+        transition: all ease .2s;
+      }
+
+      .dropdown-item:hover {
+        background-color: $lang-hover;
+      }
+    }
+  }
+
+  .AuthorsLinks {
+    padding-right: 20px;
+    @include media-mobile {
+      padding-bottom: 20px;
+    }
+
+    .authors-github {
+      display: flex;
+      flex-direction: column;
+      padding-top: 20px;
+
+      .social-container__link {
+        margin-top: 10px;
+        text-decoration: none;
+        @include font ($style: normal, $weight: 500, $size: 1.6rem, $height: 1.8rem);
+        letter-spacing: 0;
+        color: $header-promo-text;
+        cursor: pointer;
+        transition: all ease .2s;
+      }
+
+      .social-container__link:hover {
+        color: $button-header;
+      }
+
+      .year-production {
+        margin-top: 10px;
+        @include font ($style: normal, $weight: 500, $size: 1.4rem, $height: 1.6rem);
+        color: $header-promo-text;
+        user-select: none;
+      }
+
+    }
+
+    .rsschool__image {
+      width: 120px;
+      height: auto;
+    }
+  }
+}
+
+// --------------------- MOBILE MENU ------------------------
+
+.mobile-menu {
+  display: none;
+}
+
+.mobile-menu_active {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 150%;
+  background-color: $color-base-100;
+}
+
+.menu-container {
+  padding: 30px 20px;
+  display: flex;
+  justify-content: space-between;
+
+  .icon-close {
+    cursor: pointer;
+
+    &:hover {
+      fill: $button-header;
+    }
+  }
+
+}
+
+.mobile-tools-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .mobile-log,
+  .mobile-try {
+    display: block;
+    width: 95%;
+    min-height: 40px;
+    padding: 10px 0;
+    margin-top: 20px;
+    border-radius: 5px;
+    border: none;
+    border: 1px solid $button-home-select;
+    box-shadow: 0px 0.32592591643333435px 0.7333333492279053px 0px rgb(0 0 0 / 12%),
+    0px 1.540740728378296px 2.866666555404663px 0px rgb(0 0 0 / 7%),
+    0px 4px 9px 0px rgb(0 0 0 / 5%);
+    @include font ($style: normal, $weight: 600, $size: 1.8rem, $height: 2.16rem);
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all ease .2s;
+  }
+
+  .mobile-log:hover {
+    background-color: $button-home-select;
+  }
+
+  .mobile-try {
+    background-color: $button-header;
+    color: $color-base-300;
+    &:hover {
+      background-color: $color-red-500;
+    }
+
+    &:active {
+      background-color: $color-red-520;
+    }
   }
 }

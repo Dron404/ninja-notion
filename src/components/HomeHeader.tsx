@@ -1,13 +1,19 @@
-import React from "react";
-import logo from "../assets/images/home/logo-notion.png";
+import React, { SetStateAction } from "react";
+import { HomeLogo } from "./HomeLogo";
+import { ReactComponent as BurgerIcon } from "../assets/icons/burger.svg";
 
-export function HomeHeader() {
 
-  const HeaderLogo = () => {
+export function HomeHeader(props: { mobileMenuActive: boolean, setMobileMenuActive: React.Dispatch<SetStateAction<boolean>>}) {
+  const { mobileMenuActive, setMobileMenuActive} = props;
+
+  const HeaderBurgerIcon = () => {
     return (
-      <div className="logo">
-        <img className="logo__image" src={logo} alt="logo in form of white-black cube"></img>
-        <p className="logo__title">Notion</p>
+      <div className="burger-menu" onClick={ () => setMobileMenuActive(true)}>
+        <BurgerIcon
+          width="22px"
+          height="22px"
+          className="burger-icon"
+        />
       </div>
     )
   }
@@ -25,8 +31,9 @@ export function HomeHeader() {
   return (
     <header className="header">
       <div className="header__wrapper">
-        < HeaderLogo />
+        < HomeLogo />
         < HeaderRegistration />
+        < HeaderBurgerIcon />
       </div>
     </header>
   );
