@@ -5,7 +5,7 @@ import { HomeFooter } from "../components/HomeFooter";
 import { MobileMenu } from "../components/HomeMobileMenu";
 
 export function HomePage() {
-  const [mobileMenuActive, setMobileMenuActive] = useState(true);
+  const [mobileMenuActive, setMobileMenuActive] = useState(false);
 
   return (
     <>

@@ -53,8 +53,10 @@ export function HomeFooter() {
 
     return (
       <div className="tools">
-        < HomeLogo />
-        < SocialContainer />
+        <div className="logo-icons__container">
+          < HomeLogo />
+          < SocialContainer />
+        </div>
         < LanguageChoose />
       </div>
 
@@ -64,11 +66,6 @@ export function HomeFooter() {
   const AuthorsLinks = () => {
     return (
       <div className="AuthorsLinks">
-        <div className="rsschool">
-          <a className="rsschool__link" href = "https://rs.school/" target="_blank" rel="noreferrer">
-            <img className="rsschool__image" src={rsschool} alt="rsschool"></img>
-          </a>
-        </div>
         <div className="authors-github">
           <a className="social-container__link" href = "https://github.com/ivan-varabyou" target="_blank" rel="noreferrer">
             ivan-varabyou
@@ -79,8 +76,14 @@ export function HomeFooter() {
           <a className="social-container__link" href = "https://github.com/AnastasiaShalukhina" target="_blank" rel="noreferrer">
             AnastasiaShalukhina
           </a>
+        </div>
+        <div className="rsschool">
+          <a className="rsschool__link" href = "https://rs.school/" target="_blank" rel="noreferrer">
+            <img className="rsschool__image" src={rsschool} alt="rsschool"></img>
+          </a>
           <div className="year-production">2023</div>
         </div>
+
       </div>
     )
   }

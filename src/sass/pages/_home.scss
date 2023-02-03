@@ -7,6 +7,8 @@
   padding: 15px;
   display: flex;
   justify-content: space-between;
+  max-width: 1392px;
+  margin: 0 auto;
 
   & .registration {
     display: flex;
@@ -74,6 +76,7 @@
 .promo__wrapper {
   display: flex;
   padding: 60px;
+  max-width: 1392px;
   margin: 0 auto;
   @include media-small-descktop {
     flex-direction: column-reverse;
@@ -171,22 +174,29 @@
 // ---------------- FOOTER -----------------------------------
 
 .footer__wrapper {
+  max-width: 1392px;
+  margin: 0 auto;
   padding: 30px;
   display: flex;
   justify-content: space-between;
   @include media-mobile {
-    flex-direction: column-reverse;
-    // align-items: center;
+    flex-direction: column;
+    align-items: center;
   }
 
   .tools {
-    width: 40%;
+    width: 50%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: flex-start;
     @include media-small-descktop {
       flex-direction: column;
+      align-items: center;
     }
+  }
+
+  .logo-icons__container {
+    margin-right: 20px;
   }
 
   .social-container__list {
@@ -271,15 +281,21 @@
   }
 
   .AuthorsLinks {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
     padding-right: 20px;
+    @include media-tablet {
+      flex-direction: column-reverse;
+      align-items: center;
+    }
     @include media-mobile {
-      padding-bottom: 20px;
+      padding-top: 20px;
     }
 
     .authors-github {
       display: flex;
       flex-direction: column;
-      padding-top: 20px;
 
       .social-container__link {
         margin-top: 10px;
@@ -295,18 +311,18 @@
         color: $button-header;
       }
 
-      .year-production {
-        margin-top: 10px;
-        @include font ($style: normal, $weight: 500, $size: 1.4rem, $height: 1.6rem);
-        color: $header-promo-text;
-        user-select: none;
-      }
-
     }
 
     .rsschool__image {
       width: 120px;
       height: auto;
+    }
+
+    .year-production {
+      margin-top: 15px;
+      @include font ($style: normal, $weight: 500, $size: 1.4rem, $height: 1.6rem);
+      color: $header-promo-text;
+      user-select: none;
     }
   }
 }
