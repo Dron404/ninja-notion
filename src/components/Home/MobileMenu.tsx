@@ -1,6 +1,6 @@
 import React, { SetStateAction } from "react";
-import { ReactComponent as IconClose } from "../assets/icons/icon-close.svg";
-import { HomeLogo } from "./HomeLogo";
+import { ReactComponent as IconClose } from "../../assets/icons/home/icon-close.svg";
+import { HomeLogo } from "./Logo";
 
 export function MobileMenu (props: { active: boolean, setActive: React.Dispatch<SetStateAction<boolean>>}) {
   const { active, setActive} = props;

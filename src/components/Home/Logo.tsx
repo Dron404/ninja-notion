@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/images/home/logo-notion.png";
+import logo from "../../assets/images/home/logo-notion.png";
 
 export function HomeLogo() {
 

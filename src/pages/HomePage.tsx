@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { HomeHeader } from "../components/HomeHeader";
-import { HomePromo } from "../components/HomePromo";
-import { HomeFooter } from "../components/HomeFooter";
-import { MobileMenu } from "../components/HomeMobileMenu";
+import { HomeHeader } from "../components/Home/Header";
+import { HomePromo } from "../components/Home/Promo";
+import { HomeFooter } from "../components/Home/Footer";
+import { MobileMenu } from "../components/Home/MobileMenu";
 
 export function HomePage() {
   const [mobileMenuActive, setMobileMenuActive] = useState(false);

@@ -1,6 +1,6 @@
 import React, { SetStateAction } from "react";
-import { HomeLogo } from "./HomeLogo";
-import { ReactComponent as BurgerIcon } from "../assets/icons/burger.svg";
+import { HomeLogo } from "../Home/Logo";
+import { ReactComponent as BurgerIcon } from "../../assets/icons/home/burger.svg";
 
 
 export function HomeHeader(props: { mobileMenuActive: boolean, setMobileMenuActive: React.Dispatch<SetStateAction<boolean>>}) {

@@ -1,6 +1,6 @@
 import React, { useState, SetStateAction } from "react";
-import geo from "../assets/images/home/geography.png";
-import arrowDown from "../assets/images/home/arrow-down.png";
+import geo from "../../assets/images/home/geography.png";
+import arrowDown from "../../assets/images/home/arrow-down.png";
 
 
 export function DropDown ( props:  { selected: string, setSelected: React.Dispatch<SetStateAction<string>>}) {
