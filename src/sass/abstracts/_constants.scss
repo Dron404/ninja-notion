@@ -1,4 +1,7 @@
-$text-white: #fff;
+$button-header: #e16259;
+$header-promo-text: #00000099;
+$button-home-select: rgba(0, 0, 0, 0.15);
+$lang-hover: #f4f4f4;
 
 $color-light: rgb(255 255 255/77%);
 
@@ -25,8 +28,8 @@ $color-red-300: #ffa8a8;
 $color-red-400: #e1645b;
 $color-red-500: #ea4e43;
 $color-red-520: #e14133;
-$color-red-540: #d73223;
-$color-red-600: #7d1e17;
+$color-red-540: #d73223; // btn hover
+$color-red-600: #7d1e17; // btn active
 
 $color-orange-200: #fce7d9;
 $color-orange-300: #f7bc97;
@@ -70,7 +73,13 @@ $color-purple-540: #8029b3;
 $color-purple-600: #562772;
 
 $color-dark-200: #fff;
+$color-dark-250: hsla(0, 0%, 50%, 0.2);
 $color-dark-300: hsla(0, 0%, 100%, 0.2);
 $color-dark-400: #a6a6a6;
 $color-dark-500: #1a1a1a;
 $color-dark-600: #000;
+
+// device width
+$descktop-small-width: 1000px;
+$tablet-width: 769px;
+$mobile-width: 400px;
