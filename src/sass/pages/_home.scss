@@ -20,7 +20,12 @@
     .registration__log {
       display: block;
       border-radius: 5px;
-      @include font($style: normal, $weight: 600, $size: 1.5rem, $height: 1.8rem);
+      @include font(
+        $style: normal,
+        $weight: 600,
+        $size: 1.5rem,
+        $height: 1.8rem
+      );
       letter-spacing: 0.5px;
       color: $color-grey-800;
       margin-right: 10px;
@@ -30,11 +35,7 @@
         background-color: $color-dark-250;
       }
     }
-
   }
-
-
-
 }
 
 .burger-menu {
@@ -66,7 +67,12 @@
   }
 
   .logo__title {
-    @include font($style: normal, $weight: 600, $size: 1.4rem, $height: 1.682rem);
+    @include font(
+      $style: normal,
+      $weight: 600,
+      $size: 1.4rem,
+      $height: 1.682rem
+    );
     margin-left: 5px;
   }
 }
@@ -94,21 +100,41 @@
 
     .promo__description-title {
       @include media-small-descktop {
-        @include font ($style: normal, $weight: 700, $size: 4.8rem, $height: 5.76rem);
+        @include font(
+          $style: normal,
+          $weight: 700,
+          $size: 4.8rem,
+          $height: 5.76rem
+        );
         text-align: center;
       }
       @include media-tablet {
-        @include font ($style: normal, $weight: 700, $size: 4.0rem, $height: 4.8rem);
+        @include font(
+          $style: normal,
+          $weight: 700,
+          $size: 4rem,
+          $height: 4.8rem
+        );
         text-align: center;
       }
       @include media-mobile {
-        @include font ($style: normal, $weight: 700, $size: 3.0rem, $height: 3.6rem);
+        @include font(
+          $style: normal,
+          $weight: 700,
+          $size: 3rem,
+          $height: 3.6rem
+        );
         text-align: center;
       }
     }
 
     .promo__description-text {
-      @include font ($style: normal, $weight: 600, $size: 1.8rem, $height: 2.3rem);
+      @include font(
+        $style: normal,
+        $weight: 600,
+        $size: 1.8rem,
+        $height: 2.3rem
+      );
       color: $header-promo-text;
       letter-spacing: 0;
       margin: 0;
@@ -117,23 +143,38 @@
         text-align: center;
       }
       @include media-tablet {
-        @include font ($style: normal, $weight: 600, $size: 1.6rem, $height: 1.92rem);
+        @include font(
+          $style: normal,
+          $weight: 600,
+          $size: 1.6rem,
+          $height: 1.92rem
+        );
         text-align: center;
       }
       @include media-mobile {
-        @include font ($style: normal, $weight: 600, $size: 1.4rem, $height: 1.68rem);
-          text-align: center;
+        @include font(
+          $style: normal,
+          $weight: 600,
+          $size: 1.4rem,
+          $height: 1.68rem
+        );
+        text-align: center;
       }
     }
 
     .promo__description-button {
       min-width: 160px;
-      @include font ($style: normal, $weight: 600, $size: 1.6rem, $height: 2rem);
+      @include font($style: normal, $weight: 600, $size: 1.6rem, $height: 2rem);
       padding: 8px;
     }
 
     .promo__description-subtext {
-      @include font ($style: normal, $weight: 500, $size: 1.35rem, $height: 1.7rem);
+      @include font(
+        $style: normal,
+        $weight: 500,
+        $size: 1.35rem,
+        $height: 1.7rem
+      );
       color: $header-promo-text;
       letter-spacing: 0;
       margin-top: 30px;
@@ -228,7 +269,12 @@
       background-color: $lang-hover;
       border: 1px solid $button-home-select;
       border-radius: 5px;
-      @include font ($style: normal, $weight: 600, $size: 1.5rem, $height: 1.7rem);
+      @include font(
+        $style: normal,
+        $weight: 600,
+        $size: 1.5rem,
+        $height: 1.7rem
+      );
       letter-spacing: 0;
       color: $color-grey-800;
       cursor: pointer;
@@ -259,11 +305,14 @@
       padding: 10px;
       background-color: $color-base-100;
       border-radius: 5px;
-      box-shadow: 0 4px 18px rgba(0 0 0 / 4%),
-      0 2px 8px rgba(0 0 0 / 3%),
-      0 1px 3px rgba(0 0 0 / 2%),
-      0 0.5px 1px rgba(0 0 0 / 1%);
-      @include font ($style: normal, $weight: 400, $size: 1.4rem, $height: 1.5rem);
+      box-shadow: 0 4px 18px rgba(0 0 0 / 4%), 0 2px 8px rgba(0 0 0 / 3%),
+        0 1px 3px rgba(0 0 0 / 2%), 0 0.5px 1px rgba(0 0 0 / 1%);
+      @include font(
+        $style: normal,
+        $weight: 400,
+        $size: 1.4rem,
+        $height: 1.5rem
+      );
       letter-spacing: 0;
       color: $color-dark-400;
 
@@ -271,7 +320,7 @@
         width: 100%;
         margin-bottom: 15px;
         cursor: pointer;
-        transition: all ease .2s;
+        transition: all ease 0.2s;
       }
 
       .dropdown-item:hover {
@@ -300,17 +349,21 @@
       .social-container__link {
         margin-top: 10px;
         text-decoration: none;
-        @include font ($style: normal, $weight: 500, $size: 1.6rem, $height: 1.8rem);
+        @include font(
+          $style: normal,
+          $weight: 500,
+          $size: 1.6rem,
+          $height: 1.8rem
+        );
         letter-spacing: 0;
         color: $header-promo-text;
         cursor: pointer;
-        transition: all ease .2s;
+        transition: all ease 0.2s;
       }
 
       .social-container__link:hover {
         color: $button-header;
       }
-
     }
 
     .rsschool__image {
@@ -320,7 +373,12 @@
 
     .year-production {
       margin-top: 15px;
-      @include font ($style: normal, $weight: 500, $size: 1.4rem, $height: 1.6rem);
+      @include font(
+        $style: normal,
+        $weight: 500,
+        $size: 1.4rem,
+        $height: 1.6rem
+      );
       color: $header-promo-text;
       user-select: none;
     }
@@ -355,7 +413,6 @@
       fill: $button-header;
     }
   }
-
 }
 
 .mobile-tools-container {
@@ -373,13 +430,19 @@
     border-radius: 5px;
     border: none;
     border: 1px solid $button-home-select;
-    box-shadow: 0px 0.32592591643333435px 0.7333333492279053px 0px rgb(0 0 0 / 12%),
-    0px 1.540740728378296px 2.866666555404663px 0px rgb(0 0 0 / 7%),
-    0px 4px 9px 0px rgb(0 0 0 / 5%);
-    @include font ($style: normal, $weight: 600, $size: 1.8rem, $height: 2.16rem);
+    box-shadow: 0px 0.32592591643333435px 0.7333333492279053px 0px
+        rgb(0 0 0 / 12%),
+      0px 1.540740728378296px 2.866666555404663px 0px rgb(0 0 0 / 7%),
+      0px 4px 9px 0px rgb(0 0 0 / 5%);
+    @include font(
+      $style: normal,
+      $weight: 600,
+      $size: 1.8rem,
+      $height: 2.16rem
+    );
     letter-spacing: 0.3px;
     cursor: pointer;
-    transition: all ease .2s;
+    transition: all ease 0.2s;
   }
 
   .mobile-log:hover {

@@ -1,9 +1,7 @@
 import React from "react";
 
-export function LoginPage() {
-  return (
-    <>
-      <h1>LoginPage</h1>
-    </>
-  );
+function LoginPage() {
+  return <h1>LoginPage</h1>;
 }
+
+export default LoginPage;
