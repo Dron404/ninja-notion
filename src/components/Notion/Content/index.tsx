@@ -4,7 +4,7 @@ import { ContentRow } from "../ContentRow";
 import { UserAvatar } from "../../User/UserAvatar";
 import { ReactComponent as EmojiSVG } from "../../../assets/img/svg/emoji.svg";
 import { ReactComponent as CoverSVG } from "../../../assets/img/svg/cover.svg";
-import { Button } from "../../../commom-components/Button";
+import { Button } from "../Button";
 
 export const Content = (): React.ReactElement => {
   const widthPageDivision = 1.75;
@@ -14,9 +14,12 @@ export const Content = (): React.ReactElement => {
     "https://lh3.googleusercontent.com/a-/AFdZucrnvCnEsd0erWUTqf6_bmSJLRbWfPGvfHrSb5w1yg=s100";
   const avatarSize = "25";
 
+  // example remove state
+  const [font, setFont] = React.useState("default"); // default, serif, mono
+
   return (
     <>
-      <div className={styles.content}>
+      <div className={styles.content} data-font={font}>
         <div
           className={styles.content__wrapper}
           style={{ width: `${100 / widthPageDivision}%` }}

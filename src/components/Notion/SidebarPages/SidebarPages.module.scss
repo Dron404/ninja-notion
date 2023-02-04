@@ -23,19 +23,7 @@
     fill: var(--color-dark-400);
   }
 
-  &__more {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-
   &__row {
     position: relative;
-  }
-
-  &__popup {
-    right: 0;
-    transform: translate(245px, -25px);
-    width: 265px;
   }
 }

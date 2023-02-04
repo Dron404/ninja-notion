@@ -4,17 +4,18 @@ import { ReactComponent as TopbarTrashSVG } from "../../../assets/img/svg/trash.
 import { ReactComponent as TopbarSearchSVG } from "../../../assets/img/svg/search.svg";
 import { ReactComponent as TopbarSettingSVG } from "../../../assets/img/svg/setting.svg";
 
-import { Button } from "../../../commom-components/Button";
+import { Button } from "../Button";
 import { SidebarBottombar } from "../SidebarBottombar";
 import { SidebarTopbar } from "../SidebarTopbar";
 import { SidebarPages } from "../SidebarPages";
 
 export const Sidebar = (): React.ReactElement => {
-  const text_newpage = "New page";
-
-  const text_trash = "Trash";
-  const text_search = "Search";
-  const text_setting = "Setting";
+  const data = {
+    text_newpage: "New page",
+    text_trash: "Trash",
+    text_search: "Search",
+    text_setting: "Setting",
+  };
 
   return (
     <>
@@ -23,13 +24,13 @@ export const Sidebar = (): React.ReactElement => {
         <div className={styles.nav + " " + styles.sidebar__nav}>
           <Button
             icon={<TopbarSettingSVG />}
-            text={text_setting}
+            text={data.text_setting}
             cName={styles.sidebar__button}
           />
 
           <Button
             icon={<TopbarSearchSVG />}
-            text={text_search}
+            text={data.text_search}
             cName={styles.sidebar__button}
           />
 
@@ -39,14 +40,14 @@ export const Sidebar = (): React.ReactElement => {
             <div className={styles.trash}>
               <Button
                 icon={<TopbarTrashSVG />}
-                text={text_trash}
+                text={data.text_trash}
                 cName={styles.sidebar__button}
               />
             </div>
           </div>
         </div>
 
-        <SidebarBottombar text={text_newpage} />
+        <SidebarBottombar text={data.text_newpage} />
       </div>
     </>
   );

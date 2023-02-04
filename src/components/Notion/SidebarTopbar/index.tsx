@@ -9,7 +9,7 @@ import { UserAvatar } from "../../User/UserAvatar";
 import { StateContext } from "../../../pages/NoutionPage";
 
 export const SidebarTopbar = (): React.ReactElement => {
-  const { handleAsideToggle } = React.useContext(StateContext);
+  const { context } = React.useContext(StateContext);
 
   const avatarUrl =
     "https://lh3.googleusercontent.com/a-/AFdZucrnvCnEsd0erWUTqf6_bmSJLRbWfPGvfHrSb5w1yg=s100";
@@ -28,7 +28,7 @@ export const SidebarTopbar = (): React.ReactElement => {
         <div
           className={`${styles.topbar__close}`}
           tabIndex={0}
-          onClick={handleAsideToggle}
+          onClick={context?.handleAsideToggle}
         >
           <TopbarCloseSVG />
         </div>

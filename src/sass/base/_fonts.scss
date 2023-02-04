@@ -1,17 +1,49 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,600;1,300&display=swap");
 
+// Segoe-UI
 @font-face {
-  font-family: "golos_bold";
-  src: url("../../assets/fonts/golos_bold/golos_bold.ttf");
+  font-family: "Segoe UI";
+  src: url("../../assets/fonts/Segoe-UI/Segoe-UI.ttf");
 }
 
 @font-face {
-  font-family: "golos_regular";
-  src: url("../../assets/fonts/golos_regular/golos_regular.ttf");
+  font-family: "Segoe UI Italic";
+  src: url("../../assets/fonts/Segoe-UI/Segoe-UI-Italic.ttf");
 }
 
 @font-face {
-  font-family: "golos_medium";
-  src: url("../../assets/fonts/golos_medium/golos_medium.ttf");
+  font-family: "Segoe UI Bold";
+  src: url("../../assets/fonts/Segoe-UI/Segoe-UI-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Segoe UI Bold Italic";
+  src: url("../../assets/fonts/Segoe-UI/Segoe-UI-Bold-Italic.ttf");
+}
+
+// Lyon
+@font-face {
+  font-family: "Lyon Text";
+  src: url("../../assets/fonts/Lyon/Lyon-Text-Regular.ttf");
+}
+
+// iA Writer Mono
+@font-face {
+  font-family: "iA Writer Mono";
+  src: url("../../assets/fonts/iA-Writer-Mono/iA-Writer-Mono.ttf");
+}
+
+@font-face {
+  font-family: "iA Writer Mono Bold italic";
+  src: url("../../assets/fonts/iA-Writer-Mono/iA-Writer-Mono-Bold-italic.ttf");
+}
+
+@font-face {
+  font-family: "iA Writer Mono Bold";
+  src: url("../../assets/fonts/iA-Writer-Mono/iA-Writer-Mono-Bold.ttf");
+}
+
+@font-face {
+  font-family: "iA Writer Mono italic";
+  src: url("../../assets/fonts/iA-Writer-Mono/iA-Writer-Mono-italic.ttf");
 }

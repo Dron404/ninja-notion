@@ -14,7 +14,7 @@
     transition: opacity 700ms ease 0s, color 700ms ease 0s,
       background-color 700ms ease 0s;
     text-decoration: none;
-    color: var(--color-grey-400);
+    color: var(--color-text-aside);
   }
 
   &__li {
@@ -27,7 +27,7 @@
     &::after {
       content: "/";
       font-size: 19px;
-      color: var(--color-grey-400);
+      color: var(--color-text-aside);
     }
 
     &:nth-last-child(1)::after {

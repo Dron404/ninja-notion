@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./Cover.module.scss";
 
+import { CoverChange } from "../CoverButton/";
+
 export const Cover = ({
   coverUrl,
 }: {
@@ -16,7 +18,7 @@ export const Cover = ({
               backgroundImage: "url(" + coverUrl + ")",
             }}
           >
-            <div className={styles.cover__button}>Change cover</div>
+            <CoverChange />
           </div>
         )}
       </div>

@@ -12,6 +12,10 @@
   gap: 2px;
   transition: opacity 700ms ease 0s, color 700ms ease 0s;
 
+  &__wrapper {
+    padding: 6px 0;
+  }
+
   &__button {
     padding: unset;
     .button__link {
@@ -21,12 +25,31 @@
 
   &__popup {
     width: 240px;
-    right: 16px;
+    right: 11px;
     font-size: 13px;
-    padding: 4px;
+    padding: 12px 0;
+  }
+  &__style {
+    padding: 4px 18px;
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  &__title {
+    display: flex;
+    color: var(--color-text-aside);
   }
 
   svg {
     padding: 4px;
+  }
+
+  .button__link {
+    padding: 0;
   }
 }

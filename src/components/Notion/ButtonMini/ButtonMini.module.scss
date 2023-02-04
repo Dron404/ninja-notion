@@ -1,0 +1,30 @@
+.button {
+  display: flex;
+  flex-flow: row nowrap;
+  margin-right: 2px;
+  border-radius: 3px;
+
+  &:hover {
+    background-color: var(--color-hover);
+  }
+
+  &__link {
+    color: var(--color-text-aside);
+    fill: var(--color-text-aside);
+    display: flex;
+    flex-flow: row nowrap;
+    user-select: none;
+    transition: opacity 700ms ease 0s, color 700ms ease 0s,
+      background-color 700ms ease 0s;
+    cursor: pointer;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 4px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--color-icon);
+    }
+  }
+}

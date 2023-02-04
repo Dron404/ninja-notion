@@ -1,0 +1,86 @@
+.buttonPage {
+  fill: var(--color-icon);
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  padding: 5px 2px 5px 14px;
+  position: relative;
+  justify-content: space-between;
+
+  &:hover {
+    background-color: var(--color-hover);
+  }
+
+  &__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row nowrap;
+    gap: 7px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &__hotkey {
+    font-size: 11px;
+    color: var(--color-icon);
+  }
+
+  &__groupHidden {
+    display: flex;
+  }
+
+  &__popup {
+    right: 0;
+    transform: translate(242px, -18px);
+    width: 265px;
+    z-index: 102;
+    padding: 5px;
+  }
+
+  &__not {
+    padding: 2px 0 4px;
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  &__link {
+    text-decoration: none;
+    fill: var(--color-text-aside);
+    color: var(--color-text-aside);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+    gap: 7px;
+    user-select: none;
+    transition: opacity 700ms ease 0s, color 700ms ease 0s,
+      background-color 700ms ease 0s;
+    cursor: pointer;
+    flex-shrink: 0;
+    border-radius: 3px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--color-icon);
+    }
+  }
+}
+
+.buttonPage__menuButton,
+.buttonPage__add {
+  opacity: 0;
+}
+
+.buttonPage:hover .buttonPage__menuButton,
+.buttonPage:hover .buttonPage__add {
+  opacity: 1;
+}

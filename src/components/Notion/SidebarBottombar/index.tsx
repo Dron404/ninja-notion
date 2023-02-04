@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./SidebarBottombar.module.scss";
 
 import { ReactComponent as TopbarAddSVG } from "../../../assets/img/svg/add.svg";
-import { Button } from "../../../commom-components/Button";
+import { Button } from "../Button";
 
 export const SidebarBottombar = ({
   text,
@@ -11,6 +11,7 @@ export const SidebarBottombar = ({
 }): React.ReactElement => {
   return (
     <>
+      <div className="hr-line"></div>
       <div className={styles.bottombar}>
         <Button
           icon={<TopbarAddSVG />}

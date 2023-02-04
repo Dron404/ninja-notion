@@ -1,31 +1,32 @@
 :root {
-  --color-grey-400: #ababab; // icon
-  --color-grey-500: #4f4f4f; // user
-  --color-grey-600: #5c5c5c; // user
-
-  --сolor-base-110: #e6e6e6;
-  --color-base-140: #efefef; // hover button
-
+  --color-hover: #efefef; // hover button
   --color-bg: #ffffff;
   --color-text: #222222;
+  --color-text-aside: #4f4f4f; // user
   --color-aside: #fbfbfa;
   --color-icon: #959595;
   --color-bg-code: #f1f1f1;
+  --color-active: #258cf4;
 }
 
 [data-theme="dark"] {
-  --color-grey-400: #e1e1e1ad; // icon
-  --color-grey-500: #e1e1e1cb; // user
-  --color-grey-600: #ffffff; // user
-
-  --сolor-base-110: #373c3f;
-  --color-base-140: #464c50; // hover button
-
+  --color-hover: #464c50; // hover button color-base-140
   --color-bg: #272727;
   --color-text: #f0f0f0;
+  --color-text-aside: #e1e1e1cb; //  --color-text-aside
   --color-aside: #373c3f;
   --color-icon: #e1e1e1ad;
   --color-bg-code: #343434;
+  --color-active: #f1da1b;
+}
+
+[data-font="serif"] {
+  font-family: "Lyon Text", Georgia, ui-serif, serif;
+}
+
+.font-mono,
+[data-font="mono"] {
+  font-family: "iA Writer Mono", Nitti, Menlo, Courier, monospace;
 }
 
 button {
@@ -35,6 +36,7 @@ button {
 }
 
 .notion {
+  user-select: none;
   &-popup {
     position: relative;
     display: inline-block;
@@ -42,7 +44,6 @@ button {
 
     &__body {
       transform-origin: top right;
-      margin-top: 0.5rem;
 
       position: absolute;
       background-color: var(--color-bg-code);
@@ -62,7 +63,7 @@ button {
 
   &__aside {
     z-index: 101;
-    color: var(--color-grey-500);
+    color: var(--color-text-aside);
     transition: all 700ms ease;
     flex: 0 0 233px;
     flex-grow: 0;
@@ -152,7 +153,7 @@ button {
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: var(--color-base-140);
+      background-color: var(--color-hover);
     }
   }
 }
@@ -161,7 +162,7 @@ button {
   .button__icon {
     background-color: $color-orange-200;
     border-radius: 4px;
-    padding: 2px 4px;
+    padding: 2px;
     svg {
       width: 18px;
       height: 18px;
@@ -180,12 +181,6 @@ button {
   transform: rotate(-90deg);
 }
 
-.button-page-more {
-  opacity: 0;
-}
-
-.aside-page-row {
-  &:hover .button-page-more {
-    opacity: 1;
-  }
+.hr-line {
+  border-bottom: 1px solid var(--color-hover);
 }

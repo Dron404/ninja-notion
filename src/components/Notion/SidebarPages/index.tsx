@@ -1,75 +1,143 @@
 import React from "react";
 import styles from "./SidebarPages.module.scss";
-import { Menu } from "@headlessui/react";
 
-import { Button } from "../../../commom-components/Button";
-import { ButtonMini } from "../../../commom-components/ButtonMini";
+import { Button } from "../Button";
+import { ButtonPage } from "../ButtonPage";
+import { ButtonMini } from "../ButtonMini";
 import { ReactComponent as AddSVG } from "../../../assets/img/svg/add.svg";
-import { ReactComponent as MoreSVG } from "../../../assets/img/svg/more.svg";
 import { ReactComponent as HomeSVG } from "../../../assets/img/svg/home_orange.svg";
-import { ReactComponent as FavoriteSVG } from "../../../assets/img/svg/favorite.svg";
-import { ReactComponent as TrashSVG } from "../../../assets/img/svg/trash.svg";
-import { ReactComponent as CopySVG } from "../../../assets/img/svg/copy.svg";
+import { IData } from "../../../types/interface";
 
 export const SidebarPages = (): React.ReactElement => {
-  const text_home = "Home Page";
-  const text_add = "Add a page";
-  const text_private = "Private";
+  const data = {
+    text_home: "Home Page",
+    text_add: "Add a page",
+    text_private: "Private",
+    text_favorite: "Faviride",
+  };
+
+  const dataPrivate: IData = {
+    pages: [
+      {
+        object: "page",
+        id: 101,
+        cover: null,
+        icon: null,
+        favorite: false,
+        property: {
+          font: "default", // default, serif, mono
+          small_text: false,
+          full_width: false,
+        },
+        name: "Name Page 3",
+        url: "/page/3",
+        children: [
+          {
+            object: "page",
+            id: 102,
+            cover: null,
+            icon: null,
+            favorite: false,
+            property: {
+              font: "default", // default, serif, mono
+              small_text: false,
+              full_width: false,
+            },
+            name: "Name Page",
+            url: "/page/3",
+            children: [],
+          },
+        ],
+      },
+      {
+        object: "page",
+        id: 103,
+        cover: null,
+        icon: null,
+        favorite: false,
+        property: {
+          font: "default",
+          small_text: false,
+          full_width: false,
+        },
+        name: "Name Page 2",
+        url: "/page/1",
+        children: [],
+      },
+    ],
+  };
+
+  const dataFavorite = {
+    pages: [
+      {
+        object: "page",
+        id: 103,
+        cover: null,
+        icon: null,
+        favorite: false,
+        property: {
+          font: "default",
+          small_text: false,
+          full_width: false,
+        },
+        name: "Name Page 2",
+        url: "/page/1",
+        children: [],
+      },
+    ],
+  };
 
   return (
     <>
       <div className={styles.pages}>
         <div className={styles.pages__title}>
-          <span>{text_private}</span>
+          <span>{data.text_favorite}</span>
+        </div>
+        <div className={styles.pages__list}>
+          <div className={styles.pages__row + " aside-page-row"}>
+            {dataFavorite?.pages?.map((data, index) => (
+              <ButtonPage
+                icon={data.icon}
+                text={data.name}
+                link={data.url}
+                id={data.id}
+                childrenPages={data.children}
+                key={index}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
 
+      <div className={styles.pages}>
+        <div className={styles.pages__title}>
+          <span>{data.text_private}</span>
           <ButtonMini icon={<AddSVG />} cName="button_add_mini" />
         </div>
 
         <Button
           link={"/pages/1"}
-          text={text_home}
+          text={data.text_home}
           icon={<HomeSVG />}
           cName={"home-icon " + styles.pages__home}
         />
 
         <div className={styles.pages__list}>
           <div className={styles.pages__row + " aside-page-row"}>
-            <Button icon="📗" text="Name Page" toggle={true} />
-
-            <Menu
-              as="div"
-              className={styles.pages__menu + " notion-popup__menu"}
-            >
-              <Menu.Button className={styles.pages__more}>
-                <div className="button-page-more">
-                  <ButtonMini icon={<MoreSVG />} cName={styles.pages__more} />
-                </div>
-              </Menu.Button>
-              <Menu.Items
-                className={styles.pages__popup + " notion-popup__body"}
-              >
-                <Button
-                  icon={<FavoriteSVG />}
-                  text="Add to Favorites"
-                  cName={styles.topbar__button}
-                />
-                <Button
-                  icon={<CopySVG />}
-                  text="Copy link"
-                  cName={styles.topbar__button}
-                  hotkey="Ctrl+Alt+L"
-                />
-                <Button
-                  icon={<TrashSVG />}
-                  text="Delete"
-                  cName={styles.topbar__button}
-                />
-              </Menu.Items>
-            </Menu>
+            {dataPrivate?.pages?.map((data, index) => (
+              <ButtonPage
+                icon={data.icon}
+                text={data.name}
+                link={data.url}
+                id={data.id}
+                childrenPages={data.children}
+                key={index}
+              />
+            ))}
           </div>
         </div>
       </div>
-      <Button icon={<AddSVG />} text={text_add} />
+      <Button icon={<AddSVG />} text={data.text_add} />
     </>
   );
 };

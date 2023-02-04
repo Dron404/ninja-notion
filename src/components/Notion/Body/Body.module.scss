@@ -4,9 +4,12 @@
 
   &::-webkit-scrollbar {
     background: var(--сolor-bg);
+    position: absolute;
+    opacity: 0.2;
+    width: 12px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: var(--color-base-140);
+    background-color: var(--color-hover);
   }
 }

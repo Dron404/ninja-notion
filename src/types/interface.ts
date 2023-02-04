@@ -4,18 +4,16 @@ export interface IUserAvatar {
 }
 
 export interface INotionButton {
-  text?: string;
-  icon?: React.ReactNode;
-  link?: string;
-  cName?: string;
+  text?: string | undefined;
+  icon?: React.ReactNode | undefined;
+  link?: string | undefined;
+  cName?: string | undefined;
   toggle?: boolean | undefined;
-  hotkey?: string;
-}
-
-export interface INotionButtonMini {
-  icon?: React.ReactNode;
-  link?: string;
-  cName?: string;
+  hotkey?: string | undefined;
+  id?: number | undefined;
+  childrenPages?: INotionButton[] | null | undefined;
+  padding?: number | undefined;
+  handle?: () => void;
 }
 
 export interface IAsideStatus {
@@ -30,7 +28,41 @@ export interface IContentRow {
   content: string;
 }
 
+export interface IPage {
+  object: string;
+  id: number;
+  cover: null | string;
+  icon: null | string;
+  favorite: boolean;
+  property: {
+    font: string;
+    small_text: boolean;
+    full_width: boolean;
+  };
+  name: string;
+  url: string;
+  children: IPage[] | null;
+}
+
+export interface IData {
+  pages: IPage[] | null;
+}
+
 export interface IStateContext {
-  handleAsideToggle: () => void;
-  asideStatus: boolean;
+  context: {
+    handleAsideToggle: () => void;
+    asideStatus: boolean;
+  };
+}
+
+export interface IButtonStyle {
+  name?: string;
+  description: string;
+  cName?: string;
+  status: boolean;
+}
+
+export interface IButtonCheckbox {
+  text?: string;
+  status: boolean;
 }
