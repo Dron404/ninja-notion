@@ -7,11 +7,12 @@ export const ButtonStyle: React.FC<IButtonStyle> = ({
   description,
   cName = "",
   status,
+  handle,
 }): React.ReactElement => {
   const styleActive = status ? styles.item__active : "";
   return (
     <>
-      <div className={styles.item}>
+      <div className={styles.item} onClick={handle}>
         <div className={cName + " " + styleActive + " " + styles.item__bigtext}>
           {name}
         </div>

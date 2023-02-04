@@ -60,9 +60,11 @@ export interface IButtonStyle {
   description: string;
   cName?: string;
   status: boolean;
+  handle?: () => void;
 }
 
 export interface IButtonCheckbox {
   text?: string;
   status: boolean;
+  handle?: () => void;
 }
