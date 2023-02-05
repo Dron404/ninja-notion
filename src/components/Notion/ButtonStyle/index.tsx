@@ -9,6 +9,7 @@ export const ButtonStyle: React.FC<IButtonStyle> = ({
   handle,
 }): React.ReactElement => {
   const styleActive = font === target ? styles.item__active : "";
+
   return (
     <>
       <div className={styles.item} onClick={() => handle(target)}>

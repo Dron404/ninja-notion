@@ -4,15 +4,15 @@ export interface IUserAvatar {
 }
 
 export interface INotionButton {
-  text?: string | undefined;
-  icon?: React.ReactNode | undefined;
-  link?: string | undefined;
-  cName?: string | undefined;
-  toggle?: boolean | undefined;
-  hotkey?: string | undefined;
-  id?: number | undefined;
-  childrenPages?: INotionButton[] | null | undefined;
-  padding?: number | undefined;
+  text?: string;
+  icon?: React.ReactNode;
+  link?: string;
+  cName?: string;
+  toggle?: boolean;
+  hotkey?: string;
+  id?: number;
+  childrenPages?: INotionButton[] | null;
+  padding?: number;
   handle?: () => void;
 }
 
@@ -28,10 +28,15 @@ export interface IContentRow {
   content: string;
 }
 
+export interface ICoverUrlPosition {
+  url: string | null;
+  position: number;
+}
+
 export interface IPage {
   object: string;
   id: number;
-  cover: null | string;
+  cover: null | ICoverUrlPosition;
   icon: null | string;
   favorite: boolean;
   property: {
@@ -52,6 +57,8 @@ export interface IStateContext {
   context: {
     handleAsideToggle: () => void;
     asideStatus: boolean;
+    pageState: IPage;
+    setPageState: React.Dispatch<React.SetStateAction<IPage>>;
   };
 }
 
@@ -59,7 +66,7 @@ export interface IButtonStyle {
   description: string;
   font: string;
   target: string;
-  handle: React.Dispatch<React.SetStateAction<string>>;
+  handle: (font: string) => void;
 }
 
 export interface IButtonSwitch {
@@ -70,4 +77,11 @@ export interface IButtonSwitch {
 
 export interface ISwitch {
   status: boolean;
+}
+
+export interface IButtonTab {
+  text: string;
+  tab: string;
+  target: string;
+  handle: React.Dispatch<React.SetStateAction<string>>;
 }

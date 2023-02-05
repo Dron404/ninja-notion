@@ -7,6 +7,8 @@ import { ButtonMini } from "../ButtonMini";
 import { ReactComponent as AddSVG } from "../../../assets/img/svg/add.svg";
 import { ReactComponent as HomeSVG } from "../../../assets/img/svg/home_orange.svg";
 import { IData } from "../../../types/interface";
+import { dataFavorite } from "../../../data/dataFavorite";
+import { dataPrivate } from "../../../data/dataPrivate";
 
 export const SidebarPages = (): React.ReactElement => {
   const data = {
@@ -14,77 +16,6 @@ export const SidebarPages = (): React.ReactElement => {
     text_add: "Add a page",
     text_private: "Private",
     text_favorite: "Faviride",
-  };
-
-  const dataPrivate: IData = {
-    pages: [
-      {
-        object: "page",
-        id: 101,
-        cover: null,
-        icon: null,
-        favorite: false,
-        property: {
-          font: "default", // default, serif, mono
-          small_text: false,
-          full_width: false,
-        },
-        name: "Name Page 3",
-        url: "/page/3",
-        children: [
-          {
-            object: "page",
-            id: 102,
-            cover: null,
-            icon: null,
-            favorite: false,
-            property: {
-              font: "default", // default, serif, mono
-              small_text: false,
-              full_width: false,
-            },
-            name: "Name Page",
-            url: "/page/3",
-            children: [],
-          },
-        ],
-      },
-      {
-        object: "page",
-        id: 103,
-        cover: null,
-        icon: null,
-        favorite: false,
-        property: {
-          font: "default",
-          small_text: false,
-          full_width: false,
-        },
-        name: "Name Page 2",
-        url: "/page/1",
-        children: [],
-      },
-    ],
-  };
-
-  const dataFavorite = {
-    pages: [
-      {
-        object: "page",
-        id: 103,
-        cover: null,
-        icon: null,
-        favorite: false,
-        property: {
-          font: "default",
-          small_text: false,
-          full_width: false,
-        },
-        name: "Name Page 2",
-        url: "/page/1",
-        children: [],
-      },
-    ],
   };
 
   return (

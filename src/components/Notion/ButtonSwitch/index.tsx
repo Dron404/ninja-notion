@@ -8,17 +8,12 @@ export const ButtonSwitch: React.FC<IButtonSwitch> = ({
   status,
   handle,
 }): React.ReactElement => {
-  const [checked, setChecked] = React.useState<boolean>(Boolean(status));
-
-  // Example handleChecked, use handle props
-  const handleChecked = () => setChecked(!checked);
-
   return (
     <>
-      <div className={styles.item} onClick={() => handleChecked()}>
+      <div className={styles.item} onClick={handle}>
         <div className={styles.item__text}>{text}</div>
         <div className={styles.item__checkbox}>
-          <Switch status={checked} />
+          <Switch status={status} />
         </div>
       </div>
     </>

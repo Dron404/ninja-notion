@@ -13,12 +13,19 @@ import { ReactComponent as MoveToSVG } from "../../../assets/img/svg/move_to.svg
 import { ButtonMini } from "../ButtonMini";
 import { Button } from "../Button";
 
+//test state
+import { StateContext } from "../../../pages/NoutionPage";
+import { copyObject } from "../../../utils/object/copyObject";
+import { IPage } from "../../../types/interface";
+
 export const HeaderTopbar = (): React.ReactElement => {
   const [toogleFavorite, setToogleFavorite] = React.useState<boolean>(false);
-  const [font, setFont] = React.useState<string>("default");
+
   const handleFavorite = () => {
     setToogleFavorite(!toogleFavorite);
   };
+
+  const { context } = React.useContext(StateContext);
 
   const data = {
     text_add_favorite: "Add to Favorites",
@@ -36,20 +43,33 @@ export const HeaderTopbar = (): React.ReactElement => {
     text_full_width: "Full width",
   };
 
-  const dataPage = {
-    object: "page",
-    id: 102,
-    cover: null,
-    icon: null,
-    favorite: false,
-    property: {
-      font: "default",
-      small_text: false,
-      full_width: false,
-    },
-    name: "Name Page",
-    url: "/page/3",
-    children: [],
+  const smallText = Boolean(context?.pageState.property.small_text);
+  const fullWidth = Boolean(context?.pageState.property.full_width);
+  const font = String(context?.pageState.property.font);
+
+  const handelSmallText = () => {
+    const newPageState: IPage | undefined = copyObject(context?.pageState);
+    if (newPageState) {
+      newPageState.property.small_text = !smallText;
+      console.log(newPageState.property.small_text);
+      context?.setPageState(newPageState);
+    }
+  };
+
+  const handelFullWidth = () => {
+    const newPageState: IPage | undefined = copyObject(context?.pageState);
+    if (newPageState) {
+      newPageState.property.full_width = !fullWidth;
+      context?.setPageState(newPageState);
+    }
+  };
+
+  const handleFont = (font: string) => {
+    const newPageState: IPage | undefined = copyObject(context?.pageState);
+    if (newPageState) {
+      newPageState.property.font = font;
+      context?.setPageState(newPageState);
+    }
   };
 
   return (
@@ -71,27 +91,35 @@ export const HeaderTopbar = (): React.ReactElement => {
                   description={data.text_style_dafault}
                   font={font}
                   target="default"
-                  handle={setFont}
+                  handle={handleFont}
                 />
 
                 <ButtonStyle
                   description={data.text_style_serif}
                   font={font}
                   target="serif"
-                  handle={setFont}
+                  handle={handleFont}
                 />
                 <ButtonStyle
                   description={data.text_style_mono}
                   font={font}
                   target="mono"
-                  handle={setFont}
+                  handle={handleFont}
                 />
               </div>
             </div>
             <div className="hr-line"></div>
             <div className={styles.topbar__wrapper}>
-              <ButtonSwitch text={data.text_small_text} status={true} />
-              <ButtonSwitch text={data.text_full_width} status={false} />
+              <ButtonSwitch
+                text={data.text_small_text}
+                status={smallText}
+                handle={handelSmallText}
+              />
+              <ButtonSwitch
+                text={data.text_full_width}
+                status={fullWidth}
+                handle={handelFullWidth}
+              />
             </div>
             <div className="hr-line"></div>
             <div className={styles.topbar__wrapper}>

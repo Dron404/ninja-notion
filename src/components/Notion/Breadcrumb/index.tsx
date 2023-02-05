@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./Breadcrumb.module.scss";
-import { Link } from "react-router-dom";
 import { ReactComponent as HomeSVG } from "../../../assets/img/svg/home_orange.svg";
 import { Button } from "../Button";
 

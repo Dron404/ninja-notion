@@ -41,9 +41,12 @@ button {
     display: inline-block;
     text-align: left;
 
+    &__menu {
+      position: relative;
+    }
+
     &__body {
       transform-origin: top right;
-
       position: absolute;
       background-color: var(--color-bg-code);
       transform: translate(0px, 0px);

@@ -7,6 +7,7 @@ import { StateContext } from "../../../pages/NoutionPage";
 import { ReactComponent as TopbarCloseSVG } from "../../../assets/img/svg/topbar_close.svg";
 import { ButtonMini } from "../ButtonMini";
 export const Header = (): React.ReactElement => {
+  //test data
   const { context } = React.useContext(StateContext);
 
   return (
