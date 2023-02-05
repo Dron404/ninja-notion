@@ -56,15 +56,18 @@ export interface IStateContext {
 }
 
 export interface IButtonStyle {
-  name?: string;
   description: string;
-  cName?: string;
+  font: string;
+  target: string;
+  handle: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface IButtonSwitch {
+  text?: string;
   status: boolean;
   handle?: () => void;
 }
 
-export interface IButtonCheckbox {
-  text?: string;
+export interface ISwitch {
   status: boolean;
-  handle?: () => void;
 }

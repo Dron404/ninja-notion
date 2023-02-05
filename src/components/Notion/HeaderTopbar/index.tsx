@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./HeaderTopbar.module.scss";
 import { Menu } from "@headlessui/react";
 import { ButtonStyle } from "../ButtonStyle";
-import { ButtonCheckbox } from "../ButtonCheckbox";
+import { ButtonSwitch } from "../ButtonSwitch";
 import { ReactComponent as FavoriteSVG } from "../../../assets/img/svg/favorite.svg";
 import { ReactComponent as FavoriteActiveSVG } from "../../../assets/img/svg/favorite_active.svg";
 import { ReactComponent as TrashSVG } from "../../../assets/img/svg/trash.svg";
@@ -15,6 +15,7 @@ import { Button } from "../Button";
 
 export const HeaderTopbar = (): React.ReactElement => {
   const [toogleFavorite, setToogleFavorite] = React.useState<boolean>(false);
+  const [font, setFont] = React.useState<string>("default");
   const handleFavorite = () => {
     setToogleFavorite(!toogleFavorite);
   };
@@ -68,22 +69,29 @@ export const HeaderTopbar = (): React.ReactElement => {
               <div className={styles.topbar__row}>
                 <ButtonStyle
                   description={data.text_style_dafault}
-                  status={true}
+                  font={font}
+                  target="default"
+                  handle={setFont}
                 />
+
                 <ButtonStyle
                   description={data.text_style_serif}
-                  status={false}
+                  font={font}
+                  target="serif"
+                  handle={setFont}
                 />
                 <ButtonStyle
                   description={data.text_style_mono}
-                  status={false}
+                  font={font}
+                  target="mono"
+                  handle={setFont}
                 />
               </div>
             </div>
             <div className="hr-line"></div>
             <div className={styles.topbar__wrapper}>
-              <ButtonCheckbox text={data.text_small_text} status={true} />
-              <ButtonCheckbox text={data.text_full_width} status={false} />
+              <ButtonSwitch text={data.text_small_text} status={true} />
+              <ButtonSwitch text={data.text_full_width} status={false} />
             </div>
             <div className="hr-line"></div>
             <div className={styles.topbar__wrapper}>
