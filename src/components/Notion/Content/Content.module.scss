@@ -17,6 +17,7 @@
 .content {
   user-select: text;
   margin-top: 7px;
+  font-size: 15px;
 
   &__wrapper {
     width: 65%;
@@ -115,4 +116,14 @@
     rgb(15 15 15 / 10%) 0px 2px 4px;
   border-radius: 3px;
   min-height: 24px;
+}
+
+[data-small="true"] {
+  .content__title {
+    font-size: 32px;
+  }
+
+  .content {
+    font-size: 13px;
+  }
 }

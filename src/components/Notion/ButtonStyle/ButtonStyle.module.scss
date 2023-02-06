@@ -6,6 +6,8 @@
   flex-direction: column;
   padding: 4px;
   gap: 4px;
+  transition: opacity 400ms ease 0s, color 400ms ease 0s,
+    background-color 400ms ease 0s;
 
   &:hover {
     background: var(--color-hover);
