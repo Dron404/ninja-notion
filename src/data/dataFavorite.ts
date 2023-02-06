@@ -14,6 +14,8 @@ export const dataFavorite: IData = {
         full_width: false,
       },
       name: "Name Page 2",
+      date_add: "2013-01-01",
+      date_mod: "2013-01-01",
       url: "/page/1",
       children: [],
     },

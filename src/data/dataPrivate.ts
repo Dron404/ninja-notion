@@ -6,7 +6,7 @@ export const dataPrivate: IData = {
       object: "page",
       id: 101,
       cover: null,
-      icon: null,
+      icon: "📗",
       favorite: false,
       property: {
         font: "default", // default, serif, mono
@@ -14,6 +14,8 @@ export const dataPrivate: IData = {
         full_width: false,
       },
       name: "Name Page 3",
+      date_add: "2013-01-01",
+      date_mod: "2013-01-01",
       url: "/page/3",
       children: [
         {
@@ -28,6 +30,8 @@ export const dataPrivate: IData = {
             full_width: false,
           },
           name: "Name Page",
+          date_add: "2013-01-01",
+          date_mod: "2013-01-01",
           url: "/page/3",
           children: [],
         },
@@ -37,7 +41,7 @@ export const dataPrivate: IData = {
       object: "page",
       id: 103,
       cover: null,
-      icon: null,
+      icon: "📗",
       favorite: false,
       property: {
         font: "default",
@@ -45,6 +49,8 @@ export const dataPrivate: IData = {
         full_width: false,
       },
       name: "Name Page 2",
+      date_add: "2013-01-01",
+      date_mod: "2013-01-01",
       url: "/page/1",
       children: [],
     },

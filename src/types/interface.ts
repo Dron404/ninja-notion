@@ -16,6 +16,12 @@ export interface INotionButton {
   handle?: () => void;
 }
 
+export interface IButtonDefault {
+  text: string;
+  type: string;
+  handle?: () => void;
+}
+
 export interface IAsideStatus {
   asideStatus: boolean;
   setAsideStatus: React.Dispatch<React.SetStateAction<boolean>>;
@@ -46,6 +52,8 @@ export interface IPage {
   };
   name: string;
   url: string;
+  date_add: string;
+  date_mod: string;
   children: IPage[] | null;
 }
 
