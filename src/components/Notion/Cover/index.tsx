@@ -47,13 +47,13 @@ export const Cover: React.FC = () => {
       if (isMousedown) {
         const diff = start - e.clientY;
         const newPosition = diff / proc;
-        const newPageState = context?.pageState;
+
         if (ref.current) {
           ref.current.style.backgroundPosition = `center ${newPosition}%`;
         }
       }
     });
-    element?.addEventListener("mouseup", (e) => {
+    element?.addEventListener("mouseup", () => {
       if (isMousedown) {
         isMousedown = false;
       }

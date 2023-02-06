@@ -2,7 +2,6 @@ import React, { ChangeEvent } from "react";
 import { Button } from "../Button";
 import styles from "./Search.module.scss";
 import { ReactComponent as TopbarSearchSVG } from "../../../assets/img/svg/search.svg";
-import { ReactComponent as EnterSVG } from "../../../assets/img/svg/enter.svg";
 import { ReactComponent as CloseSVG } from "../../../assets/img/svg/close.svg";
 import { dataPrivate } from "../../../data/dataPrivate";
 import { SearchRow } from "../SearchRow";

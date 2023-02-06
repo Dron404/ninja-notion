@@ -1,5 +1,3 @@
-import React from "react";
-
 import { IPage } from "../types/interface";
 
 import g_001 from "../assets/img/cover/g_001.jpg";

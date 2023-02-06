@@ -2,8 +2,6 @@ import React from "react";
 import styles from "./Sidebar.module.scss";
 import { ReactComponent as TopbarTrashSVG } from "../../../assets/img/svg/trash.svg";
 
-import { ReactComponent as TopbarSettingSVG } from "../../../assets/img/svg/setting.svg";
-
 import { Button } from "../Button";
 import { SidebarBottombar } from "../SidebarBottombar";
 import { SidebarTopbar } from "../SidebarTopbar";
