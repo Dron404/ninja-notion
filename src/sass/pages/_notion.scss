@@ -36,6 +36,11 @@ button {
 
 .notion {
   user-select: none;
+  display: flex;
+  flex-flow: row nowrap;
+  font-size: 14px;
+  height: 100vh;
+
   &-popup {
     position: relative;
     display: inline-block;
@@ -54,14 +59,35 @@ button {
       border-radius: 4px;
       box-shadow: rgb(15 15 15 / 5%) 0px 0px 0px 1px,
         rgb(15 15 15 / 10%) 0px 3px 6px, rgb(15 15 15 / 20%) 0px 9px 24px;
-      overflow: hidden;
     }
   }
 
-  display: flex;
-  flex-flow: row nowrap;
-  font-size: 14px;
-  height: 100vh;
+  &__modal {
+    background: rgba(15, 15, 15, 0.6);
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    &_body {
+      background-color: var(--color-bg);
+      overflow: hidden;
+
+      margin-top: 90px;
+      min-height: 50px;
+      max-height: 80vh;
+      border-radius: 7px;
+      box-shadow: rgb(15 15 15 / 5%) 0px 0px 0px 1px,
+        rgb(15 15 15 / 10%) 0px 5px 10px, rgb(15 15 15 / 20%) 0px 15px 40px;
+    }
+  }
 
   &__aside {
     z-index: 101;

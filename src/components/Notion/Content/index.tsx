@@ -10,11 +10,8 @@ import { Button } from "../Button";
 // test state
 import { StateContext } from "../../../pages/NoutionPage";
 
-import testCoverUrl from "../../../assets/img/cover/web_001.jpg";
-
 export const Content = (): React.ReactElement => {
   // test data
-  const dataEmoji = "📗";
   const avatarUrl =
     "https://lh3.googleusercontent.com/a-/AFdZucrnvCnEsd0erWUTqf6_bmSJLRbWfPGvfHrSb5w1yg=s100";
   const avatarSize = "25";
@@ -42,7 +39,7 @@ export const Content = (): React.ReactElement => {
             className={styles.content__wrapper + " " + styleContentFullWidth}
           >
             <div className={styles.content__header}>
-              {dataEmoji && (
+              {context?.pageState.icon && (
                 <div className={styles.content__icon}>
                   <span className={styles.content__emoji}>
                     {context?.pageState.icon}
