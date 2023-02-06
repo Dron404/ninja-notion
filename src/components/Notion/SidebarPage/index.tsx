@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./ButtonPage.module.scss";
+import styles from "./SidebarPage.module.scss";
 import { INotionButton } from "../../../types/interface";
 import { Link } from "react-router-dom";
 import { ReactComponent as ToggleSVG } from "../../../assets/img/svg/toggle.svg";
@@ -14,10 +14,9 @@ import { ButtonMini } from "../ButtonMini";
 import { Button } from "../Button";
 import { Menu } from "@headlessui/react";
 
-export const ButtonPage: React.FC<INotionButton> = ({
+export const SidebarPage: React.FC<INotionButton> = ({
   text,
   icon,
-  link,
   cName = "",
   toggle,
   id,
@@ -61,22 +60,21 @@ export const ButtonPage: React.FC<INotionButton> = ({
           >
             <ToggleSVG />
           </div>
-          {link && (
-            <Link
-              to={link}
-              className={styles.buttonPage__link + " button__link"}
-              tabIndex={0}
-            >
-              {icon ? (
-                <div className="button__icon">{icon}</div>
-              ) : (
-                <div className="button__icon">
-                  <DefaultSVG />
-                </div>
-              )}
-              {text && <div className="button__text">{text}</div>}
-            </Link>
-          )}
+
+          <Link
+            to="/1"
+            className={styles.buttonPage__link + " button__link"}
+            tabIndex={0}
+          >
+            {icon ? (
+              <div className="button__icon">{icon}</div>
+            ) : (
+              <div className="button__icon">
+                <DefaultSVG />
+              </div>
+            )}
+            {text && <div className="button__text">{text}</div>}
+          </Link>
         </div>
 
         <div className={styles.buttonPage__groupHidden}>
@@ -131,11 +129,10 @@ export const ButtonPage: React.FC<INotionButton> = ({
         >
           {childrenPages ? (
             childrenPages.map((data, index) => (
-              <ButtonPage
+              <SidebarPage
                 toggle={data.toggle}
                 icon={data.icon}
                 text={data.text}
-                link={data.link}
                 id={data.id}
                 childrenPages={data.childrenPages}
                 padding={newPadding}

@@ -40,7 +40,6 @@ export interface ICoverUrlPosition {
 }
 
 export interface IPage {
-  object: string;
   id: number;
   cover: null | ICoverUrlPosition;
   icon: null | string;
@@ -50,10 +49,12 @@ export interface IPage {
     small_text: boolean;
     full_width: boolean;
   };
+  comment: string;
+  content: string;
   name: string;
-  url: string;
   date_add: string;
   date_mod: string;
+  date_trash: string;
   children: IPage[] | null;
 }
 

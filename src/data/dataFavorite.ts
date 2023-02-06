@@ -1,22 +1,24 @@
 import { IData } from "../types/interface";
+import g_001 from "../assets/img/cover/g_001.jpg";
 
 export const dataFavorite: IData = {
   pages: [
     {
-      object: "page",
       id: 103,
-      cover: null,
-      icon: null,
+      cover: { url: g_001, position: 100 },
+      icon: "📗",
       favorite: false,
       property: {
         font: "default",
         small_text: false,
         full_width: false,
       },
+      comment: "string",
+      content: "string",
       name: "Name Page 2",
       date_add: "2013-01-01",
       date_mod: "2013-01-01",
-      url: "/page/1",
+      date_trash: "2013-01-01",
       children: [],
     },
   ],

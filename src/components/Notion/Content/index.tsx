@@ -5,7 +5,9 @@ import { ContentRow } from "../ContentRow";
 import { UserAvatar } from "../../User/UserAvatar";
 import { ReactComponent as EmojiSVG } from "../../../assets/img/svg/emoji.svg";
 import { ReactComponent as CoverSVG } from "../../../assets/img/svg/cover.svg";
+import { ReactComponent as CommentSVG } from "../../../assets/img/svg/comment.svg";
 import { Button } from "../Button";
+import { useParams } from "react-router-dom";
 
 // test state
 import { StateContext } from "../../../pages/NoutionPage";
@@ -16,6 +18,10 @@ export const Content = (): React.ReactElement => {
     "https://lh3.googleusercontent.com/a-/AFdZucrnvCnEsd0erWUTqf6_bmSJLRbWfPGvfHrSb5w1yg=s100";
   const avatarSize = "25";
   const { context } = React.useContext(StateContext);
+
+  const { pageId } = useParams();
+
+  console.log(pageId);
 
   // example remove state
   const styleContentFullWidth = context?.pageState.property.full_width
@@ -60,6 +66,14 @@ export const Content = (): React.ReactElement => {
                     text="Add cover"
                     cName={styles.content__toolbar_button}
                     icon={<CoverSVG />}
+                  />
+                </div>
+
+                <div>
+                  <Button
+                    text="Add comment"
+                    cName={styles.content__toolbar_button}
+                    icon={<CommentSVG />}
                   />
                 </div>
               </div>

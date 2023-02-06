@@ -1,12 +1,11 @@
 import React from "react";
 import styles from "./SidebarPages.module.scss";
 
-import { Button } from "../Button";
-import { ButtonPage } from "../ButtonPage";
-import { ButtonMini } from "../ButtonMini";
+import { Button } from "../Button/";
+import { SidebarPage } from "../SidebarPage/";
+import { ButtonMini } from "../ButtonMini/";
 import { ReactComponent as AddSVG } from "../../../assets/img/svg/add.svg";
 import { ReactComponent as HomeSVG } from "../../../assets/img/svg/home_orange.svg";
-import { IData } from "../../../types/interface";
 import { dataFavorite } from "../../../data/dataFavorite";
 import { dataPrivate } from "../../../data/dataPrivate";
 
@@ -27,10 +26,9 @@ export const SidebarPages = (): React.ReactElement => {
         <div className={styles.pages__list}>
           <div className={styles.pages__row + " aside-page-row"}>
             {dataFavorite?.pages?.map((data, index) => (
-              <ButtonPage
+              <SidebarPage
                 icon={data.icon}
                 text={data.name}
-                link={data.url}
                 id={data.id}
                 childrenPages={data.children}
                 key={index}
@@ -56,10 +54,9 @@ export const SidebarPages = (): React.ReactElement => {
         <div className={styles.pages__list}>
           <div className={styles.pages__row + " aside-page-row"}>
             {dataPrivate?.pages?.map((data, index) => (
-              <ButtonPage
+              <SidebarPage
                 icon={data.icon}
                 text={data.name}
-                link={data.url}
                 id={data.id}
                 childrenPages={data.children}
                 key={index}
