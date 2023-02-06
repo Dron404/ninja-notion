@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import HomeHeader from "../components/Home/Header";
 import HomePromo from "../components/Home/Promo";
-import HomeFooter from "../components/Home/Footer";
+import HomeFooter from "../components/Home/HomeFooter";
 import MobileMenu from "../components/Home/MobileMenu";
 
 function HomePage() {

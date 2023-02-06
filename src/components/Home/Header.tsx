@@ -20,10 +20,12 @@ function HomeHeader(props: {
 
   const HeaderRegistration = (
     <div className="registration">
-      <div className="registration__log">Log In</div>
-      <button type="button" className="button button_header">
+      <a href="/" className="registration__log">
+        Log In
+      </a>
+      <a href="/login" className="button button_header">
         Try Notion Free
-      </button>
+      </a>
     </div>
   );
 

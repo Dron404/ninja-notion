@@ -3,14 +3,14 @@ import logo from "../../assets/images/home/logo-notion.png";
 
 function HomeLogo() {
   return (
-    <div className="logo">
+    <a href="/" className="logo">
       <img
         className="logo__image"
         src={logo}
         alt="logo in form of white-black cube"
       />
-      <p className="logo__title">Notion</p>
-    </div>
+      <span className="logo__title">Notion</span>
+    </a>
   );
 }
 
