@@ -1,11 +1,11 @@
 import React from "react";
-import styles from "./authorizationForm.module.scss";
+import styles from "./loginInForm.module.scss";
 
-function AuthorizationForm() {
+function LogInForm() {
   return (
     <main>
       <div className={styles.authtitle}>Authorization form</div>
     </main>
   );
 }
-export default AuthorizationForm;
+export default LogInForm;

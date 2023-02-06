@@ -1,10 +1,10 @@
 import React from "react";
 import HomeLogo from "../components/Home/Logo";
-import RegistrationForm from "../components/Login/RegistrationForm/RegistrationForm";
-import AuthorizationForm from "../components/Login/AuthorizationForm/AuthorizationForm";
+import SignUpForm from "../components/Login/SignUpForm/SignUpForm";
+import LoginInForm from "../components/Login/LogInForm/LogInForm";
 
 function LoginPage() {
-  const notLoggedIn = true;
+  const hasNoAccount = true;
   return (
     <>
       <header className="header">
@@ -12,7 +12,7 @@ function LoginPage() {
           <HomeLogo />
         </div>
       </header>
-      {notLoggedIn ? <RegistrationForm /> : <AuthorizationForm />}
+      {hasNoAccount ? <SignUpForm /> : <LoginInForm />}
     </>
   );
 }

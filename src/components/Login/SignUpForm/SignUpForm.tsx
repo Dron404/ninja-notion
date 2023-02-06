@@ -1,8 +1,8 @@
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import styles from "./registrationForm.module.scss";
+import styles from "./signUpForm.module.scss";
 
-function RegistrationForm() {
+function SignUpForm() {
   interface FormData {
     userName: string;
     email: string;
@@ -49,7 +49,7 @@ function RegistrationForm() {
 
   return (
     <main className={styles.main}>
-      <h1 className={styles.title}>Log In</h1>
+      <h1 className={styles.title}>Sign Up</h1>
       <div>
         <form
           className={styles.registrationform}
@@ -132,7 +132,7 @@ function RegistrationForm() {
           </div>
 
           <button type="submit" className={styles.submit} disabled={!isValid}>
-            Registrate
+            Sign Up
           </button>
           <div className={styles.forgot}>
             <a href="/" className={styles.link}>
@@ -145,4 +145,4 @@ function RegistrationForm() {
   );
 }
 
-export default RegistrationForm;
+export default SignUpForm;
