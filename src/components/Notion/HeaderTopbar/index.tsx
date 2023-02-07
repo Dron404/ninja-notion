@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./HeaderTopbar.module.scss";
 import { Menu } from "@headlessui/react";
-import { ButtonStyle } from "../ButtonStyle";
+import { ButtonFont } from "../ButtonFont";
 import { ButtonSwitch } from "../ButtonSwitch";
 import { ReactComponent as FavoriteSVG } from "../../../assets/img/svg/favorite.svg";
 import { ReactComponent as FavoriteActiveSVG } from "../../../assets/img/svg/favorite_active.svg";
@@ -87,20 +87,20 @@ export const HeaderTopbar = (): React.ReactElement => {
             <div className={styles.topbar__style}>
               <div className={styles.topbar__title}>{data.text_style}</div>
               <div className={styles.topbar__row}>
-                <ButtonStyle
+                <ButtonFont
                   description={data.text_style_dafault}
                   font={font}
                   target="default"
                   handle={handleFont}
                 />
 
-                <ButtonStyle
+                <ButtonFont
                   description={data.text_style_serif}
                   font={font}
                   target="serif"
                   handle={handleFont}
                 />
-                <ButtonStyle
+                <ButtonFont
                   description={data.text_style_mono}
                   font={font}
                   target="mono"

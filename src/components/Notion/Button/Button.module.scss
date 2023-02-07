@@ -8,6 +8,7 @@
   transition: opacity 400ms ease 0s, color 400ms ease 0s,
     background-color 400ms ease 0s;
 
+  &__active,
   &:hover {
     background-color: var(--color-hover);
   }

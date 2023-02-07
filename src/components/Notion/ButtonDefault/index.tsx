@@ -5,6 +5,7 @@ import { IButtonDefault } from "../../../types/interface";
 export const ButtonDefault: React.FC<IButtonDefault> = ({
   text,
   type = "default",
+  cName = "",
   handle,
 }) => {
   let style = styles.button__default;
@@ -14,7 +15,7 @@ export const ButtonDefault: React.FC<IButtonDefault> = ({
 
   return (
     <>
-      <div className={styles.button + " " + style} onClick={handle}>
+      <div className={`${styles.button} ${style}  ${cName}`} onClick={handle}>
         {<div className="button__text">{text}</div>}
       </div>
     </>
