@@ -1,0 +1,58 @@
+.button {
+  fill: var(--color-icon);
+  display: flex;
+  flex-flow: row nowrap;
+  margin-right: 2px;
+  align-items: center;
+
+  transition: opacity 400ms ease 0s, color 400ms ease 0s,
+    background-color 400ms ease 0s;
+
+  &__active,
+  &:hover {
+    background-color: var(--color-hover);
+  }
+
+  &__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row nowrap;
+    gap: 7px;
+  }
+
+  &__hotkey {
+    font-size: 11px;
+    color: var(--color-icon);
+  }
+
+  &__link {
+    text-decoration: none;
+    fill: var(--color-text-aside);
+    color: var(--color-text-aside);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+    gap: 7px;
+    width: calc(100% - 28px);
+    user-select: none;
+
+    cursor: pointer;
+    flex-shrink: 0;
+    border-radius: 3px;
+    padding: 5px 14px;
+
+    svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--color-icon);
+    }
+  }
+}
