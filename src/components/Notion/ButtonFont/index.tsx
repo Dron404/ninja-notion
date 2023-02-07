@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./ButtonStyle.module.scss";
-import { IButtonStyle } from "../../../types/interface";
+import styles from "./ButtonFont.module.scss";
+import { IButtonFont } from "../../../types/interface";
 
-export const ButtonStyle: React.FC<IButtonStyle> = ({
+export const ButtonFont: React.FC<IButtonFont> = ({
   description,
   font,
   target,
