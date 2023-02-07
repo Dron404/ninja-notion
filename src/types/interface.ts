@@ -10,15 +10,26 @@ export interface INotionButton {
   cName?: string;
   toggle?: boolean;
   hotkey?: string;
+  target?: string;
+  state?: string;
   id?: number;
   childrenPages?: INotionButton[] | null;
   padding?: number;
   handle?: () => void;
 }
 
+export interface IButtonSetting {
+  text: string;
+  icon?: React.ReactNode;
+  target: string;
+  state: string;
+  handle: (state: string) => void;
+}
+
 export interface IButtonDefault {
   text: string;
   type: string;
+  cName?: string;
   handle?: () => void;
 }
 
@@ -71,7 +82,7 @@ export interface IStateContext {
   };
 }
 
-export interface IButtonStyle {
+export interface IButtonFont {
   description: string;
   font: string;
   target: string;
@@ -93,4 +104,22 @@ export interface IButtonTab {
   tab: string;
   target: string;
   handle: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface ILanguage {
+  code: string;
+  name: string;
+  description: string;
+}
+
+export interface ILanguageList {
+  ru: string;
+  en: string;
+  by: string;
+}
+
+export interface ITheme {
+  code: string;
+  name: ILanguageList;
+  description: ILanguageList;
 }
