@@ -1,0 +1,36 @@
+.emoji {
+  &__title {
+    padding: 7px 0;
+    text-transform: uppercase;
+    font-size: 0.89em;
+    color: var(--color-text-aside);
+  }
+
+  &__items {
+    display: flex;
+    gap: 6px;
+    flex-flow: row wrap;
+    margin-bottom: 10px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 30px;
+    font-size: 28px;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--color-hover);
+  }
+
+  &__notResult {
+    color: var(--color-icon);
+    padding: 4px 4px;
+  }
+}
+
+[alt="️"] {
+  display: none;
+}
