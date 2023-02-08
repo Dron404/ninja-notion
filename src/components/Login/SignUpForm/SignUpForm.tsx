@@ -60,9 +60,6 @@ function SignUpForm(props: {
       }
     } catch (error) {
       console.log("error");
-      // if (response.status === 401) {
-      //   setUserExistsActive(!userExistsActive);
-      // }
     }
   };
 
@@ -153,11 +150,6 @@ function SignUpForm(props: {
           <button type="submit" className={styles.submit} disabled={!isValid}>
             Sign Up
           </button>
-          <div className={styles.forgot}>
-            <a href="/" className={styles.link}>
-              Forgot password?
-            </a>
-          </div>
         </form>
       </div>
       <ShowInvitation
