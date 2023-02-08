@@ -6,6 +6,7 @@ import { Button } from "../Button";
 import { EmojiesList } from "../EmojiesList";
 import { ReactComponent as RandomSVG } from "../../../assets/img/svg/random.svg";
 import { ReactComponent as CloseSVG } from "../../../assets/img/svg/close.svg";
+import emoji from "react-easy-emoji";
 
 import { StateContext } from "../../../pages/NoutionPage";
 import { ButtonMini } from "../ButtonMini";
@@ -30,7 +31,9 @@ export const ContentIconSettings = (): React.ReactElement => {
         <Menu.Button>
           <div className={styles.icon}>
             {context?.pageState.icon && (
-              <span className={styles.emoji}>{context?.pageState.icon}</span>
+              <span className={styles.emoji}>
+                {emoji(context?.pageState.icon)}
+              </span>
             )}
           </div>
         </Menu.Button>
