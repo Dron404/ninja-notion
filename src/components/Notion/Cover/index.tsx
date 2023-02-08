@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Cover.module.scss";
 
-import { ButtonCover } from "../ButtonCover";
+import { CoverSettings } from "../CoverSettings";
 
 //test state
 import { StateContext } from "../../../pages/NoutionPage";
@@ -77,7 +77,7 @@ export const Cover: React.FC = () => {
                 <div className={styles.button} onMouseDown={handleReposition}>
                   {textReposition}
                 </div>
-                <ButtonCover cName={styles.button} />
+                <CoverSettings cName={styles.button} />
               </div>
             </div>
           </div>

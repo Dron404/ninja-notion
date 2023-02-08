@@ -1,17 +1,17 @@
 import React from "react";
-import styles from "./ButtonCover.module.scss";
+import styles from "./CoverSettings.module.scss";
 import { Menu } from "@headlessui/react";
-import { ButtonTab } from "../ButtonTab/";
-import { Button } from "../Button/";
-import { Gallery } from "../Gallery/";
-import { UploadFile } from "../UploadFile/";
-import { LinkUrl } from "../LinkUrl/";
+import { ButtonTab } from "../ButtonTab";
+import { Button } from "../Button";
+import { Gallery } from "../Gallery";
+import { UploadFile } from "../UploadFile";
+import { LinkUrl } from "../LinkUrl";
 
 // test state
 import { StateContext } from "../../../pages/NoutionPage";
 import { copyObject } from "../../../utils/object/copyObject";
 
-export const ButtonCover = ({
+export const CoverSettings = ({
   cName,
 }: {
   cName: string;

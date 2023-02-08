@@ -7,7 +7,7 @@ import { ReactComponent as ThemeSVG } from "../../../assets/img/svg/theme.svg";
 
 import { UserAvatar } from "../../User/UserAvatar";
 import { ButtonDefault } from "../ButtonDefault";
-import { ButtonSetting } from "../ButtonSetting";
+import { SettingsTab } from "../SettingsTab";
 import { Language } from "../Language";
 import { Theme } from "../Theme";
 
@@ -53,7 +53,7 @@ export const Settings: React.FC = () => {
               <div className={styles.settings__menu}>
                 <div className={styles.settings__group}>
                   <div className={styles.settings__name}>email@gmail.com</div>
-                  <ButtonSetting
+                  <SettingsTab
                     text="Account"
                     icon={<UserAvatar url={avatarUrl} size={avatarSize} />}
                     state={tab}
@@ -64,7 +64,7 @@ export const Settings: React.FC = () => {
                 <div className={styles.settings__group}>
                   <div className={styles.settings__name}>Workspace</div>
 
-                  <ButtonSetting
+                  <SettingsTab
                     text="Languages"
                     icon={<LanguageSVG />}
                     state={tab}
@@ -72,7 +72,7 @@ export const Settings: React.FC = () => {
                     handle={setTab}
                   />
 
-                  <ButtonSetting
+                  <SettingsTab
                     text="Theme"
                     icon={<ThemeSVG />}
                     state={tab}

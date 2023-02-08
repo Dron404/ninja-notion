@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "./ButtonSetting.module.scss";
-import { IButtonSetting } from "../../../types/interface";
+import styles from "./SettingsTab.module.scss";
+import { ISettingsTab } from "../../../types/interface";
 import { Button } from "../Button";
 
-export const ButtonSetting: React.FC<IButtonSetting> = ({
+export const SettingsTab: React.FC<ISettingsTab> = ({
   text,
   icon,
   target,

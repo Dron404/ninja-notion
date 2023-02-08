@@ -18,14 +18,6 @@ export interface INotionButton {
   handle?: () => void;
 }
 
-export interface IButtonSetting {
-  text: string;
-  icon?: React.ReactNode;
-  target: string;
-  state: string;
-  handle: (state: string) => void;
-}
-
 export interface IButtonDefault {
   text: string;
   type: string;
@@ -104,6 +96,14 @@ export interface IButtonTab {
   tab: string;
   target: string;
   handle: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface ISettingsTab {
+  text: string;
+  icon?: React.ReactNode;
+  target: string;
+  state: string;
+  handle: (state: string) => void;
 }
 
 export interface ILanguage {
