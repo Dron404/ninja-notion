@@ -10,12 +10,16 @@ import { LinkUrl } from "../LinkUrl";
 // test state
 import { StateContext } from "../../../pages/NoutionPage";
 import { copyObject } from "../../../utils/object/copyObject";
+import { main } from "../../../data/languages/main";
 
 export const ContentCoverSettings = ({
   cName,
 }: {
   cName: string;
 }): React.ReactElement => {
+  const lang = "en";
+  const data = main[lang];
+
   const [tab, setTab] = React.useState("gallery");
   const { context } = React.useContext(StateContext);
 
@@ -34,31 +38,34 @@ export const ContentCoverSettings = ({
         <Menu.Button>
           <div className={cName}>Change cover</div>
         </Menu.Button>
-        <Menu.Items className={styles.popup + " notion-popup__body"}>
+        <Menu.Items className={`${styles.popup} notion-popup__body`}>
           <div className={styles.container}>
             <div className={styles.control}>
               <div className={styles.control__tab}>
                 <ButtonTab
-                  text="Gallery"
+                  text={data.text_gallery}
                   target="gallery"
                   tab={tab}
                   handle={setTab}
                 />
                 <ButtonTab
-                  text="Upload"
+                  text={data.text_update}
                   target="upload"
                   tab={tab}
                   handle={setTab}
                 />
                 <ButtonTab
-                  text="Link"
+                  text={data.text_link}
                   target="link"
                   tab={tab}
                   handle={setTab}
                 />
               </div>
               <div className={styles.control__button}>
-                <Button text="Remove" handle={handleRemoveBackground} />
+                <Button
+                  text={data.text_remove}
+                  handle={handleRemoveBackground}
+                />
               </div>
             </div>
 

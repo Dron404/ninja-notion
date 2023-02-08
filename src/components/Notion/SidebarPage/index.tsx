@@ -14,6 +14,8 @@ import { ButtonMini } from "../ButtonMini";
 import { Button } from "../Button";
 import { Menu } from "@headlessui/react";
 
+import { main } from "../../../data/languages/main";
+
 export const SidebarPage: React.FC<INotionButton> = ({
   text,
   icon,
@@ -23,14 +25,8 @@ export const SidebarPage: React.FC<INotionButton> = ({
   childrenPages,
   padding,
 }) => {
-  const data = {
-    text_add_favorite: "Add to Favorites",
-    text_remove_favorite: "Remove from Favorites",
-    text_copy_link: "Copy link",
-    text_delete: "Delete",
-    text_rename: "Rename",
-    text_not_page: "Not pages inside",
-  };
+  const lang = "en";
+  const data = main[lang];
 
   const [toogleStatus, setToogleStatus] = React.useState<boolean>(
     Boolean(toggle)
@@ -50,20 +46,19 @@ export const SidebarPage: React.FC<INotionButton> = ({
   return (
     <>
       <div
-        className={styles.buttonPage + " " + cName}
+        className={`${styles.buttonPage} ${cName}`}
         style={{ paddingLeft: `${newPadding}px` }}
       >
         <div className={styles.buttonPage__group}>
           <div
-            className={"button__toggle " + toggleStyle}
+            className={`button__toggle ${toggleStyle}`}
             onClick={() => handleTogle()}
           >
             <ToggleSVG />
           </div>
-
           <Link
             to="/1"
-            className={styles.buttonPage__link + " button__link"}
+            className={`${styles.buttonPage__link} button__link`}
             tabIndex={0}
           >
             {icon ? (
@@ -82,7 +77,7 @@ export const SidebarPage: React.FC<INotionButton> = ({
 
           <Menu
             as="div"
-            className={styles.buttonPage__menu + " notion-popup__menu"}
+            className={`${styles.buttonPage__menu} notion-popup__menu`}
           >
             <Menu.Button className={styles.buttonPage__menuButton}>
               <div className="button-page-more">
@@ -93,7 +88,7 @@ export const SidebarPage: React.FC<INotionButton> = ({
               </div>
             </Menu.Button>
             <Menu.Items
-              className={styles.buttonPage__popup + " notion-popup__body"}
+              className={`${styles.buttonPage__popup} notion-popup__body`}
             >
               <Button
                 icon={<TrashSVG />}

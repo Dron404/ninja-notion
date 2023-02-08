@@ -3,7 +3,12 @@ import styles from "./Breadcrumb.module.scss";
 import { ReactComponent as HomeSVG } from "../../../assets/img/svg/home_orange.svg";
 import { Button } from "../Button";
 
+import { main } from "../../../data/languages/main";
+
 export const Breadcrumb = (): React.ReactElement => {
+  const lang = "en";
+  const data = main[lang];
+
   return (
     <>
       <div className={styles.breadcrumb}>
@@ -11,7 +16,7 @@ export const Breadcrumb = (): React.ReactElement => {
           <li className={styles.breadcrumb__li}>
             <Button
               link={"/pages/1"}
-              text="Home Page"
+              text={data.text_home}
               icon={<HomeSVG />}
               cName={" home-icon " + styles.breadcrumb__link}
             />

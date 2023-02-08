@@ -11,7 +11,7 @@ export const ButtonMini: React.FC<INotionButton> = ({
 }) => {
   return (
     <>
-      <div className={styles.button + " " + cName} onClick={handle}>
+      <div className={`${styles.button} ${cName}`} onClick={handle}>
         {link ? (
           <Link to={link} className={styles.button__link} tabIndex={0}>
             {icon && icon}

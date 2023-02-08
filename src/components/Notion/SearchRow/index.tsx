@@ -1,9 +1,9 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import styles from "./SearchRow.module.scss";
 import { ReactComponent as EnterSVG } from "../../../assets/img/svg/enter.svg";
 import { IPage } from "../../../types/interface";
 
-export const SearchRow = ({ page }: { page: IPage }) => {
+export const SearchRow = ({ page }: { page: IPage }): ReactElement => {
   return (
     <>
       <div className={styles.search__row} data-id={page.id}>

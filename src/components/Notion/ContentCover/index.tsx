@@ -5,8 +5,12 @@ import { ContentCoverSettings } from "../ContentCoverSettings";
 
 //test state
 import { StateContext } from "../../../pages/NoutionPage";
+import { main } from "../../../data/languages/main";
 
 export const ContentCover: React.FC = () => {
+  const lang = "en";
+  const data = main[lang];
+
   const { context } = React.useContext(StateContext);
 
   const styleFullWidth = context?.pageState.property.full_width
@@ -16,11 +20,6 @@ export const ContentCover: React.FC = () => {
   const ref = React.useRef<HTMLDivElement>(null);
 
   const [reposition, setReposition] = React.useState(false);
-
-  const data = {
-    text_reposition_off: "Reposition",
-    text_reposition_on: "Save position",
-  };
 
   const textReposition = reposition
     ? data.text_reposition_on

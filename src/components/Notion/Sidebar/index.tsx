@@ -8,25 +8,20 @@ import { SidebarTopbar } from "../SidebarTopbar";
 import { SidebarPages } from "../SidebarPages";
 import { Search } from "../Search";
 import { Settings } from "../Settings";
+import { main } from "../../../data/languages/main";
 
 export const Sidebar = (): React.ReactElement => {
-  const data = {
-    text_newpage: "New page",
-    text_trash: "Trash",
-    text_search: "Search",
-    text_setting: "Setting",
-  };
+  const lang = "en";
+  const data = main[lang];
 
   return (
     <>
-      <div className={styles.sidebar + " aside_status"}>
+      <div className={`${styles.sidebar} aside_status`}>
         <SidebarTopbar />
-        <div className={styles.nav + " " + styles.sidebar__nav}>
+        <div className={`${styles.nav} ${styles.sidebar__nav}`}>
           <Settings />
           <Search />
-
           <SidebarPages />
-
           <div className={styles.nav}>
             <div className={styles.trash}>
               <Button
@@ -37,7 +32,6 @@ export const Sidebar = (): React.ReactElement => {
             </div>
           </div>
         </div>
-
         <SidebarBottombar text={data.text_newpage} />
       </div>
     </>

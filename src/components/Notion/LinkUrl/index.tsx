@@ -1,12 +1,10 @@
 import React from "react";
 import styles from "./LinkUrl.module.scss";
+import { main } from "../../../data/languages/main";
 
 export const LinkUrl: React.FC = () => {
-  const data = {
-    text_link_url: "Paste an image link…",
-    text_link_informarion: "Works with any image from the web.",
-    text_submit: "Submit",
-  };
+  const lang = "en";
+  const data = main[lang];
   return (
     <>
       <div className={styles.link}>

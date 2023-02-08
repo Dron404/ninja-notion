@@ -1,4 +1,2 @@
-export type TTest = {
-  url: string;
-  size: string;
-};
+export type Tlanguage = "ru" | "pl" | "en";
+export type Ttheme = "dark" | "light" | "cobalt2";

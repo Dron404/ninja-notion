@@ -1,9 +1,6 @@
 import React from "react";
 import styles from "./ContentRow.module.scss";
-import { ReactComponent as AddSVG } from "../../../assets/img/svg/add.svg";
-import { ReactComponent as MovingSVG } from "../../../assets/img/svg/moving.svg";
 import { IContentRow } from "../../../types/interface";
-import { ButtonMini } from "../ButtonMini/";
 
 export const ContentRow = ({
   block,

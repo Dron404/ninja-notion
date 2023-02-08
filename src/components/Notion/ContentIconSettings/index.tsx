@@ -10,7 +10,12 @@ import { ReactComponent as CloseSVG } from "../../../assets/img/svg/close.svg";
 import { StateContext } from "../../../pages/NoutionPage";
 import { ButtonMini } from "../ButtonMini";
 
+import { main } from "../../../data/languages/main";
+
 export const ContentIconSettings = (): React.ReactElement => {
+  const lang = "en";
+  const data = main[lang];
+
   const [tab, setTab] = React.useState("emojis");
   const [search, setSearch] = React.useState("");
   const { context } = React.useContext(StateContext);
@@ -34,21 +39,21 @@ export const ContentIconSettings = (): React.ReactElement => {
             <div className={styles.control}>
               <div className={styles.control__tab}>
                 <ButtonTab
-                  text="Emojis"
+                  text={data.text_emojis}
                   target="emojis"
                   tab={tab}
                   handle={setTab}
                 />
               </div>
               <div className={styles.control__button}>
-                <Button text="Remove" />
+                <Button text={data.text_remove} />
               </div>
             </div>
             <div className={styles.control__row}>
               <div className={styles.control__search}>
                 <input
                   className={styles.control__input}
-                  placeholder="Filter…"
+                  placeholder={data.text_filter}
                   type="text"
                   value={search}
                   onChange={handleChangeSerch}

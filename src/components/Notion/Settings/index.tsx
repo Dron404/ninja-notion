@@ -10,22 +10,15 @@ import { ButtonDefault } from "../ButtonDefault";
 import { SettingsTab } from "../SettingsTab";
 import { Language } from "../Language";
 import { Theme } from "../Theme";
+import { main } from "../../../data/languages/main";
+import { AVATAR_SIZE_M, AVATAR_SIZE_XXL } from "../../../data/constants";
 
 export const Settings: React.FC = () => {
   const lang = "en";
-  const dataLanguage = {
-    en: {
-      text_newpage: "New page",
-      text_trash: "Trash",
-      text_search: "Search",
-      text_setting: "Setting",
-    },
-  };
-  const data = dataLanguage[lang];
+  const data = main[lang];
 
   const avatarUrl =
     "https://lh3.googleusercontent.com/a-/AFdZucrnvCnEsd0erWUTqf6_bmSJLRbWfPGvfHrSb5w1yg=s100";
-  const avatarSize = "15";
 
   const [tab, setTab] = React.useState<string>("account");
   const [resetPassword, setResetPassword] = React.useState<boolean>(false);
@@ -54,8 +47,8 @@ export const Settings: React.FC = () => {
                 <div className={styles.settings__group}>
                   <div className={styles.settings__name}>email@gmail.com</div>
                   <SettingsTab
-                    text="Account"
-                    icon={<UserAvatar url={avatarUrl} size={avatarSize} />}
+                    text={data.text_account}
+                    icon={<UserAvatar url={avatarUrl} size={AVATAR_SIZE_M} />}
                     state={tab}
                     target="account"
                     handle={setTab}
@@ -65,7 +58,7 @@ export const Settings: React.FC = () => {
                   <div className={styles.settings__name}>Workspace</div>
 
                   <SettingsTab
-                    text="Languages"
+                    text={data.text_language}
                     icon={<LanguageSVG />}
                     state={tab}
                     target="language"
@@ -73,7 +66,7 @@ export const Settings: React.FC = () => {
                   />
 
                   <SettingsTab
-                    text="Theme"
+                    text={data.text_theme}
                     icon={<ThemeSVG />}
                     state={tab}
                     target="theme"
@@ -85,19 +78,26 @@ export const Settings: React.FC = () => {
               {tab === "account" && (
                 <div className={styles.settings__content}>
                   <div className={styles.settings__scroll}>
-                    <div className={styles.settings__header}>Account</div>
+                    <div className={styles.settings__header}>
+                      {data.text_account}
+                    </div>
                     <div className={styles.settings__section}>
-                      <div className={styles.settings__title}>Photo</div>
-                      <div className={styles.settings__row}>
-                        <UserAvatar url={avatarUrl} size={"90"} />
+                      <div className={styles.settings__title}>
+                        {data.text_photo}
                       </div>
                       <div className={styles.settings__row}>
-                        <ButtonDefault text="Upload photo" type="default" />
+                        <UserAvatar url={avatarUrl} size={AVATAR_SIZE_XXL} />
+                      </div>
+                      <div className={styles.settings__row}>
+                        <ButtonDefault
+                          text={data.text_upload_photo}
+                          type="default"
+                        />
                       </div>
                     </div>
                     <div className={styles.settings__section}>
                       <div className={styles.settings__title}>
-                        Personal info
+                        {data.text_personal_info}
                       </div>
                       <div className={styles.settings__row}>
                         <div className={styles.settings__label}>Email</div>
@@ -108,7 +108,7 @@ export const Settings: React.FC = () => {
 
                       <div className={styles.settings__row}>
                         <div className={styles.settings__label}>
-                          Preferred name
+                          {data.text_preferred_name}
                         </div>
                         <input
                           type="text"
@@ -119,16 +119,17 @@ export const Settings: React.FC = () => {
                     </div>
 
                     <div className={styles.settings__section}>
-                      <div className={styles.settings__title}>Password</div>
+                      <div className={styles.settings__title}>
+                        {data.text_password}
+                      </div>
 
                       {!resetPassword && (
                         <div className={styles.settings__row}>
                           <p className={styles.settings__description}>
-                            You can set a permanent password if you don't want
-                            to use temporary login codes.
+                            {data.text_password_description}
                           </p>
                           <ButtonDefault
-                            text="Set a password"
+                            text={data.text_set_a_password}
                             type="default"
                             handle={handleResetPassword}
                           />
@@ -138,17 +139,18 @@ export const Settings: React.FC = () => {
                       {resetPassword && (
                         <div className={styles.settings__row}>
                           <p className={styles.settings__description}>
-                            Use a password at least 15 letters long, or at least
-                            8 characters long with both letters and numbers.
+                            {data.text_password_characters}
                           </p>
-                          <div className={styles.settings__label}>Password</div>
+                          <div className={styles.settings__label}>
+                            {data.text_password}
+                          </div>
                           <input
                             type="password"
                             name="password"
                             className={styles.settings__input}
                           />
                           <div className={styles.settings__label}>
-                            Repeat password
+                            {data.text_repeat_password}
                           </div>
                           <input
                             type="password"
@@ -161,20 +163,22 @@ export const Settings: React.FC = () => {
 
                     <div className={styles.settings__section}>
                       <div className={styles.settings__title}>
-                        Log out of all devices
+                        ${data.text_log_out_of}
                       </div>
                       <div className={styles.settings__row}>
                         <p className={styles.settings__description}>
-                          Log out of all other active sessions on other devices
-                          besides this one.
+                          {data.text_log_out_description}
                         </p>
-                        <ButtonDefault text="Log out" type="warning" />
+                        <ButtonDefault
+                          text={data.text_log_out}
+                          type="warning"
+                        />
                       </div>
                     </div>
                   </div>
                   <div className={styles.settings__footer}>
-                    <ButtonDefault text="Update" type="primary" />
-                    <ButtonDefault text="Cancel" type="default" />
+                    <ButtonDefault text={data.text_update} type="primary" />
+                    <ButtonDefault text={data.text_cancel} type="default" />
                   </div>
                 </div>
               )}
@@ -182,16 +186,18 @@ export const Settings: React.FC = () => {
               {tab === "language" && (
                 <div className={styles.settings__content}>
                   <div className={styles.settings__scroll}>
-                    <div className={styles.settings__header}>Languages</div>
+                    <div className={styles.settings__header}>
+                      {data.text_languages}
+                    </div>
 
                     <div className={styles.settings__section}>
                       <div className={styles.settings__flex}>
                         <div>
-                          <div className={styles.settings__title}>Language</div>
+                          <div className={styles.settings__title}>
+                            {data.text_language}
+                          </div>
                           <div className={styles.settings__row}>
-                            <p>
-                              Change the language used in the user interface.
-                            </p>
+                            <p>{data.text_language_destcription}</p>
                           </div>
                         </div>
                         <div>
@@ -205,14 +211,18 @@ export const Settings: React.FC = () => {
               {tab === "theme" && (
                 <div className={styles.settings__content}>
                   <div className={styles.settings__scroll}>
-                    <div className={styles.settings__header}>Theme</div>
+                    <div className={styles.settings__header}>
+                      {data.text_theme}
+                    </div>
 
                     <div className={styles.settings__section}>
                       <div className={styles.settings__flex}>
                         <div>
-                          <div className={styles.settings__title}>Theme</div>
+                          <div className={styles.settings__title}>
+                            {data.text_theme}
+                          </div>
                           <div className={styles.settings__row}>
-                            <p>Change the theme used in the user interface.</p>
+                            <p>{data.text_theme_description}.</p>
                           </div>
                         </div>
                         <div>

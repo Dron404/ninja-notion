@@ -9,20 +9,25 @@ import { ReactComponent as CommentSVG } from "../../../assets/img/svg/comment.sv
 import { Button } from "../Button";
 import { useParams } from "react-router-dom";
 
+import { main } from "../../../data/languages/main";
+
 // test state
 import { StateContext } from "../../../pages/NoutionPage";
 import { ContentIconSettings } from "../ContentIconSettings";
+import { AVATAR_SIZE_L } from "../../../data/constants";
 
 export const Content = (): React.ReactElement => {
-  // test data
+  const lang = "en";
+  const data = main[lang];
+
   const avatarUrl =
     "https://lh3.googleusercontent.com/a-/AFdZucrnvCnEsd0erWUTqf6_bmSJLRbWfPGvfHrSb5w1yg=s100";
-  const avatarSize = "25";
+
   const { context } = React.useContext(StateContext);
 
   const { pageId } = useParams();
 
-  console.log(pageId);
+  // console.log(pageId);
 
   // example remove state
   const styleContentFullWidth = context?.pageState.property.full_width
@@ -55,14 +60,14 @@ export const Content = (): React.ReactElement => {
               <div className={styles.content__toolbar}>
                 <div>
                   <Button
-                    text="Add icon"
+                    text={data.text_add_icon}
                     cName={styles.content__toolbar_button}
                     icon={<EmojiSVG />}
                   />
                 </div>
                 <div>
                   <Button
-                    text="Add cover"
+                    text={data.text_add_cover}
                     cName={styles.content__toolbar_button}
                     icon={<CoverSVG />}
                   />
@@ -70,7 +75,7 @@ export const Content = (): React.ReactElement => {
 
                 <div>
                   <Button
-                    text="Add comment"
+                    text={data.text_add_comment}
                     cName={styles.content__toolbar_button}
                     icon={<CommentSVG />}
                   />
@@ -79,12 +84,12 @@ export const Content = (): React.ReactElement => {
 
               <h1 className={styles.content__title}>Object pages</h1>
               <div className={styles.content__comment}>
-                <UserAvatar url={avatarUrl} size={avatarSize} />
+                <UserAvatar url={avatarUrl} size={AVATAR_SIZE_L} />
                 <div
                   className={styles.content__comment_input}
-                  placeholder="Add a comment…"
+                  placeholder={data.text_add_a_comment}
                 >
-                  Add a comment…
+                  {data.text_add_a_comment}
                 </div>
               </div>
             </div>
@@ -92,7 +97,7 @@ export const Content = (): React.ReactElement => {
             <ContentRow
               block="notion-text-block"
               color="#f90000"
-              placeholder="Type '/' for commands"
+              placeholder={data.text_type_for_commands}
               content="👋 Welcome to my ninja notion clone!"
             />
 

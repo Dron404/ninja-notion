@@ -8,14 +8,11 @@ import { ReactComponent as AddSVG } from "../../../assets/img/svg/add.svg";
 import { ReactComponent as HomeSVG } from "../../../assets/img/svg/home_orange.svg";
 import { dataFavorite } from "../../../data/dataFavorite";
 import { dataPrivate } from "../../../data/dataPrivate";
+import { main } from "../../../data/languages/main";
 
 export const SidebarPages = (): React.ReactElement => {
-  const data = {
-    text_home: "Home Page",
-    text_add: "Add a page",
-    text_private: "Private",
-    text_favorite: "Faviride",
-  };
+  const lang = "en";
+  const data = main[lang];
 
   return (
     <>
@@ -24,7 +21,7 @@ export const SidebarPages = (): React.ReactElement => {
           <span>{data.text_favorite}</span>
         </div>
         <div className={styles.pages__list}>
-          <div className={styles.pages__row + " aside-page-row"}>
+          <div className={`${styles.pages__row} aside-page-row`}>
             {dataFavorite?.pages?.map((data, index) => (
               <SidebarPage
                 icon={data.icon}
@@ -48,11 +45,11 @@ export const SidebarPages = (): React.ReactElement => {
           link={"/pages/1"}
           text={data.text_home}
           icon={<HomeSVG />}
-          cName={"home-icon " + styles.pages__home}
+          cName={`home-icon ${styles.pages__home}`}
         />
 
         <div className={styles.pages__list}>
-          <div className={styles.pages__row + " aside-page-row"}>
+          <div className={`${styles.pages__row} aside-page-row`}>
             {dataPrivate?.pages?.map((data, index) => (
               <SidebarPage
                 icon={data.icon}

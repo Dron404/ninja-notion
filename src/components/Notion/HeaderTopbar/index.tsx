@@ -18,6 +18,8 @@ import { StateContext } from "../../../pages/NoutionPage";
 import { copyObject } from "../../../utils/object/copyObject";
 import { IPage } from "../../../types/interface";
 
+import { main } from "../../../data/languages/main";
+
 export const HeaderTopbar = (): React.ReactElement => {
   const [toogleFavorite, setToogleFavorite] = React.useState<boolean>(false);
 
@@ -27,21 +29,8 @@ export const HeaderTopbar = (): React.ReactElement => {
 
   const { context } = React.useContext(StateContext);
 
-  const data = {
-    text_add_favorite: "Add to Favorites",
-    text_remove_favorite: "Remove from Favorites",
-    text_copy_link: "Copy link",
-    text_delete: "Delete",
-    text_rename: "Rename",
-    text_move_to: "Move to",
-    text_not_page: "Not pages inside",
-    text_style: "Style",
-    text_style_dafault: "Default",
-    text_style_serif: "Serif",
-    text_style_mono: "Mono",
-    text_small_text: "Small text",
-    text_full_width: "Full width",
-  };
+  const lang = "en";
+  const data = main[lang];
 
   const smallText = Boolean(context?.pageState.property.small_text);
   const fullWidth = Boolean(context?.pageState.property.full_width);
@@ -79,11 +68,11 @@ export const HeaderTopbar = (): React.ReactElement => {
           icon={toogleFavorite ? <FavoriteSVG /> : <FavoriteActiveSVG />}
           handle={handleFavorite}
         />
-        <Menu as="div" className={styles.topbar__menu + " notion-popup__menu"}>
+        <Menu as="div" className={`${styles.topbar__menu} notion-popup__menu`}>
           <Menu.Button className={styles.topbar__more}>
             <ButtonMini icon={<MoreSVG />} />
           </Menu.Button>
-          <Menu.Items className={styles.topbar__popup + " notion-popup__body"}>
+          <Menu.Items className={`${styles.topbar__popup} notion-popup__body`}>
             <div className={styles.topbar__style}>
               <div className={styles.topbar__title}>{data.text_style}</div>
               <div className={styles.topbar__row}>

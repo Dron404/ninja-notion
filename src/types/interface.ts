@@ -115,11 +115,15 @@ export interface ILanguage {
 export interface ILanguageList {
   ru: string;
   en: string;
-  by: string;
+  pl: string;
 }
 
 export interface ITheme {
   code: string;
   name: ILanguageList;
   description: ILanguageList;
+}
+
+export interface IValue {
+  value: string;
 }

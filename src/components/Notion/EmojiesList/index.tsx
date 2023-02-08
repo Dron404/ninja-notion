@@ -10,18 +10,21 @@ import emoji from "react-easy-emoji";
 import { StateContext } from "../../../pages/NoutionPage";
 import { copyObject } from "../../../utils/object/copyObject";
 import { universalIncludes } from "../../../utils/search/universalIncludes";
+import { IValue } from "../../../types/interface";
+import { Tlanguage } from "../../../types/types";
 
-interface IValue {
-  value: string;
-}
+import { main } from "../../../data/languages/main";
 
 export const EmojiesList: React.FC<IValue> = ({ value }) => {
-  const lang = "en";
+  const lang: Tlanguage = "en";
+  const data = main[lang];
+
   const dataLangEmojies = {
     ru: emojisRu,
     pl: emojisPl,
     en: emojisEn,
   };
+
   let dataEmojies = dataLangEmojies[lang];
 
   dataEmojies = dataEmojies.filter((emoji) =>
@@ -48,7 +51,9 @@ export const EmojiesList: React.FC<IValue> = ({ value }) => {
               </div>
             ))
           ) : (
-            <div className={styles.emoji__notResult}>Not result</div>
+            <div className={styles.emoji__notResult}>
+              {data.text_not_result}
+            </div>
           )}
         </div>
       </div>

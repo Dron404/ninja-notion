@@ -1,4 +1,4 @@
-export function getLocalStorage<T>(value: string): Array<T> {
+export function getLocalStorage<T>(value: string): T {
   let result;
   const valueLocalStorage = localStorage.getItem(value);
   if (valueLocalStorage) {
@@ -7,6 +7,7 @@ export function getLocalStorage<T>(value: string): Array<T> {
   return result;
 }
 
-export function setLocalStorage<T>(key: string, value: T): void {
+export function setLocalStorage<T>(key: string, value: T): T {
   localStorage.setItem(key, JSON.stringify(value));
+  return value;
 }

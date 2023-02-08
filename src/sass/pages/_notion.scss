@@ -19,6 +19,16 @@
   --color-bg-code: #343434;
 }
 
+[data-theme="cobalt2"] {
+  --color-hover: #193549; // hover button color-base-140
+  --color-bg: #122738;
+  --color-text: #f0f0f0;
+  --color-text-aside: #b9b9b9; //  --color-text-aside
+  --color-aside: #15232d;
+  --color-icon: #ffca28;
+  --color-bg-code: #193549;
+}
+
 [data-font="serif"] {
   font-family: "Lyon Text", Georgia, ui-serif, serif;
 }

@@ -3,15 +3,12 @@ import styles from "./Language.module.scss";
 import { ButtonDefault } from "../ButtonDefault";
 import { Menu } from "@headlessui/react";
 import { ILanguage } from "../../../types/interface";
+import { languages } from "../../../data/languages/language";
 
 export const Language: React.FC = () => {
-  const code = "en";
-  const languages: ILanguage[] = [
-    { code: "en", name: "English", description: "English (US)" },
-    { code: "ru", name: "Русский", description: "Russian (RU)" },
-    { code: "by", name: "Беларускі", description: "Belarusian (BY)" },
-  ];
-  const activeLanguage = languages.find((language) => language.code === code);
+  const lang = "en";
+
+  const activeLanguage = languages.find((language) => language.code === lang);
   const [language, setLanguage] = React.useState(activeLanguage);
 
   const handleChangeLanguege = (lang: ILanguage) => {

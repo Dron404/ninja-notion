@@ -13,7 +13,7 @@ export const ButtonTab: React.FC<IButtonTab> = ({
   return (
     <>
       <div
-        className={styles.tab + " " + styleStatus}
+        className={`${styles.tab} ${styleStatus}`}
         onClick={() => handle(target)}
       >
         <Button text={text} />

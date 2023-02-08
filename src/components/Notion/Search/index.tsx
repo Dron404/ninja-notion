@@ -6,10 +6,11 @@ import { ReactComponent as CloseSVG } from "../../../assets/img/svg/close.svg";
 import { dataPrivate } from "../../../data/dataPrivate";
 import { SearchRow } from "../SearchRow";
 
+import { main } from "../../../data/languages/main";
+
 export const Search: React.FC = () => {
-  const data = {
-    text_search: "Search",
-  };
+  const lang = "en";
+  const data = main[lang];
 
   const refSearch = React.useRef<HTMLInputElement>(null);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -53,7 +54,7 @@ export const Search: React.FC = () => {
                   <input
                     ref={refSearch}
                     className={styles.search__input}
-                    placeholder="Search Иван Воробьёв's Notion…"
+                    placeholder={`${data.text_search} Иван Воробьёв ${data.text_s_notion}`}
                     type="search"
                     name="search"
                     onChange={handleSearch}
@@ -73,8 +74,8 @@ export const Search: React.FC = () => {
                   ))
                 ) : (
                   <div className={styles.search__notResult}>
-                    <strong>No results</strong>
-                    <span>Some results may be in your deleted pages.</span>
+                    <strong>{data.text_no_results}</strong>
+                    <span>{data.text_some_results}</span>
                   </div>
                 )}
               </div>

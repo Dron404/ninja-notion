@@ -13,7 +13,7 @@ export const ButtonFont: React.FC<IButtonFont> = ({
   return (
     <>
       <div className={styles.item} onClick={() => handle(target)}>
-        <div className={styleActive + " " + styles.item__bigtext}>Ag</div>
+        <div className={`${styleActive} ${styles.item__bigtext}`}>Ag</div>
         <div className={styles.item__description}>{description}</div>
       </div>
     </>

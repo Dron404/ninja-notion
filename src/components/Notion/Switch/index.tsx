@@ -7,7 +7,7 @@ export const Switch: React.FC<ISwitch> = ({ status }) => {
 
   return (
     <>
-      <label className={styles.switch + " " + styleActive}>
+      <label className={`${styles.switch} ${styleActive}`}>
         <span
           className={styles.switch__checkbox}
           data-label-on="On"
