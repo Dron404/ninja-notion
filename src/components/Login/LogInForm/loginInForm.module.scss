@@ -1,3 +1,107 @@
-.authtitle {
-  color: #040404;
+.main {
+  max-width: 1392px;
+  margin: 0 auto;
+}
+
+.title {
+  padding-top: 60px;
+  font-size: 34px;
+  text-align: center;
+}
+
+.registrationform {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.submit {
+  height: 36px;
+  width: 320px;
+  display: inline-flex;
+  justify-content: center;
+  padding: 0 12px;
+  border-radius: 4px;
+  border: none;
+  border: -1px solid #ffa8a8;
+  background-color: rgb(253, 245, 242);
+  box-shadow: rgba(15, 15, 15, 0.1) 0px 1px 2px,
+    rgba(235, 87, 87, 0.3) 0px 0px 0px 1px inset;
+  color: rgb(235, 87, 87);
+  font-size: 14px;
+  font-weight: 500;
+  align-items: center;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+}
+
+.submit:hover {
+  background-color: rgb(251, 235, 232);
+}
+
+.submit:disabled {
+  color: #a6a6a6;
+  border: -1px solid #a6a6a6;
+  cursor: not-allowed;
+}
+
+.forgot {
+  width: 320px;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 8px 0;
+  text-align: center;
+  color: rgba(55, 53, 47, 0.65)
+}
+
+.link {
+  user-select: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+.nameerror {
+  height: 20px;
+  font-size: 12px;
+  color: #d73223;
+  text-align: left;
+  margin: 0;
+}
+
+.inputcontainer {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  color: rgba(53, 53, 47, 0.65);
+  text-align: left;
+}
+
+.input {
+  min-height: 26px;
+  width: 300px;
+  padding: 4px 10px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  border: 1px solid #a6a6a6;
+  box-shadow: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px inset;
+  background: rgba(242, 241, 238, 0.6);
+  font-size: 15px;
+  line-height: 26px;
+  cursor: text;
+
+}
+
+.input:focus {
+  outline: 2px solid #8accf4;
 }

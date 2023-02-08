@@ -1,8 +1,22 @@
-import React from "react";
+import React, { SetStateAction } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import styles from "./signUpForm.module.scss";
+import ShowInvitation from "../ShowInvitation/ShowInvitation";
+import UserExists from "../UserExists/UserExists";
 
-function SignUpForm() {
+function SignUpForm(props: {
+  invitationActive: boolean;
+  setInvitationActive: React.Dispatch<SetStateAction<boolean>>;
+  userExistsActive: boolean;
+  setUserExistsActive: React.Dispatch<SetStateAction<boolean>>;
+}) {
+  const {
+    setInvitationActive,
+    invitationActive,
+    userExistsActive,
+    setUserExistsActive,
+  } = props;
+
   interface FormData {
     userName: string;
     email: string;
@@ -28,7 +42,6 @@ function SignUpForm() {
       };
 
       reset();
-      console.log(dataUser);
       const response = await fetch(
         "https://ninja-notion-api-production.up.railway.app/user",
         {
@@ -39,11 +52,17 @@ function SignUpForm() {
           body: JSON.stringify(dataUser),
         }
       );
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const dataResponse = await response.json();
-      // console.log(dataResponse);
+      if (response.status === 200) {
+        setInvitationActive(!invitationActive);
+      }
+      if (response.status === 401) {
+        setUserExistsActive(!userExistsActive);
+      }
     } catch (error) {
-      console.log("Couldn't register new user");
+      console.log("error");
+      // if (response.status === 401) {
+      //   setUserExistsActive(!userExistsActive);
+      // }
     }
   };
 
@@ -116,8 +135,8 @@ function SignUpForm() {
                 {...register("password", {
                   required: "Field must be filled in",
                   minLength: {
-                    value: 3,
-                    message: "Minimum 3 characters",
+                    value: 5,
+                    message: "Minimum 5 characters",
                   },
                 })}
               />
@@ -141,6 +160,11 @@ function SignUpForm() {
           </div>
         </form>
       </div>
+      <ShowInvitation
+        active={invitationActive}
+        setActive={setInvitationActive}
+      />
+      <UserExists active={userExistsActive} setActive={setUserExistsActive} />
     </main>
   );
 }
