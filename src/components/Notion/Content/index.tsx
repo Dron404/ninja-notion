@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Content.module.scss";
-import { Cover } from "../Cover";
+import { ContentCover } from "../ContentCover";
 import { ContentRow } from "../ContentRow";
 import { UserAvatar } from "../../User/UserAvatar";
 import { ReactComponent as EmojiSVG } from "../../../assets/img/svg/emoji.svg";
@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 
 // test state
 import { StateContext } from "../../../pages/NoutionPage";
+import { ContentIconSettings } from "../ContentIconSettings";
 
 export const Content = (): React.ReactElement => {
   // test data
@@ -35,7 +36,13 @@ export const Content = (): React.ReactElement => {
         data-width={context?.pageState.property.full_width}
         data-small={context?.pageState.property.small_text}
       >
-        <Cover />
+        <ContentCover />
+
+        <div
+          className={styles.content__wrapperIcon + " " + styleContentFullWidth}
+        >
+          <ContentIconSettings />
+        </div>
 
         <div
           className={styles.content}
@@ -45,14 +52,6 @@ export const Content = (): React.ReactElement => {
             className={styles.content__wrapper + " " + styleContentFullWidth}
           >
             <div className={styles.content__header}>
-              {context?.pageState.icon && (
-                <div className={styles.content__icon}>
-                  <span className={styles.content__emoji}>
-                    {context?.pageState.icon}
-                  </span>
-                </div>
-              )}
-
               <div className={styles.content__toolbar}>
                 <div>
                   <Button
@@ -78,7 +77,7 @@ export const Content = (): React.ReactElement => {
                 </div>
               </div>
 
-              <div className={styles.content__title}>Object pages</div>
+              <h1 className={styles.content__title}>Object pages</h1>
               <div className={styles.content__comment}>
                 <UserAvatar url={avatarUrl} size={avatarSize} />
                 <div

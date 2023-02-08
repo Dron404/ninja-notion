@@ -34,6 +34,10 @@ button {
   background-color: unset;
 }
 
+h1 {
+  margin: 0 0 0.5em 0;
+}
+
 .notion {
   user-select: none;
   display: flex;
@@ -89,7 +93,7 @@ button {
   }
 
   &__aside {
-    z-index: 101;
+    z-index: 300;
     color: var(--color-text-aside);
     transition: all 700ms ease;
     flex: 0 0 233px;

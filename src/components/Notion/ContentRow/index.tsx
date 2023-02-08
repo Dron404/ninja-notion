@@ -14,15 +14,6 @@ export const ContentRow = ({
   return (
     <>
       <div className={styles.row}>
-        <div className={styles.row__controls}>
-          <div>
-            <ButtonMini icon={<AddSVG />} cName={styles.row__button} />
-          </div>
-          <div>
-            <ButtonMini icon={<MovingSVG />} cName={styles.row__button} />
-          </div>
-        </div>
-
         <div className={styles.row__block}>
           <div
             className={block}

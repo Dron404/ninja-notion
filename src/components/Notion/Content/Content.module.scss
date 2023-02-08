@@ -18,11 +18,18 @@
   user-select: text;
   margin-top: 7px;
   font-size: 15px;
+  position: relative;
+  z-index: 110;
 
+  &__wrapperIcon,
   &__wrapper {
-    width: 65%;
+    width: 60%;
     margin: 0 auto;
     transition: width 0.7s ease;
+  }
+
+  &__wrapperIcon {
+    height: 31px;
   }
 
   &__full {
@@ -31,21 +38,7 @@
   }
 
   &__header {
-    padding-left: 64px;
     margin-bottom: 1rem;
-  }
-
-  &__icon {
-    cursor: pointer;
-    font-size: 64px;
-    transform: translateY(-45px);
-    display: inline-block;
-  }
-
-  &__emoji {
-    &:hover {
-      background-color: var(--color-hover);
-    }
   }
 
   &__button {

@@ -6,7 +6,7 @@
   align-items: center;
   padding-right: 12px;
   justify-content: space-between;
-  z-index: 101;
+  z-index: 201;
   height: 41px;
   opacity: 1;
   gap: 2px;
@@ -28,7 +28,9 @@
     right: 0px;
     font-size: 13px;
     padding: 12px 0;
+    z-index: 201;
   }
+
   &__style {
     padding: 4px 18px;
   }
