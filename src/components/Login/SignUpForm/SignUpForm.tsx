@@ -27,7 +27,6 @@ function SignUpForm(props: {
     register,
     formState: { errors, isValid },
     handleSubmit,
-    reset,
   } = useForm<FormData>({
     mode: "onBlur",
   });
@@ -41,7 +40,6 @@ function SignUpForm(props: {
         password: data.password,
       };
 
-      reset();
       const response = await fetch(
         "https://ninja-notion-api-production.up.railway.app/user",
         {
@@ -52,6 +50,7 @@ function SignUpForm(props: {
           body: JSON.stringify(dataUser),
         }
       );
+
       if (response.status === 200) {
         setInvitationActive(!invitationActive);
       }
@@ -83,8 +82,8 @@ function SignUpForm(props: {
                 {...register("userName", {
                   required: "Field must be filled in",
                   minLength: {
-                    value: 3,
-                    message: "Minimum 3 characters",
+                    value: 5,
+                    message: "Minimum 5 characters",
                   },
                 })}
               />
