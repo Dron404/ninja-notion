@@ -1,3 +1,11 @@
+import { Tfont, Tlanguage, Ttheme } from "./types";
+
+import {
+  RefetchOptions,
+  RefetchQueryFilters,
+  QueryObserverResult,
+} from "react-query";
+
 export interface IUserAvatar {
   url: string;
   size: string;
@@ -40,25 +48,6 @@ export interface IContentRow {
 export interface ICoverUrlPosition {
   url: string | null;
   position: number;
-}
-
-export interface IPage {
-  id: number;
-  cover: null | ICoverUrlPosition;
-  icon: null | string;
-  favorite: boolean;
-  property: {
-    font: string;
-    small_text: boolean;
-    full_width: boolean;
-  };
-  comment: string;
-  content: string;
-  name: string;
-  date_add: string;
-  date_mod: string;
-  date_trash: string;
-  children: IPage[] | null;
 }
 
 export interface IData {
@@ -126,4 +115,63 @@ export interface ITheme {
 
 export interface IValue {
   value: string;
+}
+
+export interface IPage {
+  id: string;
+  content?: string;
+  name?: string;
+  icon?: string;
+  comment?: string;
+  favorite?: boolean;
+  property?: {
+    font?: Tfont;
+    small_text?: boolean;
+    full_width?: boolean;
+  };
+  dataTrash?: string;
+  dataAdd?: string;
+  dataMod?: string;
+  cover?: {
+    url: string;
+    position: number;
+  };
+  children_page?: IPage[];
+}
+
+export interface IUserData {
+  email: string;
+  password: string;
+  diskSpace?: number;
+  usetSpace?: number;
+  avatar?: string;
+  name?: string;
+  active?: true;
+  token?: string;
+  language?: Tlanguage;
+  theme?: Ttheme;
+  pages?: IPage[];
+}
+
+export interface IUser {
+  user: IUserData;
+}
+
+export interface IUserReturn {
+  user: IUserData;
+  status: number;
+}
+
+export interface IUserMessage {
+  status: number;
+  message: string;
+}
+
+export interface IReactQuery<T> {
+  isLoading: boolean;
+  data: T | undefined;
+  error: unknown;
+  refetch: <TPageData>(
+    options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
+  ) => Promise<QueryObserverResult<T | undefined, unknown>>;
 }
