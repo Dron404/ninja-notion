@@ -32,33 +32,20 @@ export const HeaderTopbar = (): React.ReactElement => {
   const lang = "en";
   const data = main[lang];
 
-  const smallText = Boolean(context?.pageState.property.small_text);
-  const fullWidth = Boolean(context?.pageState.property.full_width);
-  const font = String(context?.pageState.property.font);
+  const smallText = Boolean(context?.pageState?.property?.small_text);
+  const fullWidth = Boolean(context?.pageState?.property?.full_width);
+  const font = String(context?.pageState?.property?.font);
 
   const handelSmallText = () => {
-    const newPageState: IPage | undefined = copyObject(context?.pageState);
-    if (newPageState) {
-      newPageState.property.small_text = !smallText;
-      console.log(newPageState.property.small_text);
-      context?.setPageState(newPageState);
-    }
+    console.log("setPageState");
   };
 
   const handelFullWidth = () => {
-    const newPageState: IPage | undefined = copyObject(context?.pageState);
-    if (newPageState) {
-      newPageState.property.full_width = !fullWidth;
-      context?.setPageState(newPageState);
-    }
+    console.log("setPageState");
   };
 
   const handleFont = (font: string) => {
     const newPageState: IPage | undefined = copyObject(context?.pageState);
-    if (newPageState) {
-      newPageState.property.font = font;
-      context?.setPageState(newPageState);
-    }
   };
 
   return (

@@ -30,7 +30,7 @@ export const Content = (): React.ReactElement => {
   // console.log(pageId);
 
   // example remove state
-  const styleContentFullWidth = context?.pageState.property.full_width
+  const styleContentFullWidth = context?.pageState?.property?.full_width
     ? styles.content__full
     : "";
 
@@ -38,8 +38,8 @@ export const Content = (): React.ReactElement => {
     <>
       <div
         className={styles.body}
-        data-width={context?.pageState.property.full_width}
-        data-small={context?.pageState.property.small_text}
+        data-width={context?.pageState?.property?.full_width}
+        data-small={context?.pageState?.property?.small_text}
       >
         <ContentCover />
 
@@ -51,7 +51,7 @@ export const Content = (): React.ReactElement => {
 
         <div
           className={styles.content}
-          data-font={context?.pageState.property.font}
+          data-font={context?.pageState?.property?.font}
         >
           <div
             className={styles.content__wrapper + " " + styleContentFullWidth}

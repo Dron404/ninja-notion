@@ -25,11 +25,6 @@ export const ContentCoverSettings = ({
 
   const handleRemoveBackground = () => {
     const newPagaState = copyObject(context?.pageState);
-    if (context && newPagaState && newPagaState.cover) {
-      newPagaState.cover.url = null;
-      newPagaState.cover.position = 100;
-      context.setPageState(newPagaState);
-    }
   };
 
   return (

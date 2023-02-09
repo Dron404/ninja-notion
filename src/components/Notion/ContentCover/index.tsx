@@ -13,7 +13,7 @@ export const ContentCover: React.FC = () => {
 
   const { context } = React.useContext(StateContext);
 
-  const styleFullWidth = context?.pageState.property.full_width
+  const styleFullWidth = context?.pageState?.property?.full_width
     ? styles.cover__fullWidth
     : styles.cover__defaultWidth;
 

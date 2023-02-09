@@ -20,8 +20,8 @@ export interface INotionButton {
   hotkey?: string;
   target?: string;
   state?: string;
-  id?: number;
-  childrenPages?: INotionButton[] | null;
+  id?: string;
+  children_page?: INotionButton[] | null;
   padding?: number;
   handle?: () => void;
 }
@@ -48,10 +48,6 @@ export interface IContentRow {
 export interface ICoverUrlPosition {
   url: string | null;
   position: number;
-}
-
-export interface IData {
-  pages: IPage[] | null;
 }
 
 export interface IStateContext {
@@ -139,6 +135,10 @@ export interface IPage {
   children_page?: IPage[];
 }
 
+export interface IPages {
+  pages: IPage[] | undefined;
+}
+
 export interface IUserData {
   email: string;
   password: string;
@@ -158,7 +158,7 @@ export interface IUser {
 }
 
 export interface IUserReturn {
-  user: IUserData;
+  data: IUser;
   status: number;
 }
 

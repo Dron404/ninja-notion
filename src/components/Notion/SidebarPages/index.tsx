@@ -27,7 +27,7 @@ export const SidebarPages = (): React.ReactElement => {
                 icon={data.icon}
                 text={data.name}
                 id={data.id}
-                childrenPages={data.children}
+                children_page={data?.children_page}
                 key={index}
               />
             ))}
@@ -55,7 +55,7 @@ export const SidebarPages = (): React.ReactElement => {
                 icon={data.icon}
                 text={data.name}
                 id={data.id}
-                childrenPages={data.children}
+                children_page={data.children_page}
                 key={index}
               />
             ))}

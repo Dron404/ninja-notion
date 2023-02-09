@@ -12,7 +12,7 @@ export const SearchRow = ({ page }: { page: IPage }): ReactElement => {
           <div className={styles.search__pageName}>{page.name}</div>
         </div>
 
-        <div className={styles.search__date}>{page.date_add}</div>
+        <div className={styles.search__date}>{page?.dataAdd}</div>
 
         <div className={styles.search__enter}>
           <EnterSVG />

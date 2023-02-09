@@ -22,7 +22,7 @@ export const SidebarPage: React.FC<INotionButton> = ({
   cName = "",
   toggle,
   id,
-  childrenPages,
+  children_page,
   padding,
 }) => {
   const lang = "en";
@@ -122,14 +122,14 @@ export const SidebarPage: React.FC<INotionButton> = ({
           className={styles.buttonPage__children}
           style={{ paddingLeft: `${newPadding}px` }}
         >
-          {childrenPages ? (
-            childrenPages.map((data, index) => (
+          {children_page ? (
+            children_page.map((data, index) => (
               <SidebarPage
                 toggle={data.toggle}
                 icon={data.icon}
                 text={data.text}
                 id={data.id}
-                childrenPages={data.childrenPages}
+                children_page={data.children_page}
                 padding={newPadding}
                 key={index}
               />

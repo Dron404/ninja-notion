@@ -4,7 +4,7 @@ import {
   ROUT_SAVE_PAGES,
   ROUT_USER,
 } from "../data/constants";
-import { IPage, IUser, IUserMessage, IUserPromise } from "../types/interface";
+import { IPage, IUser, IUserMessage, IUserReturn } from "../types/interface";
 
 const UserService = {
   async user(

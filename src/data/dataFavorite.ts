@@ -1,25 +1,28 @@
-import { IData } from "../types/interface";
+import { IPages } from "../types/interface";
 import g_001 from "../assets/img/cover/g_001.jpg";
 
-export const dataFavorite: IData = {
+export const dataFavorite: IPages = {
   pages: [
     {
-      id: 103,
-      cover: { url: g_001, position: 100 },
-      icon: "📗",
+      id: "hashdasdas",
+      content: "",
+      name: "Name page",
+      icon: "1F605",
+      comment: "",
       favorite: false,
       property: {
         font: "default",
         small_text: false,
         full_width: false,
       },
-      comment: "string",
-      content: "string",
-      name: "Name Page 2",
-      date_add: "2013-01-01",
-      date_mod: "2013-01-01",
-      date_trash: "2013-01-01",
-      children: [],
+      dataTrash: "",
+      dataAdd: "2023-01-01",
+      dataMod: "2023-01-01",
+      cover: {
+        url: "",
+        position: 100,
+      },
+      children_page: [],
     },
   ],
 };
