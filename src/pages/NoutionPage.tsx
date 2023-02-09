@@ -12,7 +12,7 @@ export const StateContext = React.createContext<Partial<IStateContext>>({});
 export function NoutionPage() {
   const [pageState, setPageState] = React.useState<IPage>(dataPage);
 
-  const theme: Ttheme = "cobalt2" || "dark";
+  const theme: Ttheme = "light" || "dark";
   const [asideStatus, setAsideStatus] = React.useState<boolean>(true);
   const handleAsideToggle = () => {
     setAsideStatus(!asideStatus);
