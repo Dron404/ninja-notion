@@ -13,7 +13,7 @@ function MessagePassword() {
         <button
           type="button"
           className={styles.btnRestore}
-          onClick={function (event) {
+          onClick={(event) => {
             const btn = event.target as HTMLButtonElement;
             btn.disabled = true;
             setClickedPassword(!clickeddPassword);
