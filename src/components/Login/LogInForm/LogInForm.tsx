@@ -58,8 +58,7 @@ function LogInForm() {
         navigate("/pages/1");
       }
     } catch (error) {
-      console.log(error);
-      console.log("Couldn't log in");
+      throw new Error("Couldn't login");
     }
   };
 

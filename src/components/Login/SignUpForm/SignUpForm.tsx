@@ -58,7 +58,7 @@ function SignUpForm(props: {
         setUserExistsActive(!userExistsActive);
       }
     } catch (error) {
-      console.log("error");
+      throw new Error("Couldn't sign up");
     }
   };
 
