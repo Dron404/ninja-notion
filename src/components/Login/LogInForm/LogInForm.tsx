@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import styles from "./loginInForm.module.scss";
 import MessageEmail from "../MessageEmail/MessageEmail";
 import MessagePassword from "../MessagePassword/MessagePassword";
@@ -22,6 +23,8 @@ function LogInForm() {
   } = useForm<EnterFormData>({
     mode: "onBlur",
   });
+
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<EnterFormData> = async (data) => {
     try {
@@ -51,7 +54,11 @@ function LogInForm() {
       if (response.status === 403) {
         toggleNonActive(!nonActive);
       }
+      if (response.status === 200) {
+        navigate("/pages/1");
+      }
     } catch (error) {
+      console.log(error);
       console.log("Couldn't log in");
     }
   };
