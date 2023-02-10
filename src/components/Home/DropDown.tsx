@@ -8,24 +8,9 @@ function DropDown(props: {
 }) {
   const { selected, setSelected } = props;
   const [isActive, setIsActive] = useState(false);
-  const options: Array<string> = ["Русский", "Белорусский", "Английский"];
+  const options: Array<string> = ["Русский", "Польский", "Английский"];
   return (
     <div className="dropdown">
-      <div
-        onKeyDown={() => {
-          setIsActive(!isActive);
-        }}
-        tabIndex={0}
-        role="button"
-        className="dropdown-btn"
-        onClick={() => {
-          setIsActive(!isActive);
-        }}
-      >
-        <img src={geo} alt="black-white earth" className="geography" />
-        {selected}
-        <img src={arrowDown} alt="arrow down" className="arrow-down" />
-      </div>
       {isActive && (
         <div className="dropdown-content">
           {options.map((option: string) => (
@@ -48,6 +33,21 @@ function DropDown(props: {
           ))}
         </div>
       )}
+      <div
+        onKeyDown={() => {
+          setIsActive(!isActive);
+        }}
+        tabIndex={0}
+        role="button"
+        className="dropdown-btn"
+        onClick={() => {
+          setIsActive(!isActive);
+        }}
+      >
+        <img src={geo} alt="black-white earth" className="geography" />
+        {selected}
+        <img src={arrowDown} alt="arrow down" className="arrow-down" />
+      </div>
     </div>
   );
 }
