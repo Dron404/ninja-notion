@@ -8,23 +8,33 @@ function HomeHeader(props: {
 }) {
   const { setMobileMenuActive, mobileMenuActive } = props;
 
+  const HeaderBurgerIcon = (
+    <button
+      type="button"
+      className="burger-menu"
+      onClick={() => setMobileMenuActive(!mobileMenuActive)}
+    >
+      <BurgerIcon width="22px" height="22px" className="burger-icon" />
+    </button>
+  );
+
+  const HeaderRegistration = (
+    <div className="registration">
+      <a href="/login" className="registration__log">
+        Log In
+      </a>
+      <a href="/signup" className="button button_header">
+        Try Notion Free
+      </a>
+    </div>
+  );
+
   return (
     <header className="header">
       <div className="header__wrapper">
         <HomeLogo />
-        <div className="registration">
-          <div className="registration__log">Log In</div>
-          <button type="button" className="button button_header">
-            Try Notion Free
-          </button>
-        </div>
-        <button
-          type="button"
-          className="burger-menu"
-          onClick={() => setMobileMenuActive(!mobileMenuActive)}
-        >
-          <BurgerIcon width="22px" height="22px" className="burger-icon" />
-        </button>
+        {HeaderRegistration}
+        {HeaderBurgerIcon}
       </div>
     </header>
   );

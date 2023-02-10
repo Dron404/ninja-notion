@@ -13,6 +13,7 @@
   & .registration {
     display: flex;
     align-items: center;
+
     @include media-tablet {
       display: none;
     }
@@ -20,12 +21,11 @@
     .registration__log {
       display: block;
       border-radius: 5px;
-      @include font(
-        $style: normal,
+      text-decoration: none;
+      @include font($style: normal,
         $weight: 600,
         $size: 1.5rem,
-        $height: 1.8rem
-      );
+        $height: 1.8rem);
       letter-spacing: 0.5px;
       color: $color-grey-800;
       margin-right: 10px;
@@ -58,6 +58,8 @@
 .logo {
   display: flex;
   align-items: center;
+  text-decoration: none;
+  color: $color-grey-800;
   cursor: pointer;
 
   .logo__image {
@@ -67,12 +69,10 @@
   }
 
   .logo__title {
-    @include font(
-      $style: normal,
+    @include font($style: normal,
       $weight: 600,
       $size: 1.4rem,
-      $height: 1.682rem
-    );
+      $height: 1.682rem);
     margin-left: 5px;
   }
 }
@@ -84,6 +84,7 @@
   padding: 60px;
   max-width: 1392px;
   margin: 0 auto;
+
   @include media-small-descktop {
     flex-direction: column-reverse;
     align-items: center;
@@ -94,70 +95,64 @@
     flex-direction: column;
     align-items: flex-start;
     width: 54%;
+
     @include media-small-descktop {
       align-items: center;
     }
 
     .promo__description-title {
       @include media-small-descktop {
-        @include font(
-          $style: normal,
+        @include font($style: normal,
           $weight: 700,
           $size: 4.8rem,
-          $height: 5.76rem
-        );
+          $height: 5.76rem);
         text-align: center;
       }
+
       @include media-tablet {
-        @include font(
-          $style: normal,
+        @include font($style: normal,
           $weight: 700,
           $size: 4rem,
-          $height: 4.8rem
-        );
+          $height: 4.8rem);
         text-align: center;
       }
+
       @include media-mobile {
-        @include font(
-          $style: normal,
+        @include font($style: normal,
           $weight: 700,
           $size: 3rem,
-          $height: 3.6rem
-        );
+          $height: 3.6rem);
         text-align: center;
       }
     }
 
     .promo__description-text {
-      @include font(
-        $style: normal,
+      @include font($style: normal,
         $weight: 600,
         $size: 1.8rem,
-        $height: 2.3rem
-      );
+        $height: 2.3rem);
       color: $header-promo-text;
       letter-spacing: 0;
       margin: 0;
       margin: 20px 0;
+
       @include media-small-descktop {
         text-align: center;
       }
+
       @include media-tablet {
-        @include font(
-          $style: normal,
+        @include font($style: normal,
           $weight: 600,
           $size: 1.6rem,
-          $height: 1.92rem
-        );
+          $height: 1.92rem);
         text-align: center;
       }
+
       @include media-mobile {
-        @include font(
-          $style: normal,
+        @include font($style: normal,
           $weight: 600,
           $size: 1.4rem,
-          $height: 1.68rem
-        );
+          $height: 1.68rem);
         text-align: center;
       }
     }
@@ -169,12 +164,10 @@
     }
 
     .promo__description-subtext {
-      @include font(
-        $style: normal,
+      @include font($style: normal,
         $weight: 500,
         $size: 1.35rem,
-        $height: 1.7rem
-      );
+        $height: 1.7rem);
       color: $header-promo-text;
       letter-spacing: 0;
       margin-top: 30px;
@@ -186,10 +179,12 @@
       grid-template-columns: repeat(5, 1fr);
       gap: 10px;
       align-items: center;
+
       @include media-tablet {
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: auto;
       }
+
       @include media-mobile {
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: auto;
@@ -220,6 +215,7 @@
   padding: 30px;
   display: flex;
   justify-content: space-between;
+
   @include media-mobile {
     flex-direction: column;
     align-items: center;
@@ -230,6 +226,7 @@
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
+
     @include media-small-descktop {
       flex-direction: column;
       align-items: center;
@@ -269,12 +266,10 @@
       background-color: $lang-hover;
       border: 1px solid $button-home-select;
       border-radius: 5px;
-      @include font(
-        $style: normal,
+      @include font($style: normal,
         $weight: 600,
         $size: 1.5rem,
-        $height: 1.7rem
-      );
+        $height: 1.7rem);
       letter-spacing: 0;
       color: $color-grey-800;
       cursor: pointer;
@@ -307,12 +302,10 @@
       border-radius: 5px;
       box-shadow: 0 4px 18px rgba(0 0 0 / 4%), 0 2px 8px rgba(0 0 0 / 3%),
         0 1px 3px rgba(0 0 0 / 2%), 0 0.5px 1px rgba(0 0 0 / 1%);
-      @include font(
-        $style: normal,
+      @include font($style: normal,
         $weight: 400,
         $size: 1.4rem,
-        $height: 1.5rem
-      );
+        $height: 1.5rem);
       letter-spacing: 0;
       color: $color-dark-400;
 
@@ -334,10 +327,12 @@
     display: flex;
     justify-content: space-around;
     padding-right: 20px;
+
     @include media-tablet {
       flex-direction: column-reverse;
       align-items: center;
     }
+
     @include media-mobile {
       padding-top: 20px;
     }
@@ -349,12 +344,10 @@
       .social-container__link {
         margin-top: 10px;
         text-decoration: none;
-        @include font(
-          $style: normal,
+        @include font($style: normal,
           $weight: 500,
           $size: 1.6rem,
-          $height: 1.8rem
-        );
+          $height: 1.8rem);
         letter-spacing: 0;
         color: $header-promo-text;
         cursor: pointer;
@@ -373,12 +366,10 @@
 
     .year-production {
       margin-top: 15px;
-      @include font(
-        $style: normal,
+      @include font($style: normal,
         $weight: 500,
         $size: 1.4rem,
-        $height: 1.6rem
-      );
+        $height: 1.6rem);
       color: $header-promo-text;
       user-select: none;
     }
@@ -430,16 +421,13 @@
     border-radius: 5px;
     border: none;
     border: 1px solid $button-home-select;
-    box-shadow: 0px 0.32592591643333435px 0.7333333492279053px 0px
-        rgb(0 0 0 / 12%),
+    box-shadow: 0px 0.32592591643333435px 0.7333333492279053px 0px rgb(0 0 0 / 12%),
       0px 1.540740728378296px 2.866666555404663px 0px rgb(0 0 0 / 7%),
       0px 4px 9px 0px rgb(0 0 0 / 5%);
-    @include font(
-      $style: normal,
+    @include font($style: normal,
       $weight: 600,
       $size: 1.8rem,
-      $height: 2.16rem
-    );
+      $height: 2.16rem);
     letter-spacing: 0.3px;
     cursor: pointer;
     transition: all ease 0.2s;
@@ -452,6 +440,7 @@
   .mobile-try {
     background-color: $button-header;
     color: $color-base-300;
+
     &:hover {
       background-color: $color-red-500;
     }
