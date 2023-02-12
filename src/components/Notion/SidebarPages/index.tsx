@@ -7,7 +7,6 @@ import { ButtonMini } from "../ButtonMini/";
 import { ReactComponent as AddSVG } from "../../../assets/img/svg/add.svg";
 import { main } from "../../../data/languages/main";
 import { useAppSelector } from "../../../hooks/redux";
-import { HomePage } from "../../../pages/HomePage";
 
 export const SidebarPages = (): React.ReactElement => {
   const { user, lang, favoritePage } = useAppSelector(

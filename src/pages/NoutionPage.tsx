@@ -2,16 +2,11 @@ import React from "react";
 import { Content } from "../components/Notion/Content";
 import { Header } from "../components/Notion/Header";
 import { Sidebar } from "../components/Notion/Sidebar";
-import { IStateContext } from "../types/interface";
 
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { gerUser } from "../store/user/user.action";
-import SkeletonSidebar from "../components/Notion/Skeleton/SkeletonSidebar";
-import { getLocalStorage } from "../utils/strorage/localStorage";
 
-export const StateContext = React.createContext<Partial<IStateContext>>({});
-
-export function NoutionPage() {
+function NoutionPage() {
   const userLogin = {
     email: "onebelbiz@gmail.com",
     password: "1111",
@@ -43,3 +38,5 @@ export function NoutionPage() {
     </>
   );
 }
+
+export default NoutionPage;

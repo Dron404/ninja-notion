@@ -15,8 +15,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
 import getRandomEmojis from "../../../utils/getRandomEmojis";
 import getRandomCover from "../../../utils/getRandomCover";
-import { useParams } from "react-router-dom";
-import UserService from "../../../store/user/user.action";
+// import UserService from "../../../store/user/user.action";
 import { SidebarPage } from "../SidebarPage";
 
 export const Content = (): React.ReactElement => {
@@ -25,8 +24,6 @@ export const Content = (): React.ReactElement => {
   );
   const data = main[lang];
 
-  const { pageId } = useParams();
-
   const dispatch = useAppDispatch();
   const {
     updateActivePageIcon,
@@ -34,7 +31,7 @@ export const Content = (): React.ReactElement => {
     updateActivePageCoverPosition,
     updateActivePage,
     updateArrayPage,
-    updateUserPages,
+    // updateUserPages,
   } = userSlice.actions;
 
   React.useEffect(() => {
