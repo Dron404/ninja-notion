@@ -1,15 +1,31 @@
-@mixin font ($style, $weight, $size, $height) {
+@mixin font($style, $weight, $size, $height) {
   font-style: $style;
   font-weight: $weight;
   font-size: $size;
   line-height: $height;
 }
 
-;
-
-@mixin button ($width, $height, $bcgr-color, $color) {
+@mixin button($width, $height, $bcgr-color, $color) {
   width: $width;
   height: $height;
   background-color: $bcgr-color;
   color: $color;
+}
+
+@mixin media-small-descktop {
+  @media (max-width: $descktop-small-width) {
+    @content;
+  }
+}
+
+@mixin media-tablet {
+  @media (max-width: $tablet-width) {
+    @content;
+  }
+}
+
+@mixin media-mobile {
+  @media (max-width: $mobile-width) {
+    @content;
+  }
 }

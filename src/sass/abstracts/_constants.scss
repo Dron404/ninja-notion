@@ -1,20 +1,23 @@
-$text-white: #fff;
+$button-header: #e16259;
+$header-promo-text: #00000099;
+$button-home-select: rgba(0, 0, 0, 0.15);
+$lang-hover: #f4f4f4;
+$color-not-found-title: #37352f;
+$color-not-found-button: #2383e2;
+$color-not-found-eyes: rgba(55, 53, 47);
 
 $color-light: rgb(255 255 255/77%);
 
 $color-grey: rgb(0 0 0/10%);
 $color-grey-200: rgb(0 0 0/20%);
 $color-grey-300: rgb(0 0 0/40%);
-$color-grey-400: rgb(0 0 0/60%); // icon
-$color-grey-500: rgb(0 0 0/70%);
+$color-grey-400: rgb(0 0 0/60%);
 $color-grey-600: #111;
 $color-grey-800: #040404;
 
 $color-base-100: #fff;
-$color-base-110: #fbfbfa; // aside
 $color-base-120: #fcfcfc;
-$color-base-130: rgba(55, 53, 47, 0.08);
-$color-base-140: #f9f9f9; // hover button
+$color-base-140: #f9f9f9;
 $color-base-200: #f6f5f4;
 $color-base-250: #f1efee;
 $color-base-300: #fffefc;
@@ -28,8 +31,8 @@ $color-red-300: #ffa8a8;
 $color-red-400: #e1645b;
 $color-red-500: #ea4e43;
 $color-red-520: #e14133;
-$color-red-540: #d73223;
-$color-red-600: #7d1e17;
+$color-red-540: #d73223; // btn hover
+$color-red-600: #7d1e17; // btn active
 
 $color-orange-200: #fce7d9;
 $color-orange-300: #f7bc97;
@@ -73,7 +76,13 @@ $color-purple-540: #8029b3;
 $color-purple-600: #562772;
 
 $color-dark-200: #fff;
+$color-dark-250: hsla(0, 0%, 50%, 0.2);
 $color-dark-300: hsla(0, 0%, 100%, 0.2);
 $color-dark-400: #a6a6a6;
 $color-dark-500: #1a1a1a;
 $color-dark-600: #000;
+
+// device width
+$descktop-small-width: 1000px;
+$tablet-width: 769px;
+$mobile-width: 400px;
