@@ -24,6 +24,7 @@
     "lodash": "^4.17.21",
     "normalize-scss": "^7.0.1",
     "react": "^18.2.0",
+    "react-content-loader": "^6.2.0",
     "react-dom": "^18.2.0",
     "react-easy-emoji": "^1.8.1",
     "react-query": "^3.39.3",
