@@ -19,6 +19,7 @@
     "@types/react-redux": "^7.1.25",
     "@types/react-router-dom": "^5.3.3",
     "concurrently": "^7.6.0",
+    "copy-to-clipboard": "^3.3.3",
     "emojibase-data": "^7.0.1",
     "lodash": "^4.17.21",
     "normalize-scss": "^7.0.1",

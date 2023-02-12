@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./UserAvatar.module.scss";
 import { IUserAvatar } from "../../../types/interface";
+import { ReactComponent as UserSVG } from "../../../assets/img/svg/user.svg";
 
 export const UserAvatar = ({ url, size }: IUserAvatar): React.ReactElement => {
   return (
@@ -9,7 +10,7 @@ export const UserAvatar = ({ url, size }: IUserAvatar): React.ReactElement => {
         className={styles.avatar}
         style={{ width: `${size}px`, height: `${size}px` }}
       >
-        <img className={styles.avatar__img} src={url} />
+        {url ? <img className={styles.avatar__img} src={url} /> : <UserSVG />}
       </div>
     </>
   );
