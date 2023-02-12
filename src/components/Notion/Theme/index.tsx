@@ -2,31 +2,36 @@ import React from "react";
 import styles from "./Theme.module.scss";
 import { ButtonDefault } from "../ButtonDefault";
 import { Menu } from "@headlessui/react";
-import { ITheme } from "../../../types/interface";
 import { themes } from "../../../data/languages/theme";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { userSlice } from "../../../store/user/user.slice";
+import { Ttheme } from "../../../types/types";
+import { setLocalStorage } from "../../../utils/strorage/localStorage";
 
 export const Theme: React.FC = () => {
-  const lang = "en";
-  const code = "dark";
+  const dispatch = useAppDispatch();
+  const { theme, lang } = useAppSelector((store) => store.userReducer);
+  const { updateTheme } = userSlice.actions;
 
-  const activeThemes = themes.find((theme) => theme.code === code);
-  const [theme, setTheme] = React.useState(activeThemes);
-  const handleChangeTheme = (theme: ITheme) => {
-    setTheme(theme);
+  const activeThemes = themes.find((t) => t.code === theme);
+
+  const handleChangeTheme = (theme: Ttheme) => {
+    setLocalStorage("theme", theme);
+    dispatch(updateTheme());
   };
 
   return (
     <Menu as="div" className={`${styles.menu} notion-popup__menu`}>
       <Menu.Button className={styles.button}>
-        <ButtonDefault text={String(theme?.name[lang])} type="default" />
+        <ButtonDefault text={String(activeThemes?.name[lang])} type="default" />
       </Menu.Button>
       <Menu.Items className={`${styles.popup} notion-popup__body`}>
         {themes.map((t, index) =>
-          t.code !== theme?.code ? (
+          t.code !== activeThemes?.code ? (
             <div
               className={styles.langues}
-              key={index}
-              onClick={() => handleChangeTheme(t)}
+              key={t.code}
+              onClick={() => handleChangeTheme(t.code)}
             >
               <div className={styles.langues__name}>{t.name[lang]}</div>
               <div className={styles.langues__description}>
@@ -37,7 +42,7 @@ export const Theme: React.FC = () => {
             <div
               className={`${styles.langues} ${styles.langues__active}`}
               key={index}
-              onClick={() => handleChangeTheme(t)}
+              onClick={() => handleChangeTheme(t.code)}
             >
               <div className={styles.langues__name}>{t.name[lang]}</div>
               <div className={styles.langues__description}>

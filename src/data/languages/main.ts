@@ -1,5 +1,6 @@
 export const main = {
   en: {
+    text_workspace: "Workspace",
     text_upload_file: "Upload file",
     text_limit_pixel: "Images wider than 1500 pixels work best",
     text_limit_file: "The maximum size per file is 5 MB.",
@@ -39,6 +40,7 @@ export const main = {
     text_log_out_description:
       "Log out of all other active sessions on other devices besides this one.",
     text_update: "Update",
+    text_update_password: "Update password",
     text_cancel: "Cancel",
     text_language: "Language",
     text_language_destcription:
@@ -69,15 +71,20 @@ export const main = {
     text_add_comment: "Add comment",
     text_add_a_comment: "Add a comment...",
     text_type_for_commands: "Type '/' for commands",
+    text_random: "Random",
+    text_you_pages: "You pages",
+    text_change_cover: "Change cover",
+    text_home_page: "Home page",
   },
 
   pl: {
+    text_workspace: "Obszar roboczy",
     text_upload_file: "Prześlij plik",
     text_limit_pixel:
       "Najlepiej sprawdzają się obrazy szersze niż 1500 pikseli.",
     text_limit_file: "Maksymalny rozmiar pliku to 5 MB.",
     text_log_out: "Wyloguj się",
-    text_s_notion: "Wyobrażenie",
+    text_s_notion: "Notion",
     text_free_plan: "Darmowy plan",
     text_home: "Strona główna",
     text_add: "Dodaj stronę",
@@ -113,6 +120,7 @@ export const main = {
     text_log_out_description:
       "Wyloguj się ze wszystkich innych aktywnych sesji na innych urządzeniach poza tym jednym.",
     text_update: "Aktualizuj",
+    text_update_password: "Aktualizuj hasło",
     text_cancel: "Anuluj",
     text_language: "Język",
     text_language_destcription:
@@ -144,14 +152,19 @@ export const main = {
     text_add_comment: "Dodaj komentarz",
     text_add_a_comment: "Dodaj komentarz...",
     text_type_for_commands: "Wpisz '/' dla poleceń",
+    text_random: "Losowy",
+    text_you_pages: "Twoje strony",
+    text_change_cover: "Zmienić okładkę",
+    text_home_page: "Strona główna",
   },
   ru: {
+    text_workspace: "Workspace",
     text_upload_file: "Загрузить файл",
     text_limit_pixel:
       "Лучше всего подходят изображения шириной более 1500 пикселей",
     text_limit_file: "Максимальный размер одного файла - 5 МБ.",
     text_log_out: "Выйти из системы",
-    text_s_notion: "'s Notion",
+    text_s_notion: "'Notion",
     text_free_plan: "Бесплатный план",
     text_home: "Главная страница",
     text_add: "Добавить страницу",
@@ -187,6 +200,7 @@ export const main = {
     text_log_out_description:
       "Выйдите из всех других активных сеансов на других устройствах, кроме этого.",
     text_update: "Обновить",
+    text_update_password: "Обновить пароль",
     text_cancel: "Отменить",
     text_language: "Язык",
     text_language_destcription:
@@ -218,5 +232,9 @@ export const main = {
     text_add_comment: "Добавить комментарий",
     text_add_a_comment: "Добавить комментарий...",
     text_type_for_commands: "Введите '/' для команд",
+    text_random: "Случайный",
+    text_you_pages: "Ваши страницы",
+    text_change_cover: "Сменить обложку",
+    text_home_page: "Домашняя страница",
   },
 };

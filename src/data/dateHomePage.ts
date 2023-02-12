@@ -1,13 +1,14 @@
 import { IPage } from "../types/interface";
 
 import g_001 from "../assets/img/cover/g_001.jpg";
+import getRandomCover from "../utils/getRandomCover";
 
-export const dataPage: IPage = {
-  id: "hashdasdas",
-  content: "",
-  name: "Name page",
-  icon: "1F605",
-  comment: "",
+const dateHomePage: IPage = {
+  _id: "home",
+  content: "Example content. Welcome to my ninja notion clone!",
+  name: "Home page",
+  icon: "🏠",
+  comment: "Example you comment",
   favorite: false,
   property: {
     font: "default",
@@ -18,8 +19,10 @@ export const dataPage: IPage = {
   dataAdd: "2023-01-01",
   dataMod: "2023-01-01",
   cover: {
-    url: "",
+    url: getRandomCover(),
     position: 100,
   },
   children_page: [],
 };
+
+export default dateHomePage;

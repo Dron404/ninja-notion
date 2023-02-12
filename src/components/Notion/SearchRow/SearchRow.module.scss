@@ -14,6 +14,8 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     padding: 7px 14px;
+    text-decoration: none;
+    color: var(--color-text);
 
     &:hover .search__enter {
       display: flex;

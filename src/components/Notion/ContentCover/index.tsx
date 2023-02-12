@@ -1,19 +1,19 @@
 import React from "react";
 import styles from "./ContentCover.module.scss";
-
 import { ContentCoverSettings } from "../ContentCoverSettings";
-
-//test state
-import { StateContext } from "../../../pages/NoutionPage";
 import { main } from "../../../data/languages/main";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { userSlice } from "../../../store/user/user.slice";
 
 export const ContentCover: React.FC = () => {
-  const lang = "en";
+  const dispatch = useAppDispatch();
+  const { updateActivePageCoverPosition } = userSlice.actions;
+
+  const { lang, activePage } = useAppSelector((store) => store.userReducer);
+
   const data = main[lang];
 
-  const { context } = React.useContext(StateContext);
-
-  const styleFullWidth = context?.pageState?.property?.full_width
+  const styleFullWidth = activePage?.property?.full_width
     ? styles.cover__fullWidth
     : styles.cover__defaultWidth;
 
@@ -30,7 +30,7 @@ export const ContentCover: React.FC = () => {
   };
 
   let isMousedown = false;
-  let start = Number(context?.pageState.cover?.position);
+  let start = Number(activePage?.cover?.position);
 
   // TESTING
   React.useEffect(() => {
@@ -49,6 +49,7 @@ export const ContentCover: React.FC = () => {
 
         if (ref.current) {
           ref.current.style.backgroundPosition = `center ${newPosition}%`;
+          dispatch(updateActivePageCoverPosition(newPosition));
         }
       }
     });
@@ -57,28 +58,30 @@ export const ContentCover: React.FC = () => {
         isMousedown = false;
       }
     });
-  }, [context?.pageState.cover?.position]);
+  }, [activePage?.cover?.position]);
 
   return (
     <>
       <div className={styles.cover} data-reposition={reposition}>
-        {context?.pageState.cover?.url && (
+        {activePage?.cover?.url && (
           <div
             className={styles.cover__bg}
             ref={ref}
             style={{
-              backgroundPosition: `center ${context?.pageState.cover?.position}%`,
-              backgroundImage: `url(${context?.pageState.cover?.url})`,
+              backgroundPosition: `center ${activePage?.cover?.position}%`,
+              backgroundImage: `url(${activePage?.cover?.url})`,
             }}
           >
-            <div className={styles.cover__wrapper + " " + styleFullWidth}>
-              <div className={styles.cover__buttons}>
-                <div className={styles.button} onMouseDown={handleReposition}>
-                  {textReposition}
+            {activePage._id !== "home" && (
+              <div className={styles.cover__wrapper + " " + styleFullWidth}>
+                <div className={styles.cover__buttons}>
+                  <div className={styles.button} onMouseDown={handleReposition}>
+                    {textReposition}
+                  </div>
+                  <ContentCoverSettings cName={styles.button} />
                 </div>
-                <ContentCoverSettings cName={styles.button} />
               </div>
-            </div>
+            )}
           </div>
         )}
       </div>

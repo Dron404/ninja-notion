@@ -1,16 +1,17 @@
 .body {
-  width: 40vh;
-  min-width: 180px;
+  width: 360px;
   max-height: 400px;
   overflow-y: scroll;
   padding: 7px;
+  display: flex;
+  flex-flow: row wrap;
 
   &::-webkit-scrollbar {
     width: 10px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: var(--color-hover);
+    background-color: var(--color-icon);
   }
 }
 

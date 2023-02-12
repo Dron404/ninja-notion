@@ -4,16 +4,20 @@ import { INotionButton } from "../../../types/interface";
 import { Link } from "react-router-dom";
 
 export const Button: React.FC<INotionButton> = ({
-  text,
+  text = "",
   icon,
   link,
   cName = "",
   hotkey,
   handle,
 }) => {
+  const onClick = () => {
+    handle && handle();
+  };
+
   return (
     <>
-      <div className={`${styles.button} ${cName}`} onClick={handle}>
+      <div className={`${styles.button} ${cName}`} onClick={onClick}>
         {link ? (
           <Link
             to={link}
@@ -31,7 +35,10 @@ export const Button: React.FC<INotionButton> = ({
             )}
           </Link>
         ) : (
-          <div className={`${styles.button__link}  button__link`} tabIndex={0}>
+          <div
+            className={`${styles.button__link}  button__link`}
+            onClick={handle}
+          >
             <div className={styles.button__group}>
               {icon && <div className="button__icon">{icon}</div>}
               {text && <div className="button__text">{text}</div>}

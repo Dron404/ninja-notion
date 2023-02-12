@@ -10,12 +10,12 @@ export const ButtonTab: React.FC<IButtonTab> = ({
   handle,
 }) => {
   const styleStatus = tab === target ? styles.tab__active : "";
+  const onClick = () => {
+    handle && handle(target);
+  };
   return (
     <>
-      <div
-        className={`${styles.tab} ${styleStatus}`}
-        onClick={() => handle(target)}
-      >
+      <div className={`${styles.tab} ${styleStatus}`} onClick={onClick}>
         <Button text={text} />
       </div>
     </>

@@ -7,6 +7,7 @@
   --color-icon: #959595;
   --color-bg-code: #f1f1f1;
   --color-active: #258cf4;
+  --color-active-svg: #ffd19e;
 }
 
 [data-theme="dark"] {
@@ -224,4 +225,9 @@ h1 {
 
 .hr-line {
   border-bottom: 1px solid var(--color-hover);
+}
+
+.skeleton {
+  background-color: transparent;
+  opacity: 0.5;
 }

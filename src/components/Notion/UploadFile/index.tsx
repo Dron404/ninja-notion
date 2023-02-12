@@ -1,9 +1,10 @@
 import React from "react";
 import styles from "./UploadFile.module.scss";
 import { main } from "../../../data/languages/main";
+import { useAppSelector } from "../../../hooks/redux";
 
 export const UploadFile: React.FC = () => {
-  const lang = "en";
+  const { lang } = useAppSelector((store) => store.userReducer);
   const data = main[lang];
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {

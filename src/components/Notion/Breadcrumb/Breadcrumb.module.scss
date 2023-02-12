@@ -6,7 +6,6 @@
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-
   height: 45px;
 
   &__link {
@@ -23,6 +22,14 @@
     list-style-type: none;
     align-items: center;
     gap: 3px;
+
+    &:first-child {
+      .button__icon {
+        background-color: var(--color-active-svg);
+        border-radius: 4px;
+        padding: 3px 2px;
+      }
+    }
 
     &::after {
       content: "/";

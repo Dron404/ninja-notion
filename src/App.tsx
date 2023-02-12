@@ -5,6 +5,13 @@ import { HomePage } from "./pages/HomePage";
 import { LoginPage } from "./pages/LoginPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { NoutionPage } from "./pages/NoutionPage";
+import {
+  getLocalStorage,
+  setLocalStorage,
+} from "./utils/strorage/localStorage";
+
+if (getLocalStorage("lang")) setLocalStorage("lang", "en");
+if (getLocalStorage("theme")) setLocalStorage("theme", "light");
 
 function App() {
   return (

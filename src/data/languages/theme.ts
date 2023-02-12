@@ -9,7 +9,7 @@ export const themes: ITheme[] = [
   {
     code: "light",
     name: { ru: "Светлая", en: "Light", pl: "Jasny" },
-    description: { ru: "Темная тема", en: "Dark theme", pl: "Jasny temat" },
+    description: { ru: "Светлая тема", en: "Light theme", pl: "Jasny temat" },
   },
   {
     code: "cobalt2",

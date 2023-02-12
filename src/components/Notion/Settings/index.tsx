@@ -1,36 +1,111 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Button } from "../Button";
 import styles from "./Settings.module.scss";
 import { ReactComponent as SettingsSVG } from "../../../assets/img/svg/setting.svg";
 import { ReactComponent as LanguageSVG } from "../../../assets/img/svg/language.svg";
 import { ReactComponent as ThemeSVG } from "../../../assets/img/svg/theme.svg";
+import { ReactComponent as UserSVG } from "../../../assets/img/svg/user.svg";
 
-import { UserAvatar } from "../../User/UserAvatar";
+import { UserAvatar } from "../UserAvatar";
 import { ButtonDefault } from "../ButtonDefault";
 import { SettingsTab } from "../SettingsTab";
 import { Language } from "../Language";
 import { Theme } from "../Theme";
 import { main } from "../../../data/languages/main";
-import { AVATAR_SIZE_M, AVATAR_SIZE_XXL } from "../../../data/constants";
+import { AVATAR_SIZE_M } from "../../../data/constants";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { userSlice } from "../../../store/user/user.slice";
+import UserServices from "../../../store/user/user.action";
+import { IUserData } from "../../../types/interface";
 
 export const Settings: React.FC = () => {
-  const lang = "en";
+  const dispatch = useAppDispatch();
+  const { user, lang } = useAppSelector((store) => store.userReducer);
+
+  const { updateUser, updateUserName, updateUserPassword } = userSlice.actions;
+
   const data = main[lang];
 
-  const avatarUrl =
-    "https://lh3.googleusercontent.com/a-/AFdZucrnvCnEsd0erWUTqf6_bmSJLRbWfPGvfHrSb5w1yg=s100";
+  const avatarUrl = user?.avatar || "";
+  const email = user?.email || "";
+  const name = user?.name || "";
+  const password = user?.password || "";
 
   const [tab, setTab] = React.useState<string>("account");
   const [resetPassword, setResetPassword] = React.useState<boolean>(false);
   const handleResetPassword = () => setResetPassword(true);
 
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const openModal = () => setIsOpen(true);
+  const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false);
+  const openModal = () => setIsOpenModal(true);
   const closeModal = (e: React.MouseEvent<Element>) => {
     if ((e.target as Element).classList.contains("notion__modal")) {
-      setIsOpen(false);
+      handleCancelUser();
     }
   };
+
+  React.useEffect(() => {
+    setDefaultUser(user);
+  }, [isOpenModal]);
+
+  const [userName, setUserName] = React.useState<string>(name);
+
+  const [userPassword, setUserPassword] = React.useState<string>("");
+  const [userPasswordRepeat, setUserPasswordRepeat] =
+    React.useState<string>("");
+
+  const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
+    setUserName(event.target.value);
+  };
+
+  const isUpdatePassword = () =>
+    !!(
+      userPassword.length > 3 &&
+      userPasswordRepeat.length > 3 &&
+      userPassword === userPasswordRepeat
+    );
+
+  const handleUpdatePassword = () => {
+    dispatch(updateUserPassword(userPassword));
+    handleUpdateUser(userPassword);
+    setUserPassword("");
+    setUserPasswordRepeat("");
+  };
+
+  const handleChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setUserPassword(event.target.value);
+  };
+
+  const handleChangePasswordRepeat = (event: ChangeEvent<HTMLInputElement>) => {
+    setUserPasswordRepeat(event.target.value);
+  };
+
+  const handleUpdateUser = async (pass = "") => {
+    dispatch(updateUserName(userName));
+    if (UserServices && user) {
+      const userData: IUserData = password
+        ? { ...user, ...{ password: pass } }
+        : user;
+      console.log(userData);
+      const response = await UserServices.updateUser(userData);
+      if (response?.status === 200) setIsOpenModal(false);
+    }
+  };
+
+  const [defaultUser, setDefaultUser] = React.useState(user);
+
+  const handleCancelUser = () => {
+    if (defaultUser) {
+      dispatch(updateUser(defaultUser));
+      setIsOpenModal(false);
+    }
+  };
+
+  const avatar =
+    avatarUrl.length > 0 ? (
+      <UserAvatar url={avatarUrl} size={AVATAR_SIZE_M} />
+    ) : (
+      <UserSVG />
+    );
 
   return (
     <>
@@ -39,23 +114,25 @@ export const Settings: React.FC = () => {
         text={data.text_setting}
         handle={openModal}
       />
-      {isOpen && (
+      {isOpenModal && (
         <div className="notion__modal" onMouseDown={closeModal}>
           <div className="notion__modal_body">
             <div className={styles.settings}>
               <div className={styles.settings__menu}>
                 <div className={styles.settings__group}>
-                  <div className={styles.settings__name}>email@gmail.com</div>
+                  <div className={styles.settings__name}>{email}</div>
                   <SettingsTab
                     text={data.text_account}
-                    icon={<UserAvatar url={avatarUrl} size={AVATAR_SIZE_M} />}
+                    icon={avatar}
                     state={tab}
                     target="account"
                     handle={setTab}
                   />
                 </div>
                 <div className={styles.settings__group}>
-                  <div className={styles.settings__name}>Workspace</div>
+                  <div className={styles.settings__name}>
+                    {data.text_workspace}
+                  </div>
 
                   <SettingsTab
                     text={data.text_language}
@@ -85,8 +162,10 @@ export const Settings: React.FC = () => {
                       <div className={styles.settings__title}>
                         {data.text_photo}
                       </div>
-                      <div className={styles.settings__row}>
-                        <UserAvatar url={avatarUrl} size={AVATAR_SIZE_XXL} />
+                      <div
+                        className={`${styles.settings__row} ${styles.settings__avatar}`}
+                      >
+                        {avatar}
                       </div>
                       <div className={styles.settings__row}>
                         <ButtonDefault
@@ -101,9 +180,7 @@ export const Settings: React.FC = () => {
                       </div>
                       <div className={styles.settings__row}>
                         <div className={styles.settings__label}>Email</div>
-                        <div className={styles.settings__email}>
-                          email@gmail.com
-                        </div>
+                        <div className={styles.settings__email}>{email}</div>
                       </div>
 
                       <div className={styles.settings__row}>
@@ -114,6 +191,8 @@ export const Settings: React.FC = () => {
                           type="text"
                           name="name"
                           className={styles.settings__input}
+                          value={userName}
+                          onChange={handleChangeName}
                         />
                       </div>
                     </div>
@@ -148,6 +227,7 @@ export const Settings: React.FC = () => {
                             type="password"
                             name="password"
                             className={styles.settings__input}
+                            onChange={handleChangePassword}
                           />
                           <div className={styles.settings__label}>
                             {data.text_repeat_password}
@@ -156,14 +236,24 @@ export const Settings: React.FC = () => {
                             type="password"
                             name="password_repeat"
                             className={styles.settings__input}
+                            onChange={handleChangePasswordRepeat}
                           />
+                          {isUpdatePassword() && (
+                            <div className={styles.settings__row}>
+                              <ButtonDefault
+                                text={data.text_update_password}
+                                type="primary"
+                                handle={handleUpdatePassword}
+                              />
+                            </div>
+                          )}
                         </div>
                       )}
                     </div>
 
                     <div className={styles.settings__section}>
                       <div className={styles.settings__title}>
-                        ${data.text_log_out_of}
+                        {data.text_log_out_of}
                       </div>
                       <div className={styles.settings__row}>
                         <p className={styles.settings__description}>
@@ -177,8 +267,16 @@ export const Settings: React.FC = () => {
                     </div>
                   </div>
                   <div className={styles.settings__footer}>
-                    <ButtonDefault text={data.text_update} type="primary" />
-                    <ButtonDefault text={data.text_cancel} type="default" />
+                    <ButtonDefault
+                      text={data.text_update}
+                      type="primary"
+                      handle={handleUpdateUser}
+                    />
+                    <ButtonDefault
+                      text={data.text_cancel}
+                      type="default"
+                      handle={handleCancelUser}
+                    />
                   </div>
                 </div>
               )}

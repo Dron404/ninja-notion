@@ -12,119 +12,148 @@ import { ReactComponent as MoveToSVG } from "../../../assets/img/svg/move_to.svg
 
 import { ButtonMini } from "../ButtonMini";
 import { Button } from "../Button";
-
-//test state
-import { StateContext } from "../../../pages/NoutionPage";
-import { copyObject } from "../../../utils/object/copyObject";
-import { IPage } from "../../../types/interface";
-
 import { main } from "../../../data/languages/main";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { userSlice } from "../../../store/user/user.slice";
+import copy from "copy-to-clipboard";
+import SkeletonButtonMini from "../Skeleton/SkeletonButtonMini";
 
 export const HeaderTopbar = (): React.ReactElement => {
-  const [toogleFavorite, setToogleFavorite] = React.useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
-  const handleFavorite = () => {
-    setToogleFavorite(!toogleFavorite);
-  };
+  const {
+    updateActivePageSmallText,
+    updateActivePageFullWidth,
+    updateActivePageFavorite,
+    updateActivePageFont,
+  } = userSlice.actions;
 
-  const { context } = React.useContext(StateContext);
+  const { activePage, lang, isLoading } = useAppSelector(
+    (state) => state.userReducer
+  );
 
-  const lang = "en";
   const data = main[lang];
 
-  const smallText = Boolean(context?.pageState?.property?.small_text);
-  const fullWidth = Boolean(context?.pageState?.property?.full_width);
-  const font = String(context?.pageState?.property?.font);
+  const favorite = Boolean(activePage?.favorite);
+  const smallText = Boolean(activePage?.property?.small_text);
+  const fullWidth = Boolean(activePage?.property?.full_width);
+  const font = activePage?.property?.font || "default";
 
-  const handelSmallText = () => {
-    console.log("setPageState");
+  const handelSmallText = () => dispatch(updateActivePageSmallText(!smallText));
+  const handelFullWidth = () => dispatch(updateActivePageFullWidth(!fullWidth));
+  const handleFont = (fontData: string) => {
+    dispatch(updateActivePageFont(fontData));
   };
+  const handleFavorite = () => dispatch(updateActivePageFavorite(!favorite));
 
-  const handelFullWidth = () => {
-    console.log("setPageState");
+  const hendleCopyUrl = () => {
+    copy(window.location.href);
   };
-
-  const handleFont = (font: string) => {
-    const newPageState: IPage | undefined = copyObject(context?.pageState);
+  const handleDelete = () => {
+    console.log("handleDelete");
   };
 
   return (
     <>
       <div className={styles.topbar}>
-        <ButtonMini
-          icon={toogleFavorite ? <FavoriteSVG /> : <FavoriteActiveSVG />}
-          handle={handleFavorite}
-        />
-        <Menu as="div" className={`${styles.topbar__menu} notion-popup__menu`}>
-          <Menu.Button className={styles.topbar__more}>
-            <ButtonMini icon={<MoreSVG />} />
-          </Menu.Button>
-          <Menu.Items className={`${styles.topbar__popup} notion-popup__body`}>
-            <div className={styles.topbar__style}>
-              <div className={styles.topbar__title}>{data.text_style}</div>
-              <div className={styles.topbar__row}>
-                <ButtonFont
-                  description={data.text_style_dafault}
-                  font={font}
-                  target="default"
-                  handle={handleFont}
-                />
+        {isLoading ? (
+          <SkeletonButtonMini />
+        ) : (
+          <ButtonMini
+            icon={favorite ? <FavoriteSVG /> : <FavoriteActiveSVG />}
+            handle={handleFavorite}
+          />
+        )}
+        {isLoading ? (
+          <SkeletonButtonMini />
+        ) : (
+          <Menu
+            as="div"
+            className={`${styles.topbar__menu} notion-popup__menu`}
+          >
+            <Menu.Button className={styles.topbar__more}>
+              <ButtonMini icon={<MoreSVG />} />
+            </Menu.Button>
 
-                <ButtonFont
-                  description={data.text_style_serif}
-                  font={font}
-                  target="serif"
-                  handle={handleFont}
+            <Menu.Items
+              className={`${styles.topbar__popup} notion-popup__body`}
+            >
+              <div className={styles.topbar__style}>
+                <div className={styles.topbar__title}>{data.text_style}</div>
+                <div className={styles.topbar__row}>
+                  <ButtonFont
+                    description={data.text_style_dafault}
+                    font={font}
+                    target="default"
+                    handle={handleFont}
+                  />
+
+                  <ButtonFont
+                    description={data.text_style_serif}
+                    font={font}
+                    target="serif"
+                    handle={handleFont}
+                  />
+                  <ButtonFont
+                    description={data.text_style_mono}
+                    font={font}
+                    target="mono"
+                    handle={handleFont}
+                  />
+                </div>
+              </div>
+              <div className="hr-line"></div>
+              <div className={styles.topbar__wrapper}>
+                <ButtonSwitch
+                  text={data.text_small_text}
+                  status={smallText}
+                  handle={handelSmallText}
                 />
-                <ButtonFont
-                  description={data.text_style_mono}
-                  font={font}
-                  target="mono"
-                  handle={handleFont}
+                <ButtonSwitch
+                  text={data.text_full_width}
+                  status={fullWidth}
+                  handle={handelFullWidth}
                 />
               </div>
-            </div>
-            <div className="hr-line"></div>
-            <div className={styles.topbar__wrapper}>
-              <ButtonSwitch
-                text={data.text_small_text}
-                status={smallText}
-                handle={handelSmallText}
-              />
-              <ButtonSwitch
-                text={data.text_full_width}
-                status={fullWidth}
-                handle={handelFullWidth}
-              />
-            </div>
-            <div className="hr-line"></div>
-            <div className={styles.topbar__wrapper}>
+              <div className="hr-line"></div>
+              <div className={styles.topbar__wrapper}>
+                <Button
+                  icon={<MoveToSVG />}
+                  text={data.text_move_to}
+                  cName={styles.topbar__button}
+                  hotkey="Ctrl+Shft+P"
+                />
+              </div>
+              <div className="hr-line"></div>
+
               <Button
-                icon={<MoveToSVG />}
-                text={data.text_move_to}
+                icon={<FavoriteSVG />}
+                text={
+                  favorite ? data.text_add_favorite : data.text_remove_favorite
+                }
                 cName={styles.topbar__button}
-                hotkey="Ctrl+Shft+P"
+                handle={handleFavorite}
               />
-            </div>
-            <div className="hr-line"></div>
-            <Button
-              icon={<FavoriteSVG />}
-              text={data.text_add_favorite}
-              cName={styles.topbar__button}
-            />
-            <Button
-              icon={<CopySVG />}
-              text={data.text_copy_link}
-              cName={styles.topbar__button}
-              hotkey="Ctrl+Alt+L"
-            />
-            <Button
-              icon={<TrashSVG />}
-              text={data.text_delete}
-              cName={styles.topbar__button}
-            />
-          </Menu.Items>
-        </Menu>
+
+              <Button
+                icon={<CopySVG />}
+                text={data.text_copy_link}
+                cName={styles.topbar__button}
+                hotkey="Ctrl+Alt+L"
+                handle={hendleCopyUrl}
+              />
+
+              {activePage?._id !== "home" && (
+                <Button
+                  icon={<TrashSVG />}
+                  text={data.text_delete}
+                  cName={styles.topbar__button}
+                  handle={handleDelete}
+                />
+              )}
+            </Menu.Items>
+          </Menu>
+        )}
       </div>
     </>
   );

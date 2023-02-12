@@ -8,6 +8,9 @@ export const ButtonDefault: React.FC<IButtonDefault> = ({
   cName = "",
   handle,
 }) => {
+  const onClick = () => {
+    handle && handle();
+  };
   let style = styles.button__default;
   if (type === "danger" || type === "warning" || type === "delete")
     style = styles.button__warning;
@@ -15,7 +18,7 @@ export const ButtonDefault: React.FC<IButtonDefault> = ({
 
   return (
     <>
-      <div className={`${styles.button} ${style}  ${cName}`} onClick={handle}>
+      <div className={`${styles.button} ${style}  ${cName}`} onClick={onClick}>
         {<div className="button__text">{text}</div>}
       </div>
     </>

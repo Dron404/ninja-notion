@@ -3,37 +3,56 @@ import { Button } from "../Button";
 import styles from "./Search.module.scss";
 import { ReactComponent as TopbarSearchSVG } from "../../../assets/img/svg/search.svg";
 import { ReactComponent as CloseSVG } from "../../../assets/img/svg/close.svg";
-import { dataPrivate } from "../../../data/dataPrivate";
 import { SearchRow } from "../SearchRow";
-
+import { useAppSelector } from "../../../hooks/redux";
 import { main } from "../../../data/languages/main";
+import { IPage } from "../../../types/interface";
+import { universalIncludes } from "../../../utils/search/universalIncludes";
 
 export const Search: React.FC = () => {
-  const lang = "en";
+  const { user, arrayPage, lang } = useAppSelector(
+    (store) => store.userReducer
+  );
+
+  const name = user?.name;
   const data = main[lang];
 
   const refSearch = React.useRef<HTMLInputElement>(null);
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false);
 
   const openModal = () => {
-    setIsOpen(true);
+    setIsOpenModal(true);
   };
 
   const closeModal = (e: React.MouseEvent<Element>) => {
     if ((e.target as Element).classList.contains("notion__modal")) {
-      setIsOpen(false);
+      handleCloseModal();
     }
   };
 
-  const [value, setValue] = React.useState<string>("");
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
+  };
+
+  const [search, setSearch] = React.useState<string>("");
+
+  const [dataSearch, setDataSearch] = React.useState<IPage[]>([]);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+    setSearch(e.target.value);
   };
 
   const handleClear = () => {
-    setValue("");
+    setSearch("");
   };
+
+  React.useEffect(() => {
+    if (arrayPage) {
+      setDataSearch(
+        arrayPage.filter((page) => universalIncludes(search, page.name))
+      );
+    }
+  }, [arrayPage, search]);
 
   return (
     <>
@@ -42,7 +61,7 @@ export const Search: React.FC = () => {
         text={data.text_search}
         handle={openModal}
       />
-      {isOpen && (
+      {isOpenModal && (
         <div className="notion__modal" onMouseDown={closeModal}>
           <div className="notion__modal_body">
             <div className={styles.search}>
@@ -54,13 +73,13 @@ export const Search: React.FC = () => {
                   <input
                     ref={refSearch}
                     className={styles.search__input}
-                    placeholder={`${data.text_search} Иван Воробьёв ${data.text_s_notion}`}
+                    placeholder={`${data.text_search} ${name} ${data.text_s_notion}`}
                     type="search"
                     name="search"
                     onChange={handleSearch}
-                    value={value}
+                    value={search}
                   />
-                  {value.length > 0 && (
+                  {search.length > 0 && (
                     <div className={styles.search__clear} onClick={handleClear}>
                       <CloseSVG />
                     </div>
@@ -68,9 +87,13 @@ export const Search: React.FC = () => {
                 </div>
               </div>
               <div className={styles.search__body}>
-                {dataPrivate?.pages ? (
-                  dataPrivate.pages.map((page, index) => (
-                    <SearchRow key={index} page={page} />
+                {dataSearch ? (
+                  dataSearch.map((page, index) => (
+                    <SearchRow
+                      key={index}
+                      page={page}
+                      handle={handleCloseModal}
+                    />
                   ))
                 ) : (
                   <div className={styles.search__notResult}>

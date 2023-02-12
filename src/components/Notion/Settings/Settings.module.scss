@@ -33,7 +33,7 @@
 
   &__flex {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column;
     justify-content: space-between;
   }
 
@@ -90,7 +90,6 @@
 
   &__input {
     all: unset;
-
     display: flex;
     align-items: center;
     width: calc(100% - 20px);
@@ -111,5 +110,15 @@
     display: flex;
     flex-direction: row;
     gap: 10px;
+  }
+  &__avatar {
+    svg {
+      background-color: var(--color-hover);
+      display: block;
+      width: 60px;
+      height: 60px;
+      padding: 10px;
+      border-radius: 50%;
+    }
   }
 }

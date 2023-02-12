@@ -1,4 +1,4 @@
-import { Tfont, Tlanguage, Ttheme } from "./types";
+import { Tlanguage, Ttheme } from "./types";
 
 import {
   RefetchOptions,
@@ -11,18 +11,25 @@ export interface IUserAvatar {
   size: string;
 }
 
+export interface IEmoji {
+  emoji: string;
+}
+
 export interface INotionButton {
   text?: string;
   icon?: React.ReactNode;
   link?: string;
   cName?: string;
+  name?: string;
   toggle?: boolean;
   hotkey?: string;
   target?: string;
   state?: string;
-  id?: string;
+  _id?: string;
   children_page?: INotionButton[] | null;
   padding?: number;
+  fav?: boolean;
+  favorite?: boolean;
   handle?: () => void;
 }
 
@@ -92,7 +99,7 @@ export interface ISettingsTab {
 }
 
 export interface ILanguage {
-  code: string;
+  code: Tlanguage;
   name: string;
   description: string;
 }
@@ -104,7 +111,7 @@ export interface ILanguageList {
 }
 
 export interface ITheme {
-  code: string;
+  code: Ttheme;
   name: ILanguageList;
   description: ILanguageList;
 }
@@ -114,43 +121,45 @@ export interface IValue {
 }
 
 export interface IPage {
-  id: string;
-  content?: string;
-  name?: string;
-  icon?: string;
-  comment?: string;
-  favorite?: boolean;
-  property?: {
-    font?: Tfont;
-    small_text?: boolean;
-    full_width?: boolean;
+  _id: string;
+  content: string;
+  name: string;
+  icon: string;
+  comment: string;
+  favorite: boolean;
+  property: {
+    font: string;
+    small_text: boolean;
+    full_width: boolean;
   };
-  dataTrash?: string;
-  dataAdd?: string;
-  dataMod?: string;
-  cover?: {
+  dataTrash: string;
+  dataAdd: string;
+  dataMod: string;
+  cover: {
     url: string;
     position: number;
   };
-  children_page?: IPage[];
+  children_page: IPage[];
 }
 
 export interface IPages {
-  pages: IPage[] | undefined;
+  pages: IPage[];
 }
 
 export interface IUserData {
-  email: string;
-  password: string;
+  id: string;
+  email?: string;
+  password?: string;
   diskSpace?: number;
   usetSpace?: number;
-  avatar?: string;
-  name?: string;
-  active?: true;
+  avatar: string;
+  name: string;
+  active: boolean;
   token?: string;
-  language?: Tlanguage;
-  theme?: Ttheme;
-  pages?: IPage[];
+  accessToken: string;
+  language: Tlanguage;
+  theme: Ttheme;
+  pages: IPage[];
 }
 
 export interface IUser {
@@ -162,9 +171,9 @@ export interface IUserReturn {
   status: number;
 }
 
-export interface IUserMessage {
-  status: number;
+export interface IUserResponseMessage {
   message: string;
+  status: number;
 }
 
 export interface IReactQuery<T> {
@@ -174,4 +183,52 @@ export interface IReactQuery<T> {
   refetch: <TPageData>(
     options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
   ) => Promise<QueryObserverResult<T | undefined, unknown>>;
+}
+
+export interface IUserEmailPassword {
+  email: string;
+  password: string;
+  name?: string;
+}
+
+export interface IUserPages {
+  pages: IPage[];
+  accessToken: string;
+}
+
+export interface IUserState {
+  user: IUserData | null;
+  isLoading: boolean;
+  error: string;
+  navigate: boolean;
+  activePage: IPage | null;
+  favoritePage: IPage[] | null;
+  trashPage: IPage[] | null;
+  arrayPage: IPage[] | null;
+  breadcrumbs: IPage[] | null;
+  lang: Tlanguage;
+  theme: Ttheme;
+}
+
+export interface ISearchRow {
+  page: IPage;
+  handle: () => void;
+}
+
+export interface IActivePage {
+  activePage: IPage | null;
+  breadcrumbs: IPage[] | null;
+}
+
+export interface IUserPagesReplace {
+  replaceObject: Partial<IPage>;
+  pageId: string;
+  user: IUserData;
+}
+
+export interface IUpdateUserPages {
+  replaceObject: Partial<IPage>;
+  pageId: string;
+  accessToken: string;
+  userPages: IPage[];
 }

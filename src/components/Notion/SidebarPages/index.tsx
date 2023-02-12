@@ -5,35 +5,43 @@ import { Button } from "../Button/";
 import { SidebarPage } from "../SidebarPage/";
 import { ButtonMini } from "../ButtonMini/";
 import { ReactComponent as AddSVG } from "../../../assets/img/svg/add.svg";
-import { ReactComponent as HomeSVG } from "../../../assets/img/svg/home_orange.svg";
-import { dataFavorite } from "../../../data/dataFavorite";
-import { dataPrivate } from "../../../data/dataPrivate";
 import { main } from "../../../data/languages/main";
+import { useAppSelector } from "../../../hooks/redux";
+import { HomePage } from "../../../pages/HomePage";
 
 export const SidebarPages = (): React.ReactElement => {
-  const lang = "en";
+  const { user, lang, favoritePage } = useAppSelector(
+    (store) => store.userReducer
+  );
   const data = main[lang];
 
+  // const dataFavorites = user && user.pages.filter((page) =>  page.favorite)};
   return (
     <>
-      <div className={styles.pages}>
-        <div className={styles.pages__title}>
-          <span>{data.text_favorite}</span>
-        </div>
-        <div className={styles.pages__list}>
-          <div className={`${styles.pages__row} aside-page-row`}>
-            {dataFavorite?.pages?.map((data, index) => (
-              <SidebarPage
-                icon={data.icon}
-                text={data.name}
-                id={data.id}
-                children_page={data?.children_page}
-                key={index}
-              />
-            ))}
+      {favoritePage && (
+        <div className={styles.pages}>
+          <div className={styles.pages__title}>
+            <span>{data.text_favorite}</span>
+          </div>
+          <div className={styles.pages__list}>
+            <div className={`${styles.pages__row} aside-page-row`}>
+              {favoritePage?.map(
+                (data) =>
+                  data.favorite && (
+                    <SidebarPage
+                      icon={data.icon}
+                      text={data.name}
+                      _id={data._id}
+                      children_page={data?.children_page}
+                      key={data._id}
+                      favorite={true}
+                    />
+                  )
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className={styles.pages}>
         <div className={styles.pages__title}>
@@ -42,23 +50,24 @@ export const SidebarPages = (): React.ReactElement => {
         </div>
 
         <Button
-          link={"/pages/1"}
-          text={data.text_home}
-          icon={<HomeSVG />}
-          cName={`home-icon ${styles.pages__home}`}
+          icon="🏠"
+          cName="home_page"
+          text={data.text_home_page}
+          link="/pages/home"
         />
 
         <div className={styles.pages__list}>
           <div className={`${styles.pages__row} aside-page-row`}>
-            {dataPrivate?.pages?.map((data, index) => (
-              <SidebarPage
-                icon={data.icon}
-                text={data.name}
-                id={data.id}
-                children_page={data.children_page}
-                key={index}
-              />
-            ))}
+            {user &&
+              user?.pages?.map((data) => (
+                <SidebarPage
+                  icon={data.icon}
+                  text={data.name}
+                  _id={data._id}
+                  children_page={data?.children_page}
+                  key={data._id}
+                />
+              ))}
           </div>
         </div>
       </div>

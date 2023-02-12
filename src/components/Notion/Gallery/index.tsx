@@ -1,20 +1,15 @@
 import React from "react";
 import styles from "./Gallery.module.scss";
-
 import { dataGallery } from "../../../data/dataGalery";
-
-// test state
-import { StateContext } from "../../../pages/NoutionPage";
-import { copyObject } from "../../../utils/object/copyObject";
+import { useAppDispatch } from "../../../hooks/redux";
+import { userSlice } from "../../../store/user/user.slice";
 
 export const Gallery: React.FC = () => {
-  const { context } = React.useContext(StateContext);
+  const dispatch = useAppDispatch();
+  const { updateActivePageCoverUrl } = userSlice.actions;
+
   const handleSetBackground = (url: string) => {
-    const newState = copyObject(context?.pageState);
-    if (newState && newState.cover) {
-      newState.cover.url = url;
-      context?.setPageState(newState);
-    }
+    dispatch(updateActivePageCoverUrl(url));
   };
   return (
     <>

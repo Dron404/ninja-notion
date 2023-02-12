@@ -6,23 +6,30 @@ import { Button } from "../Button";
 import { EmojiesList } from "../EmojiesList";
 import { ReactComponent as RandomSVG } from "../../../assets/img/svg/random.svg";
 import { ReactComponent as CloseSVG } from "../../../assets/img/svg/close.svg";
-import emoji from "react-easy-emoji";
 
-import { StateContext } from "../../../pages/NoutionPage";
 import { ButtonMini } from "../ButtonMini";
-
 import { main } from "../../../data/languages/main";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { userSlice } from "../../../store/user/user.slice";
+import getRandomEmojis from "../../../utils/getRandomEmojis";
 
 export const ContentIconSettings = (): React.ReactElement => {
-  const lang = "en";
+  const dispatch = useAppDispatch();
+  const { activePage, lang } = useAppSelector((store) => store.userReducer);
+  const { updateActivePageIcon } = userSlice.actions;
+
   const data = main[lang];
 
   const [tab, setTab] = React.useState("emojis");
   const [search, setSearch] = React.useState("");
-  const { context } = React.useContext(StateContext);
 
   const handleChangeSerch = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
+  };
+
+  const handleRemoveIcon = () => dispatch(updateActivePageIcon(""));
+  const handleRandomIcon = () => {
+    dispatch(updateActivePageIcon(getRandomEmojis()));
   };
 
   return (
@@ -30,11 +37,7 @@ export const ContentIconSettings = (): React.ReactElement => {
       <Menu as="div" className={`${styles.menu} notion-popup__menu`}>
         <Menu.Button>
           <div className={styles.icon}>
-            {context?.pageState.icon && (
-              <span className={styles.emoji}>
-                {emoji(context?.pageState.icon)}
-              </span>
-            )}
+            <span className={styles.emoji}>{activePage?.icon}</span>
           </div>
         </Menu.Button>
         <Menu.Items className={`${styles.popup} notion-popup__body`}>
@@ -48,9 +51,13 @@ export const ContentIconSettings = (): React.ReactElement => {
                   handle={setTab}
                 />
               </div>
-              <div className={styles.control__button}>
-                <Button text={data.text_remove} />
-              </div>
+              <Menu.Item>
+                {({ close }) => (
+                  <div className={styles.control__button} onClick={close}>
+                    <Button text={data.text_remove} handle={handleRemoveIcon} />
+                  </div>
+                )}
+              </Menu.Item>
             </div>
             <div className={styles.control__row}>
               <div className={styles.control__search}>
@@ -71,7 +78,12 @@ export const ContentIconSettings = (): React.ReactElement => {
                   />
                 )}
               </div>
-              <Button text="random" icon={<RandomSVG />} />
+
+              <Button
+                text={data.text_random}
+                icon={<RandomSVG />}
+                handle={handleRandomIcon}
+              />
             </div>
 
             <div className={styles.body}>

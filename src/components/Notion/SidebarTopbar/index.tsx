@@ -7,20 +7,24 @@ import { ReactComponent as DragSVG } from "../../../assets/img/svg/drag.svg";
 import { ReactComponent as CheckSVG } from "../../../assets/img/svg/check.svg";
 import { ReactComponent as LogoutSVG } from "../../../assets/img/svg/logout.svg";
 
-import { UserAvatar } from "../../User/UserAvatar";
-
-import { StateContext } from "../../../pages/NoutionPage";
+import { UserAvatar } from "../UserAvatar";
 
 import { Menu } from "@headlessui/react";
 import { ButtonMini } from "../ButtonMini";
 import { Button } from "../Button";
 import { AVATAR_SIZE_L } from "../../../data/constants";
 import { main } from "../../../data/languages/main";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { userSlice } from "../../../store/user/user.slice";
 
 export const SidebarTopbar: React.FC = function slidebar() {
-  const { context } = React.useContext(StateContext);
-  const lang = "en";
+  const dispatch = useAppDispatch();
+  const { lang, navigate } = useAppSelector((state) => state.userReducer);
+  const { toggleNavigate } = userSlice.actions;
+
   const data = main[lang];
+
+  const handletoogle = () => dispatch(toggleNavigate(!navigate));
 
   const avatarUrl =
     "https://lh3.googleusercontent.com/a-/AFdZucrnvCnEsd0erWUTqf6_bmSJLRbWfPGvfHrSb5w1yg=s100";
@@ -87,10 +91,7 @@ export const SidebarTopbar: React.FC = function slidebar() {
         </Menu.Items>
       </Menu>
 
-      <div
-        className={styles.topbar__close}
-        onClick={context?.handleAsideToggle}
-      >
+      <div className={styles.topbar__close} onClick={handletoogle}>
         <TopbarCloseSVG />
       </div>
     </div>

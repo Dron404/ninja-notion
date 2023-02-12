@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { ReactComponent as ToggleSVG } from "../../../assets/img/svg/toggle.svg";
 import { ReactComponent as MoreSVG } from "../../../assets/img/svg/more.svg";
 import { ReactComponent as AddSVG } from "../../../assets/img/svg/add.svg";
-import { ReactComponent as FavoriteSVG } from "../../../assets/img/svg/favorite.svg";
 import { ReactComponent as TrashSVG } from "../../../assets/img/svg/trash.svg";
 import { ReactComponent as CopySVG } from "../../../assets/img/svg/copy.svg";
 import { ReactComponent as DefaultSVG } from "../../../assets/img/svg/default.svg";
@@ -13,35 +12,45 @@ import { ReactComponent as RenameSVG } from "../../../assets/img/svg/rename.svg"
 import { ButtonMini } from "../ButtonMini";
 import { Button } from "../Button";
 import { Menu } from "@headlessui/react";
+import copy from "copy-to-clipboard";
 
 import { main } from "../../../data/languages/main";
+
+import { useAppSelector } from "../../../hooks/redux";
 
 export const SidebarPage: React.FC<INotionButton> = ({
   text,
   icon,
   cName = "",
   toggle,
-  id,
+  _id,
   children_page,
   padding,
 }) => {
-  const lang = "en";
+  const { lang } = useAppSelector((store) => store.userReducer);
   const data = main[lang];
 
   const [toogleStatus, setToogleStatus] = React.useState<boolean>(
     Boolean(toggle)
   );
-  const [toogleFavorite, setToogleFavorite] = React.useState<boolean>(false);
+
   const handleTogle = () => setToogleStatus(!toogleStatus);
-  const handleFavorite = () => {
-    setToogleFavorite(!toogleFavorite);
-  };
+
   const toggleStyle = toogleStatus ? "toggle-active" : "toggle-pasive";
   const newPadding = padding ? padding && padding + 7 : 14;
 
-  const text_favorite = toogleFavorite
-    ? data.text_remove_favorite
-    : data.text_add_favorite;
+  const pageUrl = `/pages/${_id}`;
+  const hendleCopyUrl = () => {
+    copy(pageUrl);
+  };
+
+  const handleDelete = () => {
+    console.log("handleDelete");
+  };
+
+  const handleRename = () => {
+    console.log("handleRename");
+  };
 
   return (
     <>
@@ -57,7 +66,7 @@ export const SidebarPage: React.FC<INotionButton> = ({
             <ToggleSVG />
           </div>
           <Link
-            to="/1"
+            to={pageUrl}
             className={`${styles.buttonPage__link} button__link`}
             tabIndex={0}
           >
@@ -90,48 +99,62 @@ export const SidebarPage: React.FC<INotionButton> = ({
             <Menu.Items
               className={`${styles.buttonPage__popup} notion-popup__body`}
             >
-              <Button
-                icon={<TrashSVG />}
-                text={data.text_delete}
-                cName={styles.buttonPage__button}
-              />
-              <Button
-                icon={<FavoriteSVG />}
-                text={text_favorite}
-                cName={styles.buttonPage__button}
-                handle={handleFavorite}
-              />
-              <Button
-                icon={<CopySVG />}
-                text={data.text_copy_link}
-                cName={styles.buttonPage__button}
-              />
-
-              <Button
-                icon={<RenameSVG />}
-                text={data.text_rename}
-                cName={styles.buttonPage__button}
-                hotkey="Ctrl+Shft+R"
-              />
+              <Menu.Item>
+                {({ close }) => (
+                  <div onClick={close}>
+                    <Button
+                      icon={<TrashSVG />}
+                      text={data.text_delete}
+                      cName={styles.buttonPage__button}
+                      handle={handleDelete}
+                    />
+                  </div>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ close }) => (
+                  <div onClick={close}>
+                    <Button
+                      icon={<CopySVG />}
+                      text={data.text_copy_link}
+                      cName={styles.buttonPage__button}
+                      handle={hendleCopyUrl}
+                    />
+                  </div>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ close }) => (
+                  <div onClick={close}>
+                    <Button
+                      icon={<RenameSVG />}
+                      text={data.text_rename}
+                      cName={styles.buttonPage__button}
+                      hotkey="Ctrl+Shft+R"
+                      handle={handleRename}
+                    />
+                  </div>
+                )}
+              </Menu.Item>
             </Menu.Items>
           </Menu>
         </div>
       </div>
-      {!toogleStatus && (
+      {toogleStatus && (
         <div
           className={styles.buttonPage__children}
           style={{ paddingLeft: `${newPadding}px` }}
         >
           {children_page ? (
-            children_page.map((data, index) => (
+            children_page.map((data) => (
               <SidebarPage
-                toggle={data.toggle}
+                toggle={false}
                 icon={data.icon}
-                text={data.text}
-                id={data.id}
+                text={data.name}
+                _id={data._id}
                 children_page={data.children_page}
                 padding={newPadding}
-                key={index}
+                key={data._id}
               />
             ))
           ) : (

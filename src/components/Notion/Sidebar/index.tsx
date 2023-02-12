@@ -9,30 +9,43 @@ import { SidebarPages } from "../SidebarPages";
 import { Search } from "../Search";
 import { Settings } from "../Settings";
 import { main } from "../../../data/languages/main";
+import { useAppSelector } from "../../../hooks/redux";
+import SkeletonSidebar from "../Skeleton/SkeletonSidebar";
+import SkeletonSidebarBottombar from "../Skeleton/SkeletonSidebarBottombar";
 
 export const Sidebar = (): React.ReactElement => {
-  const lang = "en";
+  const { lang, isLoading } = useAppSelector((store) => store.userReducer);
   const data = main[lang];
 
   return (
     <>
       <div className={`${styles.sidebar} aside_status`}>
-        <SidebarTopbar />
         <div className={`${styles.nav} ${styles.sidebar__nav}`}>
-          <Settings />
-          <Search />
-          <SidebarPages />
-          <div className={styles.nav}>
-            <div className={styles.trash}>
-              <Button
-                icon={<TopbarTrashSVG />}
-                text={data.text_trash}
-                cName={styles.sidebar__button}
-              />
-            </div>
-          </div>
+          {isLoading ? (
+            <SkeletonSidebar />
+          ) : (
+            <>
+              <SidebarTopbar />
+              <Settings />
+              <Search />
+              <SidebarPages />
+              <div className={styles.nav}>
+                <div className={styles.trash}>
+                  <Button
+                    icon={<TopbarTrashSVG />}
+                    text={data.text_trash}
+                    cName={styles.sidebar__button}
+                  />
+                </div>
+              </div>
+            </>
+          )}
         </div>
-        <SidebarBottombar text={data.text_newpage} />
+        {isLoading ? (
+          <SkeletonSidebarBottombar />
+        ) : (
+          <SidebarBottombar text={data.text_newpage} />
+        )}
       </div>
     </>
   );

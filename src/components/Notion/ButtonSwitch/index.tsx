@@ -8,9 +8,12 @@ export const ButtonSwitch: React.FC<IButtonSwitch> = ({
   status,
   handle,
 }): React.ReactElement => {
+  const onClick = () => {
+    handle && handle();
+  };
   return (
     <>
-      <div className={styles.item} onClick={handle}>
+      <div className={styles.item} onClick={onClick}>
         <div className={styles.item__text}>{text}</div>
         <div className={styles.item__checkbox}>
           <Switch status={status} />
