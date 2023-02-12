@@ -1,6 +1,5 @@
 import { IPage } from "../types/interface";
 
-import g_001 from "../assets/img/cover/g_001.jpg";
 import getRandomCover from "../utils/getRandomCover";
 
 const dateHomePage: IPage = {

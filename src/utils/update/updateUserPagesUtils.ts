@@ -9,10 +9,12 @@ const asyncUpdatePages = async ({ pages, accessToken }: IUserPages) => {
 export const updateUserPagesUtils = ({
   replaceObject,
   pageId,
-  accessToken,
+  //accessToken,
   userPages,
 }: IUpdateUserPages) => {
   const pages = replacePageObject(userPages, replaceObject, pageId);
   //asyncUpdatePages({ pages, accessToken });
   return pages;
 };
+
+export default asyncUpdatePages;
