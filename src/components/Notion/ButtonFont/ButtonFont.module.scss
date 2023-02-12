@@ -1,0 +1,32 @@
+.item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 4px;
+  gap: 4px;
+  transition: opacity 400ms ease 0s, color 400ms ease 0s,
+    background-color 400ms ease 0s;
+
+  &:hover {
+    background: var(--color-hover);
+  }
+
+  &__bigtext {
+    font-size: 24px;
+  }
+
+  &__title {
+    display: flex;
+  }
+
+  &__description {
+    font-size: 12px;
+    color: var(--color-text-aside);
+  }
+
+  &__active {
+    color: var(--color-active);
+  }
+}

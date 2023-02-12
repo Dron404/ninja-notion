@@ -1,0 +1,124 @@
+.settings {
+  display: flex;
+  width: 1150px;
+  max-width: calc(100vw - 100px);
+  height: calc(100vh - 100px);
+  overflow: hidden;
+  max-height: 715px;
+
+  &__menu {
+    flex: 0 0 230px;
+    background-color: var(--color-aside);
+  }
+
+  &__group {
+    margin-bottom: 15px;
+  }
+
+  &__name {
+    padding: 14px 14px 2px 14px;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  &__content {
+    flex: 1 1 auto;
+    background-color: var(--color-bg);
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__flex {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+  }
+
+  &__scroll {
+    overflow-y: scroll;
+    padding-right: 40px;
+    height: 100%;
+
+    &::-webkit-scrollbar {
+      background: var(--сolor-bg);
+      position: absolute;
+      opacity: 0.2;
+      width: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--color-hover);
+    }
+  }
+
+  &__header {
+    flex: 0 0 auto;
+    font-size: 16px;
+    font-weight: 400;
+    padding-bottom: 10px;
+  }
+
+  &__section {
+    border-top: 1px solid var(--color-hover);
+    padding: 18px 0;
+    flex: 1 1 auto;
+  }
+
+  &__title {
+    font-size: 15px;
+    color: var(--color-text);
+  }
+
+  &__row {
+    margin: 10px 0;
+    display: block;
+  }
+
+  &__label {
+    color: var(--color-icon);
+    margin: 4px 0;
+  }
+
+  &__email {
+    font-size: 16px;
+    color: var(--color-text);
+    margin-bottom: 4px;
+  }
+
+  &__input {
+    all: unset;
+    display: flex;
+    align-items: center;
+    width: calc(100% - 20px);
+    font-size: 14px;
+    line-height: 20px;
+    padding: 4px 10px;
+    position: relative;
+    border-radius: 4px;
+    box-shadow: rgb(15 15 15 / 10%) 0px 0px 0px 1px inset;
+    background: var(--color-hover);
+    cursor: text;
+  }
+
+  &__footer {
+    padding-top: 10px;
+    border-top: 1px solid var(--color-hover);
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+  &__avatar {
+    svg {
+      background-color: var(--color-hover);
+      display: block;
+      width: 60px;
+      height: 60px;
+      padding: 10px;
+      border-radius: 50%;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 30px;
+  font-size: 28px;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--color-hover);
+}
+
+[alt="️"] {
+  display: none;
+}

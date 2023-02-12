@@ -1,0 +1,30 @@
+.upload {
+  &__button {
+    transition: background 20ms ease-in 0s;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    border-radius: 4px;
+    height: 32px;
+    padding-left: 12px;
+    padding-right: 12px;
+    font-size: 14px;
+    line-height: 1.2;
+    color: var(--color-text);
+    border: 1px solid var(--color-icon);
+    width: calc(100% - 24px);
+
+    &:hover {
+      background-color: var(--color-hover);
+    }
+  }
+  &__information {
+    margin-top: 15px;
+    color: var(--color-text-aside);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
