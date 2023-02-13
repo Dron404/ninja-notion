@@ -13,7 +13,7 @@ export const Breadcrumb = (): React.ReactElement => {
   const data = main[lang];
 
   return (
-    <div className={styles.breadcrumb}>
+    <div className={`${styles.breadcrumb} breadcrumb`}>
       <ul className={styles.breadcrumb__ul}>
         {isLoading ? (
           <SkeletonBreadcrumb />

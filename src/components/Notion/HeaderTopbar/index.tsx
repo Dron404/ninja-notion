@@ -5,8 +5,6 @@ import { ButtonFont } from "../ButtonFont";
 import { ButtonSwitch } from "../ButtonSwitch";
 import { ReactComponent as FavoriteSVG } from "../../../assets/img/svg/favorite.svg";
 import { ReactComponent as FavoriteActiveSVG } from "../../../assets/img/svg/favorite_active.svg";
-import { ReactComponent as TrashSVG } from "../../../assets/img/svg/trash.svg";
-import { ReactComponent as CopySVG } from "../../../assets/img/svg/copy.svg";
 import { ReactComponent as MoreSVG } from "../../../assets/img/svg/more.svg";
 import { ReactComponent as MoveToSVG } from "../../../assets/img/svg/move_to.svg";
 
@@ -15,18 +13,18 @@ import { Button } from "../Button";
 import { main } from "../../../data/languages/main";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
-import copy from "copy-to-clipboard";
+
 import SkeletonButtonMini from "../Skeleton/SkeletonButtonMini";
+import { IPage } from "../../../types/interface";
+import { ButtonTrash } from "../ButtonTrash";
+import { ButtonCopyLink } from "../ButtonCopyLink";
+import { ButtonFavorite } from "../ButtonFavorite";
+import { ButtonModal } from "../ButtonModal";
 
 export const HeaderTopbar = (): React.ReactElement => {
   const dispatch = useAppDispatch();
 
-  const {
-    updateActivePageSmallText,
-    updateActivePageFullWidth,
-    updateActivePageFavorite,
-    updateActivePageFont,
-  } = userSlice.actions;
+  const { updatePagesState, updateArrayPage } = userSlice.actions;
 
   const { activePage, lang, isLoading } = useAppSelector(
     (state) => state.userReducer
@@ -39,18 +37,35 @@ export const HeaderTopbar = (): React.ReactElement => {
   const fullWidth = Boolean(activePage?.property?.full_width);
   const font = activePage?.property?.font || "default";
 
-  const handelSmallText = () => dispatch(updateActivePageSmallText(!smallText));
-  const handelFullWidth = () => dispatch(updateActivePageFullWidth(!fullWidth));
-  const handleFont = (fontData: string) => {
-    dispatch(updateActivePageFont(fontData));
-  };
-  const handleFavorite = () => dispatch(updateActivePageFavorite(!favorite));
+  function updatePageStateFn(replaceObject: Partial<IPage>) {
+    if (activePage?._id) {
+      const pageId = activePage._id;
+      dispatch(
+        updatePagesState({
+          replaceObject,
+          pageId,
+        })
+      );
+    }
+  }
 
-  const hendleCopyUrl = () => {
-    copy(window.location.href);
+  const handelSmallText = () => {
+    const replaceObject = { property: { small_text: !smallText } };
+    updatePageStateFn(replaceObject);
   };
-  const handleDelete = () => {
-    console.log("handleDelete");
+
+  const handelFullWidth = () => {
+    const replaceObject = { property: { full_width: !fullWidth } };
+    updatePageStateFn(replaceObject);
+  };
+  const handleFont = (fontData: string) => {
+    const replaceObject = { property: { font: fontData } };
+    updatePageStateFn(replaceObject);
+  };
+  const handleFavorite = () => {
+    const replaceObject = { favorite: !favorite };
+    updatePageStateFn(replaceObject);
+    dispatch(updateArrayPage());
   };
 
   return (
@@ -60,7 +75,7 @@ export const HeaderTopbar = (): React.ReactElement => {
           <SkeletonButtonMini />
         ) : (
           <ButtonMini
-            icon={favorite ? <FavoriteSVG /> : <FavoriteActiveSVG />}
+            icon={favorite ? <FavoriteActiveSVG /> : <FavoriteSVG />}
             handle={handleFavorite}
           />
         )}
@@ -117,39 +132,20 @@ export const HeaderTopbar = (): React.ReactElement => {
               </div>
               <div className="hr-line"></div>
               <div className={styles.topbar__wrapper}>
-                <Button
+                <ButtonModal
+                  hotkey="Ctrl+Shft+P"
                   icon={<MoveToSVG />}
                   text={data.text_move_to}
-                  cName={styles.topbar__button}
-                  hotkey="Ctrl+Shft+P"
+                  type="move"
                 />
               </div>
               <div className="hr-line"></div>
 
-              <Button
-                icon={<FavoriteSVG />}
-                text={
-                  favorite ? data.text_add_favorite : data.text_remove_favorite
-                }
-                cName={styles.topbar__button}
-                handle={handleFavorite}
-              />
-
-              <Button
-                icon={<CopySVG />}
-                text={data.text_copy_link}
-                cName={styles.topbar__button}
-                hotkey="Ctrl+Alt+L"
-                handle={hendleCopyUrl}
-              />
+              <ButtonCopyLink dataPage={activePage} />
+              <ButtonFavorite dataPage={activePage} />
 
               {activePage?._id !== "home" && (
-                <Button
-                  icon={<TrashSVG />}
-                  text={data.text_delete}
-                  cName={styles.topbar__button}
-                  handle={handleDelete}
-                />
+                <ButtonTrash dataPage={activePage} />
               )}
             </Menu.Items>
           </Menu>

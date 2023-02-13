@@ -7,6 +7,7 @@ import { ReactComponent as CoverSVG } from "../../../assets/img/svg/cover.svg";
 import { ReactComponent as CommentSVG } from "../../../assets/img/svg/comment.svg";
 import { Button } from "../Button";
 import { main } from "../../../data/languages/main";
+import { useParams } from "react-router-dom";
 
 import { ContentIconSettings } from "../ContentIconSettings";
 import { AVATAR_SIZE_L } from "../../../data/constants";
@@ -15,8 +16,9 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
 import getRandomEmojis from "../../../utils/getRandomEmojis";
 import getRandomCover from "../../../utils/getRandomCover";
-// import UserService from "../../../store/user/user.action";
 import { SidebarPage } from "../SidebarPage";
+import { IPage } from "../../../types/interface";
+import { ButtonTrash } from "../ButtonTrash";
 
 export const Content = (): React.ReactElement => {
   const { user, activePage, lang } = useAppSelector(
@@ -24,23 +26,31 @@ export const Content = (): React.ReactElement => {
   );
   const data = main[lang];
 
+  const { pageId } = useParams();
+
   const dispatch = useAppDispatch();
-  const {
-    updateActivePageIcon,
-    updateActivePageCoverUrl,
-    updateActivePageCoverPosition,
-    updateActivePage,
-    updateArrayPage,
-    // updateUserPages,
-  } = userSlice.actions;
+  const { updateActivePage, updateArrayPage, updatePagesState } =
+    userSlice.actions;
+
+  function updatePageStateFn(replaceObject: Partial<IPage>) {
+    if (activePage?._id) {
+      const pageId = activePage._id;
+      dispatch(
+        updatePagesState({
+          replaceObject,
+          pageId,
+        })
+      );
+      dispatch(updateArrayPage());
+    }
+  }
 
   React.useEffect(() => {
-    if (window.location.pathname && user) {
-      //  dispatch(updateUserPages({ replaceObject: activePage, pageId, user }));
+    if (pageId && user) {
       dispatch(updateActivePage());
       dispatch(updateArrayPage());
     }
-  }, [window.location.pathname]);
+  }, [pageId]);
 
   const [commentStatus, setCommentStatus] = React.useState(
     !!activePage?.comment
@@ -52,28 +62,45 @@ export const Content = (): React.ReactElement => {
     ? styles.content__full
     : "";
 
-  const handleAddRandomEmojis = () =>
-    dispatch(updateActivePageIcon(getRandomEmojis()));
+  const handleAddRandomEmojis = () => {
+    const replaceObject = { icon: getRandomEmojis() };
+    updatePageStateFn(replaceObject);
+  };
 
   const handleAddCove = () => {
-    dispatch(updateActivePageCoverUrl(getRandomCover()));
-    dispatch(updateActivePageCoverPosition(100));
+    const replaceObject = { cover: { url: getRandomCover() } };
+    updatePageStateFn(replaceObject);
   };
 
   const handleAddComment = () => {
     setCommentStatus(true);
   };
 
-  const handleChangeComment = (event: ChangeEvent<HTMLDivElement>) => {
-    console.log(event.target);
+  const handleChangeComment = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target?.value) {
+      const replaceObject = { comment: event.target.value };
+      updatePageStateFn(replaceObject);
+    }
   };
 
   return (
-    <>
+    <div className={styles.body}>
+      {activePage?.dataTrash && !!activePage?.dataTrash && (
+        <div className={styles.restore}>
+          <div className={styles.restore__button}>
+            <ButtonTrash dataPage={activePage} />
+          </div>
+          <div className={styles.restore__message}>
+            <span>{data.text_restore_message}</span>
+          </div>
+        </div>
+      )}
       <div
-        className={styles.body}
         data-width={activePage?.property?.full_width}
         data-small={activePage?.property?.small_text}
+        data-status={
+          activePage?.dataTrash && !!activePage?.dataTrash ? "arhive" : "active"
+        }
       >
         <ContentCover />
         <div
@@ -143,8 +170,7 @@ export const Content = (): React.ReactElement => {
                     <SidebarPage
                       icon={data.icon}
                       text={data.name}
-                      _id={data._id}
-                      children_page={data?.children_page}
+                      dataPage={data}
                       key={data._id}
                     />
                   ))}
@@ -154,6 +180,6 @@ export const Content = (): React.ReactElement => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };

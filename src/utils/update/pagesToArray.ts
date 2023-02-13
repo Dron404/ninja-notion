@@ -5,7 +5,8 @@ function pagesToArray(pages: IPage[]): IPage[] | null | undefined {
   function nextPage(pages: IPage[]) {
     if (pages.length > 0) {
       pages.forEach((page) => {
-        array.push(page);
+        const newPage: IPage = { ...page, ...{ children_page: null } };
+        array.push(newPage);
         nextPage;
         if (page.children_page) {
           nextPage(page.children_page);

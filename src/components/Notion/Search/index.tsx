@@ -4,34 +4,51 @@ import styles from "./Search.module.scss";
 import { ReactComponent as TopbarSearchSVG } from "../../../assets/img/svg/search.svg";
 import { ReactComponent as CloseSVG } from "../../../assets/img/svg/close.svg";
 import { SearchRow } from "../SearchRow";
-import { useAppSelector } from "../../../hooks/redux";
+import { useAppSelector, useAppDispatch } from "../../../hooks/redux";
 import { main } from "../../../data/languages/main";
-import { IPage } from "../../../types/interface";
+import { IPage, ISearch } from "../../../types/interface";
 import { universalIncludes } from "../../../utils/search/universalIncludes";
+import { userSlice } from "../../../store/user/user.slice";
 
-export const Search: React.FC = () => {
-  const { user, arrayPage, lang } = useAppSelector(
-    (store) => store.userReducer
-  );
+export const Search: React.FC<ISearch> = ({
+  dataPages,
+  text,
+  placeholder,
+  icon,
+  type = "search",
+  handle,
+  hotkey = "",
+}) => {
+  const { lang, modalTarget } = useAppSelector((store) => store.userReducer);
+  const { updateModalTarget } = userSlice.actions;
+  const dispatch = useAppDispatch();
 
-  const name = user?.name;
   const data = main[lang];
 
   const refSearch = React.useRef<HTMLInputElement>(null);
-  const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false);
+  const [isOpenModal, setIsOpenModal] = React.useState<boolean>(
+    modalTarget === type
+  );
+
+  React.useEffect(() => {
+    setIsOpenModal(modalTarget === type);
+  }, [modalTarget]);
 
   const openModal = () => {
-    setIsOpenModal(true);
+    dataPages && dataPages?.length > 0 && setIsOpenModal(true);
   };
 
   const closeModal = (e: React.MouseEvent<Element>) => {
     if ((e.target as Element).classList.contains("notion__modal")) {
-      handleCloseModal();
+      handleCloseModal("");
+      dispatch(updateModalTarget(""));
     }
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = (pageId: string) => {
     setIsOpenModal(false);
+    dispatch(updateModalTarget(""));
+    handle && handle(pageId);
   };
 
   const [search, setSearch] = React.useState<string>("");
@@ -47,20 +64,23 @@ export const Search: React.FC = () => {
   };
 
   React.useEffect(() => {
-    if (arrayPage) {
+    if (dataPages) {
       setDataSearch(
-        arrayPage.filter((page) => universalIncludes(search, page.name))
+        dataPages.filter((page) => universalIncludes(search, page.name))
       );
     }
-  }, [arrayPage, search]);
+  }, [dataPages, search]);
+
+  const hotkeys =
+    hotkey || (dataPages && dataPages?.length > 0)
+      ? String(dataPages?.length)
+      : "";
 
   return (
     <>
-      <Button
-        icon={<TopbarSearchSVG />}
-        text={data.text_search}
-        handle={openModal}
-      />
+      {icon !== "hide" && (
+        <Button icon={icon} text={text} handle={openModal} hotkey={hotkeys} />
+      )}
       {isOpenModal && (
         <div className="notion__modal" onMouseDown={closeModal}>
           <div className="notion__modal_body">
@@ -73,7 +93,7 @@ export const Search: React.FC = () => {
                   <input
                     ref={refSearch}
                     className={styles.search__input}
-                    placeholder={`${data.text_search} ${name} ${data.text_s_notion}`}
+                    placeholder={placeholder}
                     type="search"
                     name="search"
                     onChange={handleSearch}
@@ -93,6 +113,7 @@ export const Search: React.FC = () => {
                       key={index}
                       page={page}
                       handle={handleCloseModal}
+                      type={type}
                     />
                   ))
                 ) : (

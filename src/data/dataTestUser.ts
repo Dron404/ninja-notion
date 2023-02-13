@@ -1,0 +1,81 @@
+import { IUserData } from "../types/interface";
+export const dataTestUser: IUserData = {
+  id: "123",
+  language: "ru",
+  theme: "dark",
+  email: "onebelbiz@gmail.com",
+  name: "Alex",
+  diskSpace: 10737418240,
+  usetSpace: 0,
+  avatar: "",
+  active: true,
+  pages: [
+    {
+      property: {
+        font: "default",
+        small_text: false,
+        full_width: false,
+      },
+      cover: {
+        url: "/static/media/g_001.66d0d100b29c0f213ca9.jpg",
+        position: 100,
+      },
+      content: "Example content. Welcome to my ninja notion clone!",
+      name: "Page 1",
+      icon: "😀",
+      comment: "Example you comment",
+      favorite: false,
+      dataTrash: "",
+      dataAdd: "2023-01-01",
+      dataMod: "2023-01-01",
+      _id: "63e7b89c1f3abaf553f2b861",
+      children_page: [
+        {
+          property: {
+            font: "default",
+            small_text: false,
+            full_width: false,
+          },
+          cover: {
+            url: "/static/media/g_001.66d0d100b29c0f213ca9.jpg",
+            position: 100,
+          },
+          content: "Example content. Welcome to my ninja notion clone!",
+          name: "Page 2",
+          icon: "😀",
+          comment: "Example you comment",
+          favorite: false,
+          dataTrash: "",
+          dataAdd: "2023-01-01",
+          dataMod: "2023-01-01",
+          _id: "63e7b89c1f3abaf553f2b862",
+          children_page: [
+            {
+              property: {
+                font: "default",
+                small_text: false,
+                full_width: false,
+              },
+              cover: {
+                url: "/static/media/g_001.66d0d100b29c0f213ca9.jpg",
+                position: 100,
+              },
+              content: "Example content. Welcome to my ninja notion clone!",
+              name: "Page 3",
+              icon: "😀",
+              comment: "Example you comment",
+              favorite: false,
+              dataTrash: "",
+              dataAdd: "2023-01-01",
+              dataMod: "2023-01-01",
+              _id: "63e7b89c1f3abaf553f2b863",
+              children_page: [],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  refreshToken: "fdsf",
+  accessToken: "fsfsdfsd",
+};

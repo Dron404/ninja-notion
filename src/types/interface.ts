@@ -16,6 +16,7 @@ export interface IEmoji {
 }
 
 export interface INotionButton {
+  _id?: string;
   text?: string;
   icon?: React.ReactNode;
   link?: string;
@@ -25,11 +26,17 @@ export interface INotionButton {
   hotkey?: string;
   target?: string;
   state?: string;
-  _id?: string;
-  children_page?: INotionButton[] | null;
+  dataPage?: IPage | null;
   padding?: number;
-  fav?: boolean;
-  favorite?: boolean;
+  handle?: () => void;
+}
+
+export interface IButtonModal {
+  text?: string;
+  type?: string;
+  hotkey?: string;
+  icon?: React.ReactNode;
+  cName?: string;
   handle?: () => void;
 }
 
@@ -128,18 +135,18 @@ export interface IPage {
   comment: string;
   favorite: boolean;
   property: {
-    font: string;
-    small_text: boolean;
-    full_width: boolean;
+    font?: string;
+    small_text?: boolean;
+    full_width?: boolean;
   };
   dataTrash: string;
   dataAdd: string;
   dataMod: string;
   cover: {
-    url: string;
-    position: number;
+    url?: string;
+    position?: number;
   };
-  children_page: IPage[];
+  children_page: IPage[] | null;
 }
 
 export interface IPages {
@@ -147,7 +154,7 @@ export interface IPages {
 }
 
 export interface IUserData {
-  id: string;
+  id?: string;
   email?: string;
   password?: string;
   diskSpace?: number;
@@ -156,10 +163,11 @@ export interface IUserData {
   name: string;
   active: boolean;
   token?: string;
-  accessToken: string;
   language: Tlanguage;
   theme: Ttheme;
   pages: IPage[];
+  refreshToken?: string;
+  accessToken?: string;
 }
 
 export interface IUser {
@@ -201,18 +209,31 @@ export interface IUserState {
   isLoading: boolean;
   error: string;
   navigate: boolean;
+  modalTarget: string;
   activePage: IPage | null;
+  arrayPage: IPage[] | null;
   favoritePage: IPage[] | null;
   trashPage: IPage[] | null;
-  arrayPage: IPage[] | null;
   breadcrumbs: IPage[] | null;
   lang: Tlanguage;
   theme: Ttheme;
 }
 
+export interface ISearch {
+  dataPages: IPage[] | null;
+  text: string;
+  placeholder: string;
+  icon: React.ReactNode;
+  type?: string;
+  hotkey?: string;
+  target?: string;
+  handle?: (pageId: string) => void;
+}
+
 export interface ISearchRow {
   page: IPage;
-  handle: () => void;
+  type?: string;
+  handle?: (pageId: string) => void;
 }
 
 export interface IActivePage {

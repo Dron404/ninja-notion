@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./SidebarPage.module.scss";
-import { INotionButton } from "../../../types/interface";
+import { INotionButton, IPage } from "../../../types/interface";
 import { Link } from "react-router-dom";
 import { ReactComponent as ToggleSVG } from "../../../assets/img/svg/toggle.svg";
 import { ReactComponent as MoreSVG } from "../../../assets/img/svg/more.svg";
@@ -9,6 +9,7 @@ import { ReactComponent as TrashSVG } from "../../../assets/img/svg/trash.svg";
 import { ReactComponent as CopySVG } from "../../../assets/img/svg/copy.svg";
 import { ReactComponent as DefaultSVG } from "../../../assets/img/svg/default.svg";
 import { ReactComponent as RenameSVG } from "../../../assets/img/svg/rename.svg";
+import { ReactComponent as FavoriteSVG } from "../../../assets/img/svg/favorite.svg";
 import { ButtonMini } from "../ButtonMini";
 import { Button } from "../Button";
 import { Menu } from "@headlessui/react";
@@ -18,14 +19,17 @@ import { main } from "../../../data/languages/main";
 
 import { useAppSelector } from "../../../hooks/redux";
 
+import { ButtonTrash } from "../ButtonTrash";
+import { ButtonCopyLink } from "../ButtonCopyLink";
+import { ButtonFavorite } from "../ButtonFavorite";
+
 export const SidebarPage: React.FC<INotionButton> = ({
   text,
   icon,
   cName = "",
   toggle,
-  _id,
-  children_page,
   padding,
+  dataPage,
 }) => {
   const { lang } = useAppSelector((store) => store.userReducer);
   const data = main[lang];
@@ -39,14 +43,7 @@ export const SidebarPage: React.FC<INotionButton> = ({
   const toggleStyle = toogleStatus ? "toggle-active" : "toggle-pasive";
   const newPadding = padding ? padding && padding + 7 : 14;
 
-  const pageUrl = `/pages/${_id}`;
-  const hendleCopyUrl = () => {
-    copy(pageUrl);
-  };
-
-  const handleDelete = () => {
-    console.log("handleDelete");
-  };
+  const pageUrl = `/pages/${dataPage?._id}`;
 
   const handleRename = () => {
     console.log("handleRename");
@@ -59,12 +56,14 @@ export const SidebarPage: React.FC<INotionButton> = ({
         style={{ paddingLeft: `${newPadding}px` }}
       >
         <div className={styles.buttonPage__group}>
-          <div
-            className={`button__toggle ${toggleStyle}`}
-            onClick={() => handleTogle()}
-          >
-            <ToggleSVG />
-          </div>
+          {dataPage?.children_page && (
+            <div
+              className={`button__toggle ${toggleStyle}`}
+              onClick={() => handleTogle()}
+            >
+              <ToggleSVG />
+            </div>
+          )}
           <Link
             to={pageUrl}
             className={`${styles.buttonPage__link} button__link`}
@@ -82,7 +81,9 @@ export const SidebarPage: React.FC<INotionButton> = ({
         </div>
 
         <div className={styles.buttonPage__groupHidden}>
-          <ButtonMini icon={<AddSVG />} cName={styles.buttonPage__add} />
+          {dataPage?.children_page && (
+            <ButtonMini icon={<AddSVG />} cName={styles.buttonPage__add} />
+          )}
 
           <Menu
             as="div"
@@ -102,28 +103,18 @@ export const SidebarPage: React.FC<INotionButton> = ({
               <Menu.Item>
                 {({ close }) => (
                   <div onClick={close}>
-                    <Button
-                      icon={<TrashSVG />}
-                      text={data.text_delete}
-                      cName={styles.buttonPage__button}
-                      handle={handleDelete}
-                    />
+                    <ButtonTrash dataPage={dataPage} />
                   </div>
                 )}
               </Menu.Item>
               <Menu.Item>
                 {({ close }) => (
                   <div onClick={close}>
-                    <Button
-                      icon={<CopySVG />}
-                      text={data.text_copy_link}
-                      cName={styles.buttonPage__button}
-                      handle={hendleCopyUrl}
-                    />
+                    <ButtonCopyLink dataPage={dataPage} />
                   </div>
                 )}
               </Menu.Item>
-              <Menu.Item>
+              {/* <Menu.Item>
                 {({ close }) => (
                   <div onClick={close}>
                     <Button
@@ -133,6 +124,14 @@ export const SidebarPage: React.FC<INotionButton> = ({
                       hotkey="Ctrl+Shft+R"
                       handle={handleRename}
                     />
+                  </div>
+                )}
+              </Menu.Item> */}
+
+              <Menu.Item>
+                {({ close }) => (
+                  <div onClick={close}>
+                    <ButtonFavorite dataPage={dataPage} />
                   </div>
                 )}
               </Menu.Item>
@@ -145,18 +144,20 @@ export const SidebarPage: React.FC<INotionButton> = ({
           className={styles.buttonPage__children}
           style={{ paddingLeft: `${newPadding}px` }}
         >
-          {children_page ? (
-            children_page.map((data) => (
-              <SidebarPage
-                toggle={false}
-                icon={data.icon}
-                text={data.name}
-                _id={data._id}
-                children_page={data.children_page}
-                padding={newPadding}
-                key={data._id}
-              />
-            ))
+          {dataPage?.children_page && dataPage?.children_page ? (
+            dataPage.children_page.map(
+              (data) =>
+                !data.dataTrash && (
+                  <SidebarPage
+                    toggle={false}
+                    icon={data.icon}
+                    text={data.name}
+                    padding={newPadding}
+                    key={data._id}
+                    dataPage={data}
+                  />
+                )
+            )
           ) : (
             <div
               className={styles.buttonPage__not}

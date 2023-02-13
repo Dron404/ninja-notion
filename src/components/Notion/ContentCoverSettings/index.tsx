@@ -10,21 +10,35 @@ import { LinkUrl } from "../LinkUrl";
 import { main } from "../../../data/languages/main";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
+import { IPage } from "../../../types/interface";
 
 export const ContentCoverSettings = ({
   cName,
 }: {
   cName: string;
 }): React.ReactElement => {
-  const { lang } = useAppSelector((store) => store.userReducer);
+  const { lang, activePage } = useAppSelector((store) => store.userReducer);
   const data = main[lang];
   const [tab, setTab] = React.useState("gallery");
 
   const dispatch = useAppDispatch();
-  const { updateActivePageCoverUrl } = userSlice.actions;
+  const { updatePagesState } = userSlice.actions;
+
+  function updatePageStateFn(replaceObject: Partial<IPage>) {
+    if (activePage?._id) {
+      const pageId = activePage._id;
+      dispatch(
+        updatePagesState({
+          replaceObject,
+          pageId,
+        })
+      );
+    }
+  }
 
   const handleRemoveBackground = () => {
-    dispatch(updateActivePageCoverUrl(""));
+    const replaceObject = { cover: { url: "" } };
+    updatePageStateFn(replaceObject);
   };
 
   return (

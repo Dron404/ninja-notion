@@ -8,35 +8,30 @@ import { ReactComponent as AddSVG } from "../../../assets/img/svg/add.svg";
 import { main } from "../../../data/languages/main";
 import { useAppSelector } from "../../../hooks/redux";
 
+import { ReactComponent as TopbarTrashSVG } from "../../../assets/img/svg/trash.svg";
+
 export const SidebarPages = (): React.ReactElement => {
-  const { user, lang, favoritePage } = useAppSelector(
+  const { user, lang, favoritePage, trashPage } = useAppSelector(
     (store) => store.userReducer
   );
   const data = main[lang];
-
-  // const dataFavorites = user && user.pages.filter((page) =>  page.favorite)};
   return (
     <>
-      {favoritePage && (
+      {favoritePage && favoritePage?.length > 0 && (
         <div className={styles.pages}>
           <div className={styles.pages__title}>
             <span>{data.text_favorite}</span>
           </div>
           <div className={styles.pages__list}>
             <div className={`${styles.pages__row} aside-page-row`}>
-              {favoritePage?.map(
-                (data) =>
-                  data.favorite && (
-                    <SidebarPage
-                      icon={data.icon}
-                      text={data.name}
-                      _id={data._id}
-                      children_page={data?.children_page}
-                      key={data._id}
-                      favorite={true}
-                    />
-                  )
-              )}
+              {favoritePage.map((data) => (
+                <SidebarPage
+                  icon={data.icon}
+                  text={data.name}
+                  key={data._id}
+                  dataPage={data}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -58,15 +53,17 @@ export const SidebarPages = (): React.ReactElement => {
         <div className={styles.pages__list}>
           <div className={`${styles.pages__row} aside-page-row`}>
             {user &&
-              user?.pages?.map((data) => (
-                <SidebarPage
-                  icon={data.icon}
-                  text={data.name}
-                  _id={data._id}
-                  children_page={data?.children_page}
-                  key={data._id}
-                />
-              ))}
+              user?.pages?.map(
+                (data) =>
+                  !data.dataTrash && (
+                    <SidebarPage
+                      icon={data.icon}
+                      text={data.name}
+                      key={data._id}
+                      dataPage={data}
+                    />
+                  )
+              )}
           </div>
         </div>
       </div>

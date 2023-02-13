@@ -4,6 +4,7 @@ import {
   ROUT_SAVE_PAGES,
   ROUT_USER,
 } from "../../data/constants";
+// import { dataTestUser } from "../../data/dataTestUser";
 
 import { IUserEmailPassword, IPage, IUserData } from "../../types/interface";
 
@@ -20,9 +21,16 @@ export const gerUser =
         body: JSON.stringify(userLogin),
         headers: {
           "Content-Type": "application/json",
+          credentials: "include",
         },
       });
-      const data = await response.json();
+
+      const data: IUserData = await response.json();
+      // const data = dataTestUser; // demo
+      if (response.status === 500) {
+        throw new Error("Server is not available");
+      }
+
       dispatch(userSlice.actions.getUserSuccess(data));
     } catch (error) {
       if (error instanceof Error) {
@@ -43,6 +51,7 @@ const UserService = {
       });
       const status = response.status;
       const message: string = await response.json();
+
       return { message, status };
     } catch (err) {
       console.error(err);
@@ -53,6 +62,7 @@ const UserService = {
     try {
       const url = `${API_HOST}${ROUT_USER}/`;
       const body = { ...updateData };
+      console.log("updateUser body", body);
       const response = await fetch(url, {
         method: "PUT",
         body: JSON.stringify(body),
@@ -61,6 +71,7 @@ const UserService = {
         },
       });
       const status = response.status;
+
       const message: string = await response.json();
       return { message, status };
     } catch (err) {
@@ -76,7 +87,7 @@ const UserService = {
         body: JSON.stringify(pages),
         headers: {
           "Content-Type": "application/json",
-          cookie: `accessToken=${accessToken}`,
+          // cookie: `accessToken=${accessToken}`,
         },
       });
       const status = response.status;
