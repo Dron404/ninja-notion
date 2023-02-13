@@ -5,7 +5,7 @@ import { Header } from "../components/Notion/Header";
 import { Sidebar } from "../components/Notion/Sidebar";
 
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { gerUser } from "../store/user/user.action";
+import { gerUset } from "../store/user/user.action";
 
 function NoutionPage() {
   const dispatch = useAppDispatch();
@@ -16,7 +16,7 @@ function NoutionPage() {
 
   React.useEffect(() => {
     if (userLogin) {
-      dispatch(gerUser(userLogin));
+      dispatch(gerUset(userLogin));
     } else {
       navigates("/login");
     }

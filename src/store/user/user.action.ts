@@ -11,7 +11,7 @@ import { IUserEmailPassword, IPage, IUserData } from "../../types/interface";
 import { AppDispatch } from "../store";
 import { userSlice } from "./user.slice";
 
-export const gerUser =
+export const gerUset =
   (userLogin: IUserEmailPassword) => async (dispatch: AppDispatch) => {
     try {
       dispatch(userSlice.actions.getUser());
