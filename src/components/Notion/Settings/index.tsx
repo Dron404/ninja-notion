@@ -22,7 +22,7 @@ export const Settings: React.FC = () => {
   const dispatch = useAppDispatch();
   const { user, lang } = useAppSelector((store) => store.userReducer);
 
-  const { updateUser, updateUserName, updateUserPassword } = userSlice.actions;
+  const { updateUserState } = userSlice.actions;
 
   const data = main[lang];
 
@@ -54,7 +54,8 @@ export const Settings: React.FC = () => {
     React.useState<string>("");
 
   const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
-    setUserName(event.target.value);
+    const name = event.target.value;
+    dispatch(updateUserState({ name }));
   };
 
   const isUpdatePassword = () =>
@@ -65,7 +66,7 @@ export const Settings: React.FC = () => {
     );
 
   const handleUpdatePassword = () => {
-    dispatch(updateUserPassword(userPassword));
+    dispatch(updateUserState({ password: userPassword }));
     handleUpdateUser(userPassword);
     setUserPassword("");
     setUserPasswordRepeat("");
@@ -80,12 +81,10 @@ export const Settings: React.FC = () => {
   };
 
   const handleUpdateUser = async (pass = "") => {
-    dispatch(updateUserName(userName));
     if (UserServices && user) {
       const userData: IUserData = password
         ? { ...user, ...{ password: pass } }
         : user;
-      console.log(userData);
       const response = await UserServices.updateUser(userData);
       if (response?.status === 200) setIsOpenModal(false);
     }
@@ -95,8 +94,9 @@ export const Settings: React.FC = () => {
 
   const handleCancelUser = () => {
     if (defaultUser) {
-      dispatch(updateUser(defaultUser));
+      dispatch(updateUserState(defaultUser));
       setIsOpenModal(false);
+      setUserName(defaultUser.name);
     }
   };
 

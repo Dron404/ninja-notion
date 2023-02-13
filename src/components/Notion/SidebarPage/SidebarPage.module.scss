@@ -20,11 +20,8 @@
   &__group {
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-flow: row nowrap;
     gap: 7px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     overflow: hidden;
   }
 

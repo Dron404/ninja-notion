@@ -4,10 +4,11 @@ import { ContentCoverSettings } from "../ContentCoverSettings";
 import { main } from "../../../data/languages/main";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
+import { IPage } from "../../../types/interface";
 
 export const ContentCover: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { updateActivePageCoverPosition } = userSlice.actions;
+  const { updatePagesState, updateArrayPage } = userSlice.actions;
 
   const { lang, activePage } = useAppSelector((store) => store.userReducer);
 
@@ -16,6 +17,19 @@ export const ContentCover: React.FC = () => {
   const styleFullWidth = activePage?.property?.full_width
     ? styles.cover__fullWidth
     : styles.cover__defaultWidth;
+
+  function updatePageStateFn(replaceObject: Partial<IPage>) {
+    if (activePage?._id) {
+      const pageId = activePage._id;
+      dispatch(
+        updatePagesState({
+          replaceObject,
+          pageId,
+        })
+      );
+      dispatch(updateArrayPage());
+    }
+  }
 
   const ref = React.useRef<HTMLDivElement>(null);
 
@@ -49,7 +63,9 @@ export const ContentCover: React.FC = () => {
 
         if (ref.current) {
           ref.current.style.backgroundPosition = `center ${newPosition}%`;
-          dispatch(updateActivePageCoverPosition(newPosition));
+
+          // const replaceObject = { cover: { position: newPosition } };
+          // updatePageStateFn(replaceObject);
         }
       }
     });

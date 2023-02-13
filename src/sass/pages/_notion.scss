@@ -39,6 +39,20 @@
   font-family: "iA Writer Mono", Nitti, Menlo, Courier, monospace;
 }
 
+[data-small="true"] {
+  .content__title {
+    font-size: 32px;
+  }
+
+  .content {
+    font-size: 13px;
+  }
+}
+
+[data-status="arhive"] {
+  filter: blur(2px);
+}
+
 button {
   border: unset;
   padding: unset;
@@ -230,4 +244,10 @@ h1 {
 .skeleton {
   background-color: transparent;
   opacity: 0.5;
+}
+
+.breadcrumb .button__text {
+  overflow: hidden;
+  max-width: 95px;
+  white-space: nowrap;
 }

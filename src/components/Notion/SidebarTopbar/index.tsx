@@ -19,15 +19,14 @@ import { userSlice } from "../../../store/user/user.slice";
 
 export const SidebarTopbar: React.FC = function slidebar() {
   const dispatch = useAppDispatch();
-  const { lang, navigate } = useAppSelector((state) => state.userReducer);
+  const { lang, navigate, user } = useAppSelector((state) => state.userReducer);
   const { toggleNavigate } = userSlice.actions;
 
   const data = main[lang];
 
   const handletoogle = () => dispatch(toggleNavigate(!navigate));
 
-  const avatarUrl =
-    "https://lh3.googleusercontent.com/a-/AFdZucrnvCnEsd0erWUTqf6_bmSJLRbWfPGvfHrSb5w1yg=s100";
+  const avatarUrl = user?.avatar || "";
 
   return (
     <div className={`${styles.row} ${styles.topbar} sidebar_topbar`}>
@@ -35,7 +34,7 @@ export const SidebarTopbar: React.FC = function slidebar() {
         <Menu.Button className={`${styles.topbar__more}`}>
           <div className={`${styles.topbar__user} aside_status`}>
             <UserAvatar url={avatarUrl} size={AVATAR_SIZE_L} />
-            <div className={styles.topbar__user_name}>Name User</div>
+            <div className={styles.topbar__user_name}>{user?.name}</div>
             <div className={styles.topbar__user_more}>
               <TopbarMoreSVG />
             </div>
@@ -44,7 +43,7 @@ export const SidebarTopbar: React.FC = function slidebar() {
         <Menu.Items className={`${styles.topbar__popup} notion-popup__body`}>
           <div className={styles.user}>
             <div className={styles.user__header}>
-              <div className={styles.user__email}>user@email.com</div>
+              <div className={styles.user__email}>{user?.email}</div>
               <Menu
                 as="div"
                 className={`${styles.topbar__menu} notion-popup__menu`}
@@ -71,6 +70,7 @@ export const SidebarTopbar: React.FC = function slidebar() {
                   </div>
                   <div className={styles.user__info}>
                     <div className={styles.user__name}>
+                      {user?.name}
                       {data.text_s_notion}
                     </div>
                     <div className={styles.user__plan}>

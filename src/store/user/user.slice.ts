@@ -1,4 +1,5 @@
 import {
+  IPage,
   IUserData,
   IUserPagesReplace,
   IUserState,
@@ -6,20 +7,23 @@ import {
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getLocalStorage } from "../../utils/strorage/localStorage";
-import pagesToArray from "../../utils/search/pagesToArray";
+import pagesToArray from "../../utils/update/pagesToArray";
 import dateHomePage from "../../data/dateHomePage";
-import findActivePage from "../../utils/search/findActivePage";
-import { updateUserPagesUtils } from "../../utils/update/updateUserPagesUtils";
+import findActivePage from "../../utils/update/findActivePage";
+import replacePageObject from "../../utils/update/replacePageObject";
+import filterTrashPage from "../../utils/update/filterTrashPage";
+import filterFavoritePage from "../../utils/update/filterFavoritePage";
 
 const initialState: IUserState = {
   user: null,
   isLoading: false,
   error: "",
   navigate: true,
+  modalTarget: "",
   activePage: null,
+  arrayPage: null,
   favoritePage: null,
   trashPage: null,
-  arrayPage: null,
   breadcrumbs: null,
   lang: getLocalStorage("lang"),
   theme: getLocalStorage("theme"),
@@ -42,6 +46,10 @@ export const userSlice = createSlice({
       state.activePage = activeData.activePage;
       state.breadcrumbs = activeData.breadcrumbs;
       state.arrayPage = pagesToArray(state.user.pages) || null;
+      if (state.arrayPage) {
+        state.favoritePage = filterFavoritePage(state.arrayPage);
+        state.trashPage = filterTrashPage(state.arrayPage);
+      }
       if (state.activePage) {
         const activeUrl = `/pages/${state.activePage._id}`;
         if (pathname !== activeUrl) {
@@ -71,37 +79,35 @@ export const userSlice = createSlice({
         state.breadcrumbs = data.breadcrumbs;
       }
     },
-    updateArrayPage(state) {
-      if (state?.user) state.arrayPage = pagesToArray(state.user.pages) || null;
-    },
-    updateUser(state, action: PayloadAction<IUserData>) {
-      state.user = action.payload;
-    },
-    updateUserPages(state, action: PayloadAction<IUserPagesReplace>) {
-      const payload = action.payload;
-      if (state?.user) {
-        const props = {
-          replaceObject: payload.replaceObject,
-          pageId: payload.pageId,
-          accessToken: payload.user.accessToken,
-          userPages: payload.user.pages,
-        };
 
-        state.user = {
-          ...state.user,
-          ...{ pages: updateUserPagesUtils(props) },
-        };
+    updateArrayPage(state) {
+      if (state?.user) {
+        state.arrayPage = pagesToArray(state.user.pages) || null;
+      }
+      if (state.arrayPage) {
+        state.favoritePage = filterFavoritePage(state.arrayPage);
+        state.trashPage = filterTrashPage(state.arrayPage);
       }
     },
-    updateUserName(state, action: PayloadAction<string>) {
-      if (state?.user) {
-        state.user.name = action.payload;
-      }
-    },
-    updateUserPassword(state, action: PayloadAction<string>) {
-      if (state?.user) {
-        state.user.password = action.payload;
-      }
+
+    // updateUserPages(state, action: PayloadAction<IUserPagesReplace>) {
+    //   const payload = action.payload;
+    //   if (state?.user) {
+    //     const props = {
+    //       replaceObject: payload.replaceObject,
+    //       pageId: payload.pageId,
+    //       accessToken: payload.user.accessToken,
+    //       userPages: payload.user.pages,
+    //     };
+
+    //     state.user = {
+    //       ...state.user,
+    //       ...{ pages: updateUserPagesUtils(props) },
+    //     };
+    //   }
+    // },
+    updateModalTarget(state, action: PayloadAction<string>) {
+      state.modalTarget = action.payload;
     },
     updateTheme(state) {
       state.theme = getLocalStorage("theme");
@@ -115,39 +121,29 @@ export const userSlice = createSlice({
       state.navigate = navigate.navigate;
     },
 
-    updateActivePageIcon(state, action: PayloadAction<string>) {
-      if (state?.activePage) {
-        state.activePage.icon = action.payload;
+    updateUserState(state, action: PayloadAction<Partial<IUserData>>) {
+      if (state.user) {
+        state.user = { ...state.user, ...action.payload };
       }
     },
 
-    updateActivePageCoverUrl(state, action: PayloadAction<string>) {
-      if (state?.activePage?.cover) {
-        state.activePage.cover.url = action.payload;
+    updatePagesState(
+      state,
+      action: PayloadAction<{ replaceObject: Partial<IPage>; pageId: string }>
+    ) {
+      if (state.user) {
+        const props = action.payload;
+        const replaceObject = props.replaceObject;
+        const pageId = props.pageId;
+        if (state?.activePage)
+          state.activePage = { ...state.activePage, ...replaceObject };
+        const pages = replacePageObject(
+          state.user.pages,
+          replaceObject,
+          pageId
+        );
+        state.user = { ...state.user, pages };
       }
-    },
-
-    updateActivePageCoverPosition(state, action: PayloadAction<number>) {
-      if (state?.activePage?.cover) {
-        state.activePage.cover.position = action.payload;
-      }
-    },
-
-    updateActivePageFont(state, action: PayloadAction<string>) {
-      if (state?.activePage?.property) {
-        state.activePage.property.font = action.payload;
-      }
-    },
-    updateActivePageFullWidth(state, action: PayloadAction<boolean>) {
-      if (state?.activePage?.property)
-        state.activePage.property.full_width = action.payload;
-    },
-    updateActivePageSmallText(state, action: PayloadAction<boolean>) {
-      if (state?.activePage?.property)
-        state.activePage.property.small_text = action.payload;
-    },
-    updateActivePageFavorite(state, action: PayloadAction<boolean>) {
-      if (state?.activePage) state.activePage.favorite = action.payload;
     },
   },
 });

@@ -14,11 +14,15 @@ export const main = {
     text_add_favorite: "Add to Favorites",
     text_remove_favorite: "Remove from Favorites",
     text_copy_link: "Copy link",
+    text_copy_link_ok: "Link copied",
     text_delete: "Delete",
     text_rename: "Rename",
     text_not_page: "Not pages inside",
     text_newpage: "New page",
     text_trash: "Trash",
+    text_in_trash: "Add to Trash",
+    text_restore_message:
+      "This page is in the trash, to edit the page, click restore page",
     text_search: "Search",
     text_setting: "Setting",
     text_account: "Account",
@@ -75,6 +79,7 @@ export const main = {
     text_you_pages: "You pages",
     text_change_cover: "Change cover",
     text_home_page: "Home page",
+    text_restore: "Restore page",
   },
 
   pl: {
@@ -93,11 +98,16 @@ export const main = {
     text_add_favorite: "Dodaj do Ulubionych",
     text_remove_favorite: "Usuń z Ulubionych",
     text_copy_link: "Kopiuj link",
+    text_copy_link_ok: "Link skopiowany",
     text_delete: "Usuń",
     text_rename: "Zmień nazwę",
     text_not_page: "Nie ma stron w środku",
     text_newpage: "Nowa strona",
     text_trash: "Kosz",
+
+    text_in_trash: "Dodaj do kosza",
+    text_restore_message:
+      "Ta strona jest w koszu, aby edytować stronę, kliknij przywróć stronę",
     text_search: "Szukaj",
     text_setting: "Ustawienia",
     text_account: "Konto",
@@ -156,6 +166,7 @@ export const main = {
     text_you_pages: "Twoje strony",
     text_change_cover: "Zmienić okładkę",
     text_home_page: "Strona główna",
+    text_restore: "Przywróć stronę",
   },
   ru: {
     text_workspace: "Workspace",
@@ -173,11 +184,15 @@ export const main = {
     text_add_favorite: "Добавить в избранное",
     text_remove_favorite: "Удалить из избранного",
     text_copy_link: "Скопировать ссылку",
+    text_copy_link_ok: "Ссылка скопирована",
     text_delete: "Удалить",
     text_rename: "Переименовать",
     text_not_page: "Не страницы внутри",
     text_newpage: "Новая страница",
     text_trash: "Корзина",
+    text_in_trash: "В корзину",
+    text_restore_message:
+      "Эта страница находится в корзине, для редактирования страницы нажмите восстановить страницу",
     text_search: "Поиск",
     text_setting: "Настройка",
     text_account: "Аккаунт",
@@ -236,5 +251,6 @@ export const main = {
     text_you_pages: "Ваши страницы",
     text_change_cover: "Сменить обложку",
     text_home_page: "Домашняя страница",
+    text_restore: "Восстановить страницу",
   },
 };
