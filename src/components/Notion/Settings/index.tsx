@@ -55,6 +55,7 @@ export const Settings: React.FC = () => {
 
   const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
     const name = event.target.value;
+    setUserName(name);
     dispatch(updateUserState({ name }));
   };
 

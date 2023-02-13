@@ -30,6 +30,15 @@ export const gerUser =
       if (response.status === 500) {
         throw new Error("Server is not available");
       }
+      if (
+        response.status === 200 &&
+        data &&
+        data.accessToken &&
+        data.refreshToken
+      ) {
+        sessionStorage.setItem("accessToken", data.accessToken);
+        localStorage.setItem("refreshToken", data.refreshToken);
+      }
 
       dispatch(userSlice.actions.getUserSuccess(data));
     } catch (error) {
@@ -61,8 +70,8 @@ const UserService = {
   async updateUser(updateData: IUserData) {
     try {
       const url = `${API_HOST}${ROUT_USER}/`;
-      const body = { ...updateData };
-      console.log("updateUser body", body);
+      const accessToken = sessionStorage.getItem("accessToken");
+      const body = { ...updateData, accessToken };
       const response = await fetch(url, {
         method: "PUT",
         body: JSON.stringify(body),
@@ -79,15 +88,16 @@ const UserService = {
     }
   },
 
-  async updatePages(pages: IPage[], accessToken: string) {
+  async updatePages(pages: IPage[]) {
     try {
       const url = `${API_HOST}${ROUT_SAVE_PAGES}`;
+      const accessToken = sessionStorage.getItem("accessToken");
+      const body = { accessToken: accessToken, pages };
       const response = await fetch(url, {
         method: "PUT",
-        body: JSON.stringify(pages),
+        body: JSON.stringify(body),
         headers: {
           "Content-Type": "application/json",
-          // cookie: `accessToken=${accessToken}`,
         },
       });
       const status = response.status;

@@ -19,6 +19,7 @@ import getRandomCover from "../../../utils/getRandomCover";
 import { SidebarPage } from "../SidebarPage";
 import { IPage } from "../../../types/interface";
 import { ButtonTrash } from "../ButtonTrash";
+import UserService from "../../../store/user/user.action";
 
 export const Content = (): React.ReactElement => {
   const { user, activePage, lang } = useAppSelector(
@@ -49,6 +50,7 @@ export const Content = (): React.ReactElement => {
     if (pageId && user) {
       dispatch(updateActivePage());
       dispatch(updateArrayPage());
+      UserService.updatePages(user.pages);
     }
   }, [pageId]);
 
