@@ -13,7 +13,6 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
 import getRandomEmojis from "../../../utils/getRandomEmojis";
 import { IPage } from "../../../types/interface";
-import { useParams } from "react-router";
 
 export const ContentIconSettings = (): React.ReactElement => {
   const dispatch = useAppDispatch();

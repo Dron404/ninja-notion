@@ -2,13 +2,13 @@ import React from "react";
 import styles from "./ContentCover.module.scss";
 import { ContentCoverSettings } from "../ContentCoverSettings";
 import { main } from "../../../data/languages/main";
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { userSlice } from "../../../store/user/user.slice";
-import { IPage } from "../../../types/interface";
+import { useAppSelector } from "../../../hooks/redux";
+// import { userSlice } from "../../../store/user/user.slice";
+// import { IPage } from "../../../types/interface";
 
 export const ContentCover: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const { updatePagesState, updateArrayPage } = userSlice.actions;
+  // const dispatch = useAppDispatch();
+  // const { updatePagesState, updateArrayPage } = userSlice.actions;
 
   const { lang, activePage } = useAppSelector((store) => store.userReducer);
 
@@ -18,18 +18,18 @@ export const ContentCover: React.FC = () => {
     ? styles.cover__fullWidth
     : styles.cover__defaultWidth;
 
-  function updatePageStateFn(replaceObject: Partial<IPage>) {
-    if (activePage?._id) {
-      const pageId = activePage._id;
-      dispatch(
-        updatePagesState({
-          replaceObject,
-          pageId,
-        })
-      );
-      dispatch(updateArrayPage());
-    }
-  }
+  // function updatePageStateFn(replaceObject: Partial<IPage>) {
+  //   if (activePage?._id) {
+  //     const pageId = activePage._id;
+  //     dispatch(
+  //       updatePagesState({
+  //         replaceObject,
+  //         pageId,
+  //       })
+  //     );
+  //     dispatch(updateArrayPage());
+  //   }
+  // }
 
   const ref = React.useRef<HTMLDivElement>(null);
 
