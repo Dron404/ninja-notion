@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
 import UserServices from "../../../store/user/user.action";
 import { IUserData } from "../../../types/interface";
+import logout from "../../../utils/logout";
 
 export const Settings: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -100,6 +101,8 @@ export const Settings: React.FC = () => {
       setUserName(defaultUser.name);
     }
   };
+
+  const handleLogOut = () => logout();
 
   const avatar =
     avatarUrl.length > 0 ? (
@@ -263,6 +266,7 @@ export const Settings: React.FC = () => {
                         <ButtonDefault
                           text={data.text_log_out}
                           type="warning"
+                          handle={handleLogOut}
                         />
                       </div>
                     </div>
