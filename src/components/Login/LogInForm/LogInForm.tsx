@@ -1,32 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styles from "./loginInForm.module.scss";
 import MessageEmail from "../MessageEmail/MessageEmail";
 import MessagePassword from "../MessagePassword/MessagePassword";
 import ActivationMessage from "../ActivationMessage/ActivationMessage";
+import { IUserEmailPassword } from "../../../types/interface";
+import { useAppDispatch } from "../../../hooks/redux";
+import { userSlice } from "../../../store/user/user.slice";
 
 function LogInForm() {
-  const [nonValidEmail, toggleNonValidEmail] = useState(false);
-  const [nonValidPassword, toggleNonValidPassword] = useState(false);
-  const [nonActive, toggleNonActive] = useState(false);
+  const [nonValidEmail, toggleNonValidEmail] = React.useState(false);
+  const [nonValidPassword, toggleNonValidPassword] = React.useState(false);
+  const [nonActive, toggleNonActive] = React.useState(false);
 
-  interface EnterFormData {
-    email: string;
-    password: string;
-  }
+  const dispatch = useAppDispatch();
+  const { updateUserLogin } = userSlice.actions;
 
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
-  } = useForm<EnterFormData>({
+  } = useForm<IUserEmailPassword>({
     mode: "onBlur",
   });
 
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<EnterFormData> = async (data) => {
+  const onSubmit: SubmitHandler<IUserEmailPassword> = async (data) => {
     try {
       const emailLower = data.email.toLowerCase();
       const dataUser = {
@@ -55,7 +56,8 @@ function LogInForm() {
         toggleNonActive(!nonActive);
       }
       if (response.status === 200) {
-        navigate("/pages/1");
+        dispatch(updateUserLogin(dataUser));
+        navigate("/pages/home");
       }
     } catch (error) {
       throw new Error("Couldn't login");

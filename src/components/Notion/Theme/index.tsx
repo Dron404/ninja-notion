@@ -16,7 +16,7 @@ export const Theme: React.FC = () => {
   const activeThemes = themes.find((t) => t.code === theme);
 
   const handleChangeTheme = (theme: Ttheme) => {
-    setLocalStorage("theme", theme);
+    setLocalStorage<string>("theme", theme);
     dispatch(updateTheme());
   };
 

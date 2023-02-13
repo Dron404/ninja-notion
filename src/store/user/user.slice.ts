@@ -1,7 +1,7 @@
 import {
   IPage,
   IUserData,
-  IUserPagesReplace,
+  IUserEmailPassword,
   IUserState,
 } from "../../types/interface";
 
@@ -15,6 +15,7 @@ import filterTrashPage from "../../utils/update/filterTrashPage";
 import filterFavoritePage from "../../utils/update/filterFavoritePage";
 
 const initialState: IUserState = {
+  userLogin: null,
   user: null,
   isLoading: false,
   error: "",
@@ -90,31 +91,22 @@ export const userSlice = createSlice({
       }
     },
 
-    // updateUserPages(state, action: PayloadAction<IUserPagesReplace>) {
-    //   const payload = action.payload;
-    //   if (state?.user) {
-    //     const props = {
-    //       replaceObject: payload.replaceObject,
-    //       pageId: payload.pageId,
-    //       accessToken: payload.user.accessToken,
-    //       userPages: payload.user.pages,
-    //     };
-
-    //     state.user = {
-    //       ...state.user,
-    //       ...{ pages: updateUserPagesUtils(props) },
-    //     };
-    //   }
-    // },
     updateModalTarget(state, action: PayloadAction<string>) {
       state.modalTarget = action.payload;
     },
+
+    updateUserLogin(state, action: PayloadAction<IUserEmailPassword>) {
+      state.userLogin = action.payload;
+    },
+
     updateTheme(state) {
       state.theme = getLocalStorage("theme");
     },
+
     updateLanguage(state) {
       state.lang = getLocalStorage("lang");
     },
+
     toggleNavigate(state, action: PayloadAction<boolean>) {
       const navigate = { ...state };
       navigate.navigate = action.payload;

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import { Content } from "../components/Notion/Content";
 import { Header } from "../components/Notion/Header";
 import { Sidebar } from "../components/Notion/Sidebar";
@@ -7,18 +8,18 @@ import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { gerUser } from "../store/user/user.action";
 
 function NoutionPage() {
-  const userLogin = {
-    email: "onebelbiz@gmail.com",
-    password: "1111",
-  };
-
   const dispatch = useAppDispatch();
-  const { error, navigate, theme } = useAppSelector(
+  const { error, navigate, theme, userLogin } = useAppSelector(
     (state) => state.userReducer
   );
+  const navigates = useNavigate();
 
   React.useEffect(() => {
-    dispatch(gerUser(userLogin));
+    if (userLogin) {
+      dispatch(gerUser(userLogin));
+    } else {
+      navigates("/login");
+    }
   }, []);
 
   return (

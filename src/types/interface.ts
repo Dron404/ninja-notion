@@ -206,6 +206,7 @@ export interface IUserPages {
 
 export interface IUserState {
   user: IUserData | null;
+  userLogin: IUserEmailPassword | null;
   isLoading: boolean;
   error: string;
   navigate: boolean;

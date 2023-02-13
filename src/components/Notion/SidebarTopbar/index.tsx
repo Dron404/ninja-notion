@@ -16,6 +16,7 @@ import { AVATAR_SIZE_L } from "../../../data/constants";
 import { main } from "../../../data/languages/main";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
+import logout from "../../../utils/logout";
 
 export const SidebarTopbar: React.FC = function slidebar() {
   const dispatch = useAppDispatch();
@@ -25,6 +26,8 @@ export const SidebarTopbar: React.FC = function slidebar() {
   const data = main[lang];
 
   const handletoogle = () => dispatch(toggleNavigate(!navigate));
+
+  const handleLogout = () => logout();
 
   const avatarUrl = user?.avatar || "";
 
@@ -54,7 +57,11 @@ export const SidebarTopbar: React.FC = function slidebar() {
                 <Menu.Items
                   className={`${styles.topbar__popupMore} notion-popup__body`}
                 >
-                  <Button icon={<LogoutSVG />} text={data.text_log_out} />
+                  <Button
+                    icon={<LogoutSVG />}
+                    text={data.text_log_out}
+                    handle={handleLogout}
+                  />
                 </Menu.Items>
               </Menu>
             </div>
@@ -86,7 +93,7 @@ export const SidebarTopbar: React.FC = function slidebar() {
           </div>
 
           <div className={styles.control}>
-            <Button text={data.text_log_out} />
+            <Button text={data.text_log_out} handle={handleLogout} />
           </div>
         </Menu.Items>
       </Menu>

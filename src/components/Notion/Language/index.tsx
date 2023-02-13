@@ -16,7 +16,7 @@ export const Language: React.FC = () => {
   const activeLanguage = languages.find((language) => language.code === lang);
 
   const handleChangeLanguege = (lang: Tlanguage) => {
-    setLocalStorage("lang", lang);
+    setLocalStorage<string>("lang", lang);
     dispatch(updateLanguage());
   };
 
