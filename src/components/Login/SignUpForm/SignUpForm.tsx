@@ -41,7 +41,7 @@ function SignUpForm(props: {
       };
 
       const response = await fetch(
-        "https://ninja-notion-api-production.up.railway.app/user",
+        "https://ninja-notion-api-production.up.railway.app/registration",
         {
           method: "POST",
           headers: {
@@ -50,6 +50,7 @@ function SignUpForm(props: {
           body: JSON.stringify(dataUser),
         }
       );
+      console.log(dataUser);
 
       if (response.status === 200) {
         setInvitationActive(!invitationActive);
