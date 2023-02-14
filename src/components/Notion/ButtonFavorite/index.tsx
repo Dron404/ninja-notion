@@ -22,7 +22,7 @@ export const ButtonFavorite: React.FC<INotionButton> = ({ dataPage }) => {
   function onClick() {
     const replaceObject = { favorite: !dataPage?.favorite };
     if (dataPage) {
-      const pageId = dataPage._id;
+      const pageId = dataPage._id || "";
       dispatch(
         updatePagesState({
           replaceObject,

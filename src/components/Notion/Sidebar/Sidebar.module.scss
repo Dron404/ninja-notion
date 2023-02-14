@@ -2,8 +2,20 @@
   padding: auto;
   display: flex;
   flex-flow: column nowrap;
-  height: 100vh;
-  max-width: 233px;
+
+  &__scroll {
+    height: calc(100vh - 110px);
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      background: var(--сolor-bg);
+      position: absolute;
+      width: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--color-hover);
+    }
+  }
 
   &__button {
     padding: 2px 0;

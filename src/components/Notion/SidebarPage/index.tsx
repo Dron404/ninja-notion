@@ -1,27 +1,22 @@
 import React from "react";
 import styles from "./SidebarPage.module.scss";
-import { INotionButton, IPage } from "../../../types/interface";
+import { INotionButton } from "../../../types/interface";
 import { Link } from "react-router-dom";
 import { ReactComponent as ToggleSVG } from "../../../assets/img/svg/toggle.svg";
 import { ReactComponent as MoreSVG } from "../../../assets/img/svg/more.svg";
 import { ReactComponent as AddSVG } from "../../../assets/img/svg/add.svg";
-import { ReactComponent as TrashSVG } from "../../../assets/img/svg/trash.svg";
-import { ReactComponent as CopySVG } from "../../../assets/img/svg/copy.svg";
 import { ReactComponent as DefaultSVG } from "../../../assets/img/svg/default.svg";
-import { ReactComponent as RenameSVG } from "../../../assets/img/svg/rename.svg";
-import { ReactComponent as FavoriteSVG } from "../../../assets/img/svg/favorite.svg";
 import { ButtonMini } from "../ButtonMini";
-import { Button } from "../Button";
 import { Menu } from "@headlessui/react";
-import copy from "copy-to-clipboard";
-
 import { main } from "../../../data/languages/main";
-
-import { useAppSelector } from "../../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 
 import { ButtonTrash } from "../ButtonTrash";
 import { ButtonCopyLink } from "../ButtonCopyLink";
 import { ButtonFavorite } from "../ButtonFavorite";
+import { userSlice } from "../../../store/user/user.slice";
+import createNewPage from "../../../utils/update/createNewPage";
+import UserService from "../../../store/user/user.action";
 
 export const SidebarPage: React.FC<INotionButton> = ({
   text,
@@ -34,6 +29,10 @@ export const SidebarPage: React.FC<INotionButton> = ({
   const { lang } = useAppSelector((store) => store.userReducer);
   const data = main[lang];
 
+  const { updateUserState } = userSlice.actions;
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((store) => store.userReducer);
+
   const [toogleStatus, setToogleStatus] = React.useState<boolean>(
     Boolean(toggle)
   );
@@ -41,12 +40,25 @@ export const SidebarPage: React.FC<INotionButton> = ({
   const handleTogle = () => setToogleStatus(!toogleStatus);
 
   const toggleStyle = toogleStatus ? "toggle-active" : "toggle-pasive";
-  const newPadding = padding ? padding && padding + 7 : 14;
+  const newPadding = padding ? padding && padding + 1 : 4;
 
   const pageUrl = `/pages/${dataPage?._id}`;
 
   const handleRename = () => {
     console.log("handleRename");
+  };
+
+  let loadingCreatePage = false;
+  const handleCreatePage = async (pageId = "") => {
+    if (pageId && user && !loadingCreatePage) {
+      const pages = await createNewPage(user.pages, pageId);
+      loadingCreatePage = true;
+      const response = await UserService.updatePages(pages);
+      if (response && response?.status === 200) {
+        loadingCreatePage = false;
+        dispatch(updateUserState({ pages: response.pages }));
+      }
+    }
   };
 
   return (
@@ -69,20 +81,19 @@ export const SidebarPage: React.FC<INotionButton> = ({
             className={`${styles.buttonPage__link} button__link`}
             tabIndex={0}
           >
-            {icon ? (
-              <div className="button__icon">{icon}</div>
-            ) : (
-              <div className="button__icon">
-                <DefaultSVG />
-              </div>
-            )}
+            <div className="button__icon">{icon ? icon : <DefaultSVG />}</div>
+
             {text && <div className="button__text">{text}</div>}
           </Link>
         </div>
 
         <div className={styles.buttonPage__groupHidden}>
           {dataPage?.children_page && (
-            <ButtonMini icon={<AddSVG />} cName={styles.buttonPage__add} />
+            <ButtonMini
+              icon={<AddSVG />}
+              cName={styles.buttonPage__add}
+              handle={() => handleCreatePage(dataPage._id)}
+            />
           )}
 
           <Menu
@@ -144,7 +155,7 @@ export const SidebarPage: React.FC<INotionButton> = ({
           className={styles.buttonPage__children}
           style={{ paddingLeft: `${newPadding}px` }}
         >
-          {dataPage?.children_page && dataPage?.children_page ? (
+          {dataPage?.children_page && dataPage?.children_page.length > 0 ? (
             dataPage.children_page.map(
               (data) =>
                 !data.dataTrash && (

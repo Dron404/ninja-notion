@@ -18,17 +18,16 @@ export const ButtonTrash: React.FC<INotionButton> = ({ dataPage }) => {
   const icon = isTrash ? <RestoreSVG /> : <TrashSVG />;
   const text = isTrash ? data.text_restore : data.text_in_trash;
   const dateParse = dataPage && new Date(Date.parse(dataPage.dataTrash));
-  const dateYMD = dateParse
-    ? `${dateParse.getFullYear()}-${dateParse.getMonth()}-${dateParse.getDay()}`
-    : "";
+  const dateYMD = dateParse ? dateParse.toLocaleDateString("en-US") : "";
 
   const help = isTrash ? dateYMD : "";
 
   function onClick() {
     const date = isTrash ? "" : String(new Date());
-    const replaceObject = { dataTrash: date };
+    const replaceObject = { ...dataPage, ...{ dataTrash: date } };
+
     if (dataPage) {
-      const pageId = dataPage._id;
+      const pageId = dataPage._id || "";
       dispatch(
         updatePagesState({
           replaceObject,

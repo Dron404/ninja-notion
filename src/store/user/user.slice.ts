@@ -134,13 +134,17 @@ export const userSlice = createSlice({
         const props = action.payload;
         const replaceObject = props.replaceObject;
         const pageId = props.pageId;
-        if (state?.activePage)
+
+        if (state.activePage?._id === pageId) {
           state.activePage = { ...state.activePage, ...replaceObject };
+        }
+
         const pages = replacePageObject(
           state.user.pages,
           replaceObject,
           pageId
         );
+
         state.user = { ...state.user, pages };
       }
     },

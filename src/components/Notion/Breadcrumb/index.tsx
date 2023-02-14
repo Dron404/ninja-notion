@@ -6,7 +6,7 @@ import SkeletonBreadcrumb from "../Skeleton/SkeletonBreadcrumb";
 import { main } from "../../../data/languages/main";
 
 export const Breadcrumb = (): React.ReactElement => {
-  const { breadcrumbs, isLoading, lang } = useAppSelector(
+  const { breadcrumbs, isLoading, lang, activePage } = useAppSelector(
     (store) => store.userReducer
   );
 
@@ -27,7 +27,17 @@ export const Breadcrumb = (): React.ReactElement => {
                 cName={styles.breadcrumb__link}
               />
             </li>
-            {breadcrumbs &&
+            {activePage ? (
+              <li className={styles.breadcrumb__li} key={activePage._id}>
+                <Button
+                  link={`/pages/${activePage?._id}`}
+                  text={activePage?.name}
+                  icon={activePage?.icon}
+                  cName={styles.breadcrumb__link}
+                />
+              </li>
+            ) : (
+              breadcrumbs &&
               breadcrumbs.map((breadcrumb) => (
                 <li className={styles.breadcrumb__li} key={breadcrumb._id}>
                   <Button
@@ -37,7 +47,8 @@ export const Breadcrumb = (): React.ReactElement => {
                     cName={styles.breadcrumb__link}
                   />
                 </li>
-              ))}
+              ))
+            )}
           </>
         )}
       </ul>
