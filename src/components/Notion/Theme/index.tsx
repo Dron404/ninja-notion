@@ -1,12 +1,11 @@
 import React from "react";
 import styles from "./Theme.module.scss";
-import { ButtonDefault } from "../ButtonDefault";
+import { Button } from "../Button";
 import { Menu } from "@headlessui/react";
 import { themes } from "../../../data/languages/theme";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
 import { Ttheme } from "../../../types/types";
-import { setLocalStorage } from "../../../utils/strorage/localStorage";
 
 export const Theme: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -15,15 +14,17 @@ export const Theme: React.FC = () => {
 
   const activeThemes = themes.find((t) => t.code === theme);
 
-  const handleChangeTheme = (theme: Ttheme) => {
-    setLocalStorage<string>("theme", theme);
-    dispatch(updateTheme());
+  const handleChangeTheme = async (theme: Ttheme) => {
+    dispatch(updateTheme(theme));
   };
 
   return (
     <Menu as="div" className={`${styles.menu} notion-popup__menu`}>
       <Menu.Button className={styles.button}>
-        <ButtonDefault text={String(activeThemes?.name[lang])} type="default" />
+        <Button
+          text={String(activeThemes?.name[lang])}
+          cName={styles.button__default}
+        />
       </Menu.Button>
       <Menu.Items className={`${styles.popup} notion-popup__body`}>
         {themes.map((t, index) =>

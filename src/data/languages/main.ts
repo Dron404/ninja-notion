@@ -39,7 +39,7 @@ export const main = {
       "You can set a permanent password if you don't want to use temporary login codes.",
     text_set_a_password: "Set a password",
     text_password_characters:
-      "Use a password at least 15 letters long, or at least 8 characters long with both letters and numbers.",
+      "Use a password at least 5 characters long with both.",
     text_log_out_of: "Log out of all devices",
     text_log_out_description:
       "Log out of all other active sessions on other devices besides this one.",
@@ -125,7 +125,7 @@ export const main = {
       "Możesz ustawić stałe hasło, jeśli nie chcesz używać tymczasowych kodów logowania.",
     text_set_a_password: "Ustaw hasło",
     text_password_characters:
-      "Użyj hasła o długości co najmniej 15 liter lub co najmniej 8 znaków zawierających zarówno litery, jak i cyfry.",
+      "Użyj hasła o długości co najmniej 5 znaków zawierających zarówno.",
     text_log_out_of: "Wyloguj się z wszystkich urządzeń",
     text_log_out_description:
       "Wyloguj się ze wszystkich innych aktywnych sesji na innych urządzeniach poza tym jednym.",
@@ -209,8 +209,7 @@ export const main = {
     text_password_description:
       "Вы можете установить постоянный пароль, если не хотите использовать временные коды входа.",
     text_set_a_password: "Установите пароль",
-    text_password_characters:
-      "Используйте пароль длиной не менее 15 букв или не менее 8 символов с буквами и цифрами.",
+    text_password_characters: "Используйте пароль длиной не менее 5 символов",
     text_log_out_of: "Выход из всех устройств",
     text_log_out_description:
       "Выйдите из всех других активных сеансов на других устройствах, кроме этого.",

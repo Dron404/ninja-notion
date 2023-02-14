@@ -7,7 +7,6 @@ import { ReactComponent as ThemeSVG } from "../../../assets/img/svg/theme.svg";
 import { ReactComponent as UserSVG } from "../../../assets/img/svg/user.svg";
 
 import { UserAvatar } from "../UserAvatar";
-import { ButtonDefault } from "../ButtonDefault";
 import { SettingsTab } from "../SettingsTab";
 import { Language } from "../Language";
 import { Theme } from "../Theme";
@@ -18,6 +17,7 @@ import { userSlice } from "../../../store/user/user.slice";
 import UserServices from "../../../store/user/user.action";
 import { IUserData } from "../../../types/interface";
 import logout from "../../../utils/logout";
+import { UploadFile } from "../UploadFile";
 
 export const Settings: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -33,26 +33,34 @@ export const Settings: React.FC = () => {
   const password = user?.password || "";
 
   const [tab, setTab] = React.useState<string>("account");
-  const [resetPassword, setResetPassword] = React.useState<boolean>(false);
-  const handleResetPassword = () => setResetPassword(true);
-
-  const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false);
-  const openModal = () => setIsOpenModal(true);
-  const closeModal = (e: React.MouseEvent<Element>) => {
-    if ((e.target as Element).classList.contains("notion__modal")) {
-      handleCancelUser();
-    }
-  };
-
-  React.useEffect(() => {
-    setDefaultUser(user);
-  }, [isOpenModal]);
 
   const [userName, setUserName] = React.useState<string>(name);
 
   const [userPassword, setUserPassword] = React.useState<string>("");
   const [userPasswordRepeat, setUserPasswordRepeat] =
     React.useState<string>("");
+
+  const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false);
+  const [isOpenModalAvatar, setIsOpenModalAvatar] =
+    React.useState<boolean>(false);
+  const [isOpenModalPassword, setIsOpenModalPassword] =
+    React.useState<boolean>(false);
+  const openModal = () => setIsOpenModal(true);
+  const openModalAvatar = () => setIsOpenModalAvatar(true);
+  const openModalPassword = () => setIsOpenModalPassword(true);
+  const closeModal = (e: React.MouseEvent<Element>) => {
+    if ((e.target as Element).id === "settings") handleCancelUser();
+    if ((e.target as Element).id === "avatar") setIsOpenModalAvatar(false);
+    if ((e.target as Element).id === "reset-password") {
+      setIsOpenModalPassword(false);
+      setUserPassword("");
+      setUserPasswordRepeat("");
+    }
+  };
+
+  React.useEffect(() => {
+    setDefaultUser(user);
+  }, [isOpenModal]);
 
   const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
     const name = event.target.value;
@@ -62,8 +70,8 @@ export const Settings: React.FC = () => {
 
   const isUpdatePassword = () =>
     !!(
-      userPassword.length > 3 &&
-      userPasswordRepeat.length > 3 &&
+      userPassword.length > 6 &&
+      userPasswordRepeat.length > 6 &&
       userPassword === userPasswordRepeat
     );
 
@@ -82,11 +90,13 @@ export const Settings: React.FC = () => {
     setUserPasswordRepeat(event.target.value);
   };
 
+  let isLoading = false;
   const handleUpdateUser = async (pass = "") => {
-    if (UserServices && user) {
+    if (UserServices && user && !isLoading) {
       const userData: IUserData = password
         ? { ...user, ...{ password: pass } }
         : user;
+      isLoading = true;
       const response = await UserServices.updateUser(userData);
       if (response?.status === 200) setIsOpenModal(false);
     }
@@ -119,7 +129,7 @@ export const Settings: React.FC = () => {
         handle={openModal}
       />
       {isOpenModal && (
-        <div className="notion__modal" onMouseDown={closeModal}>
+        <div className="notion__modal" id="settings" onMouseDown={closeModal}>
           <div className="notion__modal_body">
             <div className={styles.settings}>
               <div className={styles.settings__menu}>
@@ -172,10 +182,26 @@ export const Settings: React.FC = () => {
                         {avatar}
                       </div>
                       <div className={styles.settings__row}>
-                        <ButtonDefault
+                        <Button
                           text={data.text_upload_photo}
-                          type="default"
+                          cName={styles.button__default}
+                          handle={openModalAvatar}
                         />
+
+                        {isOpenModalAvatar && (
+                          <div
+                            className="notion__modal"
+                            id="avatar"
+                            onMouseDown={closeModal}
+                          >
+                            <div className="notion__modal_body">
+                              <div className={styles.settings__wrapper}>
+                                {" "}
+                                <UploadFile />
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div className={styles.settings__section}>
@@ -206,51 +232,59 @@ export const Settings: React.FC = () => {
                         {data.text_password}
                       </div>
 
-                      {!resetPassword && (
-                        <div className={styles.settings__row}>
-                          <p className={styles.settings__description}>
-                            {data.text_password_description}
-                          </p>
-                          <ButtonDefault
-                            text={data.text_set_a_password}
-                            type="default"
-                            handle={handleResetPassword}
-                          />
-                        </div>
-                      )}
+                      <div className={styles.settings__row}>
+                        <p className={styles.settings__description}>
+                          {data.text_password_description}
+                        </p>
+                        <Button
+                          text={data.text_set_a_password}
+                          cName={styles.button__default}
+                          handle={openModalPassword}
+                        />
+                      </div>
 
-                      {resetPassword && (
-                        <div className={styles.settings__row}>
-                          <p className={styles.settings__description}>
-                            {data.text_password_characters}
-                          </p>
-                          <div className={styles.settings__label}>
-                            {data.text_password}
-                          </div>
-                          <input
-                            type="password"
-                            name="password"
-                            className={styles.settings__input}
-                            onChange={handleChangePassword}
-                          />
-                          <div className={styles.settings__label}>
-                            {data.text_repeat_password}
-                          </div>
-                          <input
-                            type="password"
-                            name="password_repeat"
-                            className={styles.settings__input}
-                            onChange={handleChangePasswordRepeat}
-                          />
-                          {isUpdatePassword() && (
-                            <div className={styles.settings__row}>
-                              <ButtonDefault
-                                text={data.text_update_password}
-                                type="primary"
-                                handle={handleUpdatePassword}
-                              />
+                      {isOpenModalPassword && (
+                        <div
+                          className="notion__modal notion__modalPassword"
+                          id="reset-password"
+                          onMouseDown={closeModal}
+                        >
+                          <div className="notion__modal_body">
+                            <div className={styles.settings__wrapper}>
+                              <div className={styles.settings__row}>
+                                <p className={styles.settings__description}>
+                                  {data.text_password_characters}
+                                </p>
+                                <div className={styles.settings__label}>
+                                  {data.text_password}
+                                </div>
+                                <input
+                                  type="password"
+                                  name="password"
+                                  className={styles.settings__input}
+                                  onChange={handleChangePassword}
+                                />
+                                <div className={styles.settings__label}>
+                                  {data.text_repeat_password}
+                                </div>
+                                <input
+                                  type="password"
+                                  name="password_repeat"
+                                  className={styles.settings__input}
+                                  onChange={handleChangePasswordRepeat}
+                                />
+                                {isUpdatePassword() && (
+                                  <div className={styles.settings__row}>
+                                    <Button
+                                      text={data.text_update_password}
+                                      cName={styles.button__primary}
+                                      handle={handleUpdatePassword}
+                                    />
+                                  </div>
+                                )}
+                              </div>
                             </div>
-                          )}
+                          </div>
                         </div>
                       )}
                     </div>
@@ -263,23 +297,23 @@ export const Settings: React.FC = () => {
                         <p className={styles.settings__description}>
                           {data.text_log_out_description}
                         </p>
-                        <ButtonDefault
+                        <Button
                           text={data.text_log_out}
-                          type="warning"
+                          cName={styles.button__warning}
                           handle={handleLogOut}
                         />
                       </div>
                     </div>
                   </div>
                   <div className={styles.settings__footer}>
-                    <ButtonDefault
+                    <Button
                       text={data.text_update}
-                      type="primary"
+                      cName={styles.button__primary}
                       handle={handleUpdateUser}
                     />
-                    <ButtonDefault
+                    <Button
                       text={data.text_cancel}
-                      type="default"
+                      cName={styles.button__default}
                       handle={handleCancelUser}
                     />
                   </div>

@@ -11,8 +11,8 @@ import {
   setLocalStorage,
 } from "./utils/strorage/localStorage";
 
-if (getLocalStorage("lang")) setLocalStorage("lang", "en");
-if (getLocalStorage("theme")) setLocalStorage("theme", "light");
+if (!getLocalStorage("lang")) setLocalStorage("lang", "en");
+if (!getLocalStorage("theme")) setLocalStorage("theme", "light");
 
 function App() {
   return (

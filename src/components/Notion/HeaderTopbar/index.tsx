@@ -50,16 +50,34 @@ export const HeaderTopbar = (): React.ReactElement => {
   }
 
   const handelSmallText = () => {
-    const replaceObject = { property: { small_text: !smallText } };
+    const replaceObject = {
+      property: {
+        small_text: !smallText,
+        full_width: fullWidth,
+        font: font,
+      },
+    };
     updatePageStateFn(replaceObject);
   };
 
   const handelFullWidth = () => {
-    const replaceObject = { property: { full_width: !fullWidth } };
+    const replaceObject = {
+      property: {
+        small_text: smallText,
+        full_width: !fullWidth,
+        font: font,
+      },
+    };
     updatePageStateFn(replaceObject);
   };
   const handleFont = (fontData: string) => {
-    const replaceObject = { property: { font: fontData } };
+    const replaceObject = {
+      property: {
+        small_text: smallText,
+        full_width: fullWidth,
+        font: fontData,
+      },
+    };
     updatePageStateFn(replaceObject);
   };
   const handleFavorite = () => {

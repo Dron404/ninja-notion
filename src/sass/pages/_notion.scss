@@ -1,8 +1,8 @@
 :root {
-  --color-hover: #efefef; // hover button
+  --color-hover: #efefef;
   --color-bg: #ffffff;
   --color-text: #222222;
-  --color-text-aside: #4f4f4f; // user
+  --color-text-aside: #4f4f4f;
   --color-aside: #fbfbfa;
   --color-icon: #959595;
   --color-bg-code: #f1f1f1;
@@ -11,23 +11,25 @@
 }
 
 [data-theme="dark"] {
-  --color-hover: #464c50; // hover button color-base-140
+  --color-hover: #464c50;
   --color-bg: #272727;
   --color-text: #f0f0f0;
-  --color-text-aside: #e1e1e1cb; //  --color-text-aside
+  --color-text-aside: #e1e1e1cb;
   --color-aside: #373c3f;
   --color-icon: #e1e1e1ad;
   --color-bg-code: #343434;
+  --color-active-svg: #d07b36;
 }
 
 [data-theme="cobalt2"] {
-  --color-hover: #193549; // hover button color-base-140
+  --color-hover: #193549;
   --color-bg: #122738;
   --color-text: #f0f0f0;
-  --color-text-aside: #b9b9b9; //  --color-text-aside
+  --color-text-aside: #b9b9b9;
   --color-aside: #15232d;
   --color-icon: #ffca28;
   --color-bg-code: #193549;
+  --color-active-svg: #d07b36;
 }
 
 [data-font="serif"] {
@@ -63,12 +65,16 @@ h1 {
   margin: 0 0 0.5em 0;
 }
 
+a {
+  color: var(--color-text);
+}
+
 .notion {
+  height: 100vh;
   user-select: none;
   display: flex;
   flex-flow: row nowrap;
   font-size: 14px;
-  height: 100vh;
 
   &-popup {
     position: relative;
@@ -103,12 +109,11 @@ h1 {
     z-index: 999;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
 
     &_body {
       background-color: var(--color-bg);
       overflow: hidden;
-      margin-top: 90px;
       min-height: 50px;
       max-height: 80vh;
       border-radius: 7px;
@@ -250,4 +255,11 @@ h1 {
   overflow: hidden;
   max-width: 95px;
   white-space: nowrap;
+}
+
+.modal-top {
+  align-items: flex-start;
+  .notion__modal_body {
+    margin-top: 50px;
+  }
 }

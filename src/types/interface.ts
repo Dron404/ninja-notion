@@ -128,7 +128,7 @@ export interface IValue {
 }
 
 export interface IPage {
-  _id: string;
+  _id?: string;
   content: string;
   name: string;
   icon: string;
@@ -147,6 +147,7 @@ export interface IPage {
     position?: number;
   };
   children_page: IPage[] | null;
+  prev?: IPage | null;
 }
 
 export interface IPages {
@@ -180,8 +181,9 @@ export interface IUserReturn {
 }
 
 export interface IUserResponseMessage {
+  pages?: IPage[];
   message: string;
-  status: number;
+  status?: number;
 }
 
 export interface IReactQuery<T> {
@@ -228,6 +230,7 @@ export interface ISearch {
   type?: string;
   hotkey?: string;
   target?: string;
+  cName?: string;
   handle?: (pageId: string) => void;
 }
 

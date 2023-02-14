@@ -6,7 +6,12 @@ import {
 } from "../../data/constants";
 // import { dataTestUser } from "../../data/dataTestUser";
 
-import { IUserEmailPassword, IPage, IUserData } from "../../types/interface";
+import {
+  IUserEmailPassword,
+  IPage,
+  IUserData,
+  IUserResponseMessage,
+} from "../../types/interface";
 
 import { AppDispatch } from "../store";
 import { userSlice } from "./user.slice";
@@ -38,9 +43,10 @@ export const gerUset =
       ) {
         sessionStorage.setItem("accessToken", data.accessToken);
         localStorage.setItem("refreshToken", data.refreshToken);
+        dispatch(userSlice.actions.getUserSuccess(data));
+      } else {
+        throw new Error("Error Server");
       }
-
-      dispatch(userSlice.actions.getUserSuccess(data));
     } catch (error) {
       if (error instanceof Error) {
         dispatch(userSlice.actions.getUserError(error?.message));
@@ -49,7 +55,11 @@ export const gerUset =
   };
 
 const UserService = {
-  async createUser(email: string, password: string, name: string) {
+  async createUser(
+    email: string,
+    password: string,
+    name: string
+  ): Promise<IUserResponseMessage | undefined> {
     try {
       const url = `${API_HOST}${ROUT_USER}}`;
       const body = { email, password, name };
@@ -59,19 +69,24 @@ const UserService = {
         body: JSON.stringify(body),
       });
       const status = response.status;
-      const message: string = await response.json();
-
-      return { message, status };
+      if (status === 200) {
+        const pagesData: IUserResponseMessage = await response.json();
+        return { ...pagesData, ...{ status } };
+      } else {
+        throw new Error("Error Server");
+      }
     } catch (err) {
       console.error(err);
     }
   },
 
-  async updateUser(updateData: IUserData) {
+  async updateUser(
+    updateData: IUserData
+  ): Promise<IUserResponseMessage | undefined> {
     try {
       const url = `${API_HOST}${ROUT_USER}/`;
       const accessToken = sessionStorage.getItem("accessToken");
-      const body = { ...updateData, accessToken };
+      const body = { ...updateData, ...{ accessToken: accessToken } };
       const response = await fetch(url, {
         method: "PUT",
         body: JSON.stringify(body),
@@ -81,18 +96,22 @@ const UserService = {
       });
       const status = response.status;
 
-      const message: string = await response.json();
-      return { message, status };
+      if (status === 200) {
+        const pagesData: IUserResponseMessage = await response.json();
+        return { ...pagesData, ...{ status } };
+      } else {
+        throw new Error("Error Server");
+      }
     } catch (err) {
       console.error(err);
     }
   },
 
-  async updatePages(pages: IPage[]) {
+  async updatePages(pages: IPage[]): Promise<IUserResponseMessage | undefined> {
     try {
       const url = `${API_HOST}${ROUT_SAVE_PAGES}`;
       const accessToken = sessionStorage.getItem("accessToken");
-      const body = { accessToken: accessToken, pages };
+      const body = { ...{ accessToken: accessToken }, ...{ pages: pages } };
       const response = await fetch(url, {
         method: "PUT",
         body: JSON.stringify(body),
@@ -101,20 +120,28 @@ const UserService = {
         },
       });
       const status = response.status;
-      const message = await response.json();
-      return { message, status };
+      if (status === 200) {
+        const pagesData: IUserResponseMessage = await response.json();
+        return { ...pagesData, ...{ status } };
+      } else {
+        throw new Error("Error Server " + status);
+      }
     } catch (err) {
-      console.error("Error updatePages");
+      console.error(err);
     }
   },
 
-  async activeteUser(id: string) {
+  async activeteUser(id: string): Promise<IUserResponseMessage | undefined> {
     try {
       const url = `${API_HOST}${ROUT_USER}/${id}`;
       const response = await fetch(url);
       const status = response.status;
-      const message = await response.json();
-      return { message, status };
+      if (status === 200) {
+        const pagesData: IUserResponseMessage = await response.json();
+        return { ...pagesData, ...{ status } };
+      } else {
+        throw new Error("Error Server");
+      }
     } catch (err) {
       console.error(err);
     }

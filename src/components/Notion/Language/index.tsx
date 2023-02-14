@@ -1,12 +1,11 @@
 import React from "react";
 import styles from "./Language.module.scss";
-import { ButtonDefault } from "../ButtonDefault";
 import { Menu } from "@headlessui/react";
 import { languages } from "../../../data/languages/language";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
 import { Tlanguage } from "../../../types/types";
-import { setLocalStorage } from "../../../utils/strorage/localStorage";
+import { Button } from "../Button";
 
 export const Language: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -15,15 +14,17 @@ export const Language: React.FC = () => {
 
   const activeLanguage = languages.find((language) => language.code === lang);
 
-  const handleChangeLanguege = (lang: Tlanguage) => {
-    setLocalStorage<string>("lang", lang);
-    dispatch(updateLanguage());
+  const handleChangeLanguege = async (lang: Tlanguage) => {
+    dispatch(updateLanguage(lang));
   };
 
   return (
     <Menu as="div" className={`${styles.menu} notion-popup__menu`}>
       <Menu.Button className={styles.button}>
-        <ButtonDefault text={String(activeLanguage?.name)} type="default" />
+        <Button
+          text={String(activeLanguage?.name)}
+          cName={styles.button__default}
+        />
       </Menu.Button>
       <Menu.Items className={`${styles.popup} notion-popup__body`}>
         {languages.map((lang, index) =>

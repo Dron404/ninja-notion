@@ -6,15 +6,34 @@ import { SidebarPage } from "../SidebarPage/";
 import { ButtonMini } from "../ButtonMini/";
 import { ReactComponent as AddSVG } from "../../../assets/img/svg/add.svg";
 import { main } from "../../../data/languages/main";
-import { useAppSelector } from "../../../hooks/redux";
-
-import { ReactComponent as TopbarTrashSVG } from "../../../assets/img/svg/trash.svg";
+import { useAppSelector, useAppDispatch } from "../../../hooks/redux";
+import createNewPage from "../../../utils/update/createNewPage";
+import { userSlice } from "../../../store/user/user.slice";
+import UserService from "../../../store/user/user.action";
+import { async } from "q";
+import { IUserResponseMessage } from "../../../types/interface";
 
 export const SidebarPages = (): React.ReactElement => {
-  const { user, lang, favoritePage, trashPage } = useAppSelector(
+  const { user, lang, favoritePage } = useAppSelector(
     (store) => store.userReducer
   );
   const data = main[lang];
+  const dispatch = useAppDispatch();
+  const { updateUserState } = userSlice.actions;
+
+  let loadingCreatePage = false;
+  const handleCreatePage = async (pageId = "") => {
+    if (pageId && user && !loadingCreatePage) {
+      const pages = await createNewPage(user.pages, pageId);
+      loadingCreatePage = true;
+      const response = await UserService.updatePages(pages);
+      if (response && response?.status === 200) {
+        loadingCreatePage = false;
+        dispatch(updateUserState({ pages: response.pages }));
+      }
+    }
+  };
+
   return (
     <>
       {favoritePage && favoritePage?.length > 0 && (
@@ -67,7 +86,11 @@ export const SidebarPages = (): React.ReactElement => {
           </div>
         </div>
       </div>
-      <Button icon={<AddSVG />} text={data.text_add} />
+      <Button
+        icon={<AddSVG />}
+        text={data.text_add}
+        handle={handleCreatePage}
+      />
     </>
   );
 };

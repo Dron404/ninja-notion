@@ -16,8 +16,9 @@ export const Search: React.FC<ISearch> = ({
   placeholder,
   icon,
   type = "search",
-  handle,
   hotkey = "",
+  cName = "",
+  handle,
 }) => {
   const { lang, modalTarget } = useAppSelector((store) => store.userReducer);
   const { updateModalTarget } = userSlice.actions;
@@ -82,7 +83,7 @@ export const Search: React.FC<ISearch> = ({
         <Button icon={icon} text={text} handle={openModal} hotkey={hotkeys} />
       )}
       {isOpenModal && (
-        <div className="notion__modal" onMouseDown={closeModal}>
+        <div className={`notion__modal ${cName}`} onMouseDown={closeModal}>
           <div className="notion__modal_body">
             <div className={styles.search}>
               <div className={styles.search__header}>
