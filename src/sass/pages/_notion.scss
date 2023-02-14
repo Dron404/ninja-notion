@@ -63,6 +63,10 @@ h1 {
   margin: 0 0 0.5em 0;
 }
 
+a {
+  color: var(--color-text);
+}
+
 .notion {
   user-select: none;
   display: flex;
@@ -103,12 +107,11 @@ h1 {
     z-index: 999;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
 
     &_body {
       background-color: var(--color-bg);
       overflow: hidden;
-      margin-top: 90px;
       min-height: 50px;
       max-height: 80vh;
       border-radius: 7px;

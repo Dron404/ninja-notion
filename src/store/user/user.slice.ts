@@ -6,13 +6,18 @@ import {
 } from "../../types/interface";
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getLocalStorage } from "../../utils/strorage/localStorage";
+
 import pagesToArray from "../../utils/update/pagesToArray";
 import dateHomePage from "../../data/dateHomePage";
 import findActivePage from "../../utils/update/findActivePage";
 import replacePageObject from "../../utils/update/replacePageObject";
 import filterTrashPage from "../../utils/update/filterTrashPage";
 import filterFavoritePage from "../../utils/update/filterFavoritePage";
+import { Tlanguage, Ttheme } from "../../types/types";
+import {
+  getLocalStorage,
+  setLocalStorage,
+} from "../../utils/strorage/localStorage";
 
 const initialState: IUserState = {
   userLogin: null,
@@ -26,8 +31,8 @@ const initialState: IUserState = {
   favoritePage: null,
   trashPage: null,
   breadcrumbs: null,
-  lang: getLocalStorage("lang"),
-  theme: getLocalStorage("theme"),
+  lang: getLocalStorage<Tlanguage>("lang") || "en",
+  theme: getLocalStorage<Ttheme>("theme") || "light",
 };
 
 export const userSlice = createSlice({
@@ -99,12 +104,14 @@ export const userSlice = createSlice({
       state.userLogin = action.payload;
     },
 
-    updateTheme(state) {
-      state.theme = getLocalStorage("theme");
+    updateTheme(state, action: PayloadAction<Ttheme>) {
+      setLocalStorage("theme", action.payload);
+      state.theme = action.payload;
     },
 
-    updateLanguage(state) {
-      state.lang = getLocalStorage("lang");
+    updateLanguage(state, action: PayloadAction<Tlanguage>) {
+      localStorage.setItem("lang", action.payload);
+      state.lang = action.payload;
     },
 
     toggleNavigate(state, action: PayloadAction<boolean>) {
