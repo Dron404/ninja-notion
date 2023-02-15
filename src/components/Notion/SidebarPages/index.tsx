@@ -7,7 +7,7 @@ import { ButtonMini } from "../ButtonMini/";
 import { ReactComponent as AddSVG } from "../../../assets/img/svg/add.svg";
 import { main } from "../../../data/languages/main";
 import { useAppSelector, useAppDispatch } from "../../../hooks/redux";
-import createNewPage from "../../../utils/update/createNewPage";
+import createNewPage from "../../../utils/update/addNewPageForState";
 import { userSlice } from "../../../store/user/user.slice";
 import UserService from "../../../store/user/user.action";
 
@@ -21,7 +21,7 @@ export const SidebarPages = (): React.ReactElement => {
 
   let loadingCreatePage = false;
   const handleCreatePage = async (pageId = "") => {
-    if (pageId && user && !loadingCreatePage) {
+    if (user && !loadingCreatePage) {
       const pages = await createNewPage(user.pages, pageId);
       loadingCreatePage = true;
       const response = await UserService.updatePages(pages);

@@ -23,17 +23,18 @@ export const gerUset =
           "Content-Type": "application/json",
         },
       });
+      const status = response.status;
 
-      if (response.status === 500) {
+      if (status === 500) {
         throw new Error("Server is not available");
       }
 
-      if (response.status === 401) {
+      if (status === 401) {
         window.location.pathname = "/login";
         throw new Error("Invalid token");
       }
 
-      if (response.status === 200) {
+      if (status === 200) {
         const data: IUserData = await response.json();
         data.accessToken &&
           sessionStorage.setItem("accessToken", data.accessToken);
@@ -65,6 +66,10 @@ const UserService = {
         body: JSON.stringify(body),
       });
       const status = response.status;
+
+      if (status === 500) {
+        throw new Error("Server is not available");
+      }
       if (status === 401) {
         throw new Error("Invalid token");
       }
@@ -82,56 +87,72 @@ const UserService = {
   async updateUser(
     updateData: IUserData
   ): Promise<IUserResponseMessage | undefined> {
-    try {
-      const url = `${API_HOST}${ROUT_USER}/`;
-      const accessToken = sessionStorage.getItem("accessToken");
-      const body = { ...updateData, ...{ accessToken: accessToken } };
-      const response = await fetch(url, {
-        method: "PUT",
-        body: JSON.stringify(body),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const status = response.status;
-      if (status === 401) {
-        throw new Error("Invalid token");
+    let loading = false;
+    if (!loading) {
+      try {
+        loading = true;
+        const url = `${API_HOST}${ROUT_USER}/`;
+        const accessToken = sessionStorage.getItem("accessToken");
+        const body = { ...updateData, ...{ accessToken: accessToken } };
+        const response = await fetch(url, {
+          method: "PUT",
+          body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const status = response.status;
+
+        if (status === 500) {
+          throw new Error("Server is not available");
+        }
+        if (status === 401) {
+          throw new Error("Invalid token");
+        }
+        if (status === 200) {
+          const pagesData: IUserResponseMessage = await response.json();
+          loading = false;
+          return { ...pagesData, ...{ status } };
+        } else {
+          throw new Error("Error Server");
+        }
+      } catch (err) {
+        console.error(err);
       }
-      if (status === 200) {
-        const pagesData: IUserResponseMessage = await response.json();
-        return { ...pagesData, ...{ status } };
-      } else {
-        throw new Error("Error Server");
-      }
-    } catch (err) {
-      console.error(err);
     }
   },
 
   async updatePages(pages: IPage[]): Promise<IUserResponseMessage | undefined> {
-    try {
-      const url = `${API_HOST}${ROUT_SAVE_PAGES}`;
-      const accessToken = sessionStorage.getItem("accessToken");
-      const body = { ...{ accessToken: accessToken }, ...{ pages: pages } };
-      const response = await fetch(url, {
-        method: "PUT",
-        body: JSON.stringify(body),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const status = response.status;
-      if (status === 401) {
-        throw new Error("Invalid token");
+    let loading = false;
+    if (!loading) {
+      try {
+        loading = true;
+        const url = `${API_HOST}${ROUT_SAVE_PAGES}`;
+        const accessToken = sessionStorage.getItem("accessToken");
+        const body = { ...{ accessToken: accessToken }, ...{ pages: pages } };
+        const response = await fetch(url, {
+          method: "PUT",
+          body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const status = response.status;
+        if (status === 500) {
+          throw new Error("Server is not available");
+        }
+        if (status === 401) {
+          window.location.pathname = "/login";
+          throw new Error("Invalid token");
+        }
+        if (status === 200) {
+          const pagesData: IUserResponseMessage = await response.json();
+          loading = false;
+          return { ...pagesData, ...{ status } };
+        }
+      } catch (err) {
+        console.error(err);
       }
-      if (status === 200) {
-        const pagesData: IUserResponseMessage = await response.json();
-        return { ...pagesData, ...{ status } };
-      } else {
-        throw new Error("Error Server " + status);
-      }
-    } catch (err) {
-      console.error(err);
     }
   },
 
@@ -140,6 +161,9 @@ const UserService = {
       const url = `${API_HOST}${ROUT_USER}/${id}`;
       const response = await fetch(url);
       const status = response.status;
+      if (status === 500) {
+        throw new Error("Server is not available");
+      }
       if (status === 401) {
         throw new Error("Invalid token");
       }

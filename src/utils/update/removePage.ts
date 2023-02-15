@@ -1,19 +1,10 @@
 import { IPage } from "../../types/interface";
 
-const moveToPage = (
-  pages: IPage[],
-  dataPage: IPage,
-  pageId: string
-): IPage[] => {
-  const fromId = dataPage._id;
-  const toId = pageId;
+const removePage = (pages: IPage[], pageId: string): IPage[] => {
   function nextPage(pages: IPage[]): IPage[] {
     const iterationPages: IPage[] = [];
     pages.forEach((page) => {
       let state: IPage | null = page;
-      if (fromId === page._id) {
-        state = null;
-      }
 
       if (page.children_page && page.children_page.length > 0) {
         state = {
@@ -22,13 +13,8 @@ const moveToPage = (
         };
       }
 
-      if (state && state.children_page && page._id === toId) {
-        const childrenPage = [...state.children_page];
-        childrenPage.push(dataPage);
-        state = {
-          ...state,
-          ...{ children_page: childrenPage },
-        };
+      if (page._id === pageId) {
+        state = null;
       }
 
       if (state) {
@@ -38,10 +24,7 @@ const moveToPage = (
     return iterationPages;
   }
   const result = nextPage(pages);
-  if (pageId === "") {
-    result.push(dataPage);
-  }
   return result;
 };
 
-export default moveToPage;
+export default removePage;

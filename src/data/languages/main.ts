@@ -80,6 +80,9 @@ export const main = {
     text_change_cover: "Change cover",
     text_home_page: "Home page",
     text_restore: "Restore page",
+    text_deleted_page_name: "This page has been removed",
+    text_deleted_page_content:
+      "Sorry, you have deleted this page. Go to another page or create a new one.",
   },
 
   pl: {
@@ -167,6 +170,9 @@ export const main = {
     text_change_cover: "Zmienić okładkę",
     text_home_page: "Strona główna",
     text_restore: "Przywróć stronę",
+    text_deleted_page_name: "Ta strona została usunięta",
+    text_deleted_page_content:
+      "Przepraszamy, usunąłeś tę stronę. Przejdź na inną stronę lub utwórz nową.",
   },
   ru: {
     text_workspace: "Workspace",
@@ -251,5 +257,8 @@ export const main = {
     text_change_cover: "Сменить обложку",
     text_home_page: "Домашняя страница",
     text_restore: "Восстановить страницу",
+    text_deleted_page_name: "Эта страница удалена",
+    text_deleted_page_content:
+      "Извините, Вы удалили эту страницу. Перейдите на другую страницу или создайте новую.",
   },
 };

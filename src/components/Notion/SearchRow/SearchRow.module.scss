@@ -11,6 +11,22 @@
   }
 
   &__row {
+    height: 32px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-start;
+  }
+
+  &__button {
+    flex: 0 0 auto;
+  }
+
+  &__removeButton {
+    height: 32px;
+  }
+
+  &__item {
+    flex: 1 1 auto;
     cursor: pointer;
     display: flex;
     flex-flow: row nowrap;
@@ -18,6 +34,10 @@
     padding: 7px 14px;
     text-decoration: none;
     color: var(--color-text);
+
+    a {
+      text-decoration: none;
+    }
 
     &:hover .search__enter {
       display: flex;

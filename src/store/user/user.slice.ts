@@ -94,6 +94,10 @@ export const userSlice = createSlice({
       }
     },
 
+    replaceActivePage(state, action: PayloadAction<IPage>) {
+      state.activePage = action.payload;
+    },
+
     updateArrayPage(state) {
       if (state?.user) {
         state.arrayPage = pagesToArray(state.user.pages) || null;
