@@ -10,8 +10,6 @@ import { useAppSelector, useAppDispatch } from "../../../hooks/redux";
 import createNewPage from "../../../utils/update/createNewPage";
 import { userSlice } from "../../../store/user/user.slice";
 import UserService from "../../../store/user/user.action";
-import { async } from "q";
-import { IUserResponseMessage } from "../../../types/interface";
 
 export const SidebarPages = (): React.ReactElement => {
   const { user, lang, favoritePage } = useAppSelector(
@@ -59,7 +57,11 @@ export const SidebarPages = (): React.ReactElement => {
       <div className={styles.pages}>
         <div className={styles.pages__title}>
           <span>{data.text_private}</span>
-          <ButtonMini icon={<AddSVG />} cName="button_add_mini" />
+          <ButtonMini
+            icon={<AddSVG />}
+            cName="button_add_mini"
+            handle={handleCreatePage}
+          />
         </div>
 
         <Button

@@ -5,9 +5,10 @@ import styles from "./loginInForm.module.scss";
 import MessageEmail from "../MessageEmail/MessageEmail";
 import MessagePassword from "../MessagePassword/MessagePassword";
 import ActivationMessage from "../ActivationMessage/ActivationMessage";
-import { IUserEmailPassword } from "../../../types/interface";
+import { IUserData, IUserEmailPassword } from "../../../types/interface";
 import { useAppDispatch } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
+import { Link } from "react-router-dom";
 
 function LogInForm() {
   const [nonValidEmail, toggleNonValidEmail] = React.useState(false);
@@ -15,7 +16,7 @@ function LogInForm() {
   const [nonActive, toggleNonActive] = React.useState(false);
 
   const dispatch = useAppDispatch();
-  const { updateUserLogin } = userSlice.actions;
+  const { updateUserLogin, getUserSuccess } = userSlice.actions;
 
   const {
     register,
@@ -57,6 +58,12 @@ function LogInForm() {
       }
       if (response.status === 200) {
         dispatch(updateUserLogin(dataUser));
+        const data: IUserData = await response.json();
+        data.accessToken &&
+          sessionStorage.setItem("accessToken", data.accessToken);
+        data.refreshToken &&
+          localStorage.setItem("refreshToken", data.refreshToken);
+        dispatch(getUserSuccess(data));
         navigate("/pages/home");
       }
     } catch (error) {
@@ -127,6 +134,9 @@ function LogInForm() {
         <button type="submit" className={styles.submit} disabled={!isValid}>
           Log In
         </button>
+        <Link to="/signup" className={styles.linkLogin}>
+          Sign Up
+        </Link>
       </form>
       {messageNonValidEmail}
       {messageNonValidPassword}

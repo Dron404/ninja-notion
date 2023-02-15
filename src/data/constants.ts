@@ -2,6 +2,7 @@
 export const API_HOST = "https://ninja-notion-api-production.up.railway.app/";
 export const ROUT_USER = "user";
 export const ROUT_LOGIN = "login";
+export const ROUT_GETUSER = "getuser";
 export const ROUT_SAVE_PAGES = "savePages";
 export const ROUT_USER_ACTIVATION = "user/activation";
 

@@ -98,7 +98,10 @@ export const Settings: React.FC = () => {
         : user;
       isLoading = true;
       const response = await UserServices.updateUser(userData);
-      if (response?.status === 200) setIsOpenModal(false);
+      if (response?.status === 200) {
+        setIsOpenModal(false);
+        setIsOpenModalPassword(false);
+      }
     }
   };
 

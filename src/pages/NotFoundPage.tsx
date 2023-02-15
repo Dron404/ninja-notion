@@ -21,7 +21,7 @@ function NotFoundPage() {
             type="button"
             className="not-found__button"
             onClick={() => {
-              navigate("/pages/1");
+              navigate("/pages/home");
             }}
           >
             Back to my content
