@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./UploadFile.module.scss";
 import { main } from "../../../data/languages/main";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import saveImage from "../../../store/user/saveImage";
 import { userSlice } from "../../../store/user/user.slice";
-import UserService from "../../../store/user/user.action";
 
 export const UploadFile: React.FC = () => {
   const { lang } = useAppSelector((store) => store.userReducer);
