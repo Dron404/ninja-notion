@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import styles from "./signUpForm.module.scss";
 import ShowInvitation from "../ShowInvitation/ShowInvitation";
 import UserExists from "../UserExists/UserExists";
+import { Link } from "react-router-dom";
 
 function SignUpForm(props: {
   invitationActive: boolean;
@@ -150,6 +151,10 @@ function SignUpForm(props: {
           <button type="submit" className={styles.submit} disabled={!isValid}>
             Sign Up
           </button>
+
+          <Link to="/login" className={styles.linkLogin}>
+            Login
+          </Link>
         </form>
       </div>
       <ShowInvitation

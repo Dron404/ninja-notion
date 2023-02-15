@@ -44,10 +44,6 @@ export const SidebarPage: React.FC<INotionButton> = ({
 
   const pageUrl = `/pages/${dataPage?._id}`;
 
-  const handleRename = () => {
-    console.log("handleRename");
-  };
-
   let loadingCreatePage = false;
   const handleCreatePage = async (pageId = "") => {
     if (pageId && user && !loadingCreatePage) {
@@ -125,19 +121,6 @@ export const SidebarPage: React.FC<INotionButton> = ({
                   </div>
                 )}
               </Menu.Item>
-              {/* <Menu.Item>
-                {({ close }) => (
-                  <div onClick={close}>
-                    <Button
-                      icon={<RenameSVG />}
-                      text={data.text_rename}
-                      cName={styles.buttonPage__button}
-                      hotkey="Ctrl+Shft+R"
-                      handle={handleRename}
-                    />
-                  </div>
-                )}
-              </Menu.Item> */}
 
               <Menu.Item>
                 {({ close }) => (

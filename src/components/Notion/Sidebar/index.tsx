@@ -15,8 +15,6 @@ import { ReactComponent as TrashSVG } from "../../../assets/img/svg/trash.svg";
 import { ReactComponent as SearchSVG } from "../../../assets/img/svg/search.svg";
 import { userSlice } from "../../../store/user/user.slice";
 import moveToPage from "../../../utils/update/moveToPage";
-import { IPage } from "../../../types/interface";
-import findActivePage from "../../../utils/update/findActivePage";
 
 export const Sidebar = (): React.ReactElement => {
   const { lang, isLoading, arrayPage, trashPage, user, activePage } =

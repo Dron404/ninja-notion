@@ -5,22 +5,43 @@ import { Header } from "../components/Notion/Header";
 import { Sidebar } from "../components/Notion/Sidebar";
 
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { gerUset } from "../store/user/user.action";
+import UserService, { gerUset } from "../store/user/user.action";
 
 function NoutionPage() {
   const dispatch = useAppDispatch();
-  const { error, navigate, theme, userLogin } = useAppSelector(
+  const { error, navigate, theme, user } = useAppSelector(
     (state) => state.userReducer
   );
   const navigates = useNavigate();
 
   React.useEffect(() => {
-    if (userLogin) {
-      dispatch(gerUset(userLogin));
+    const accessToken = sessionStorage.getItem("accessToken");
+    if (accessToken) {
+      dispatch(gerUset(accessToken));
     } else {
       navigates("/login");
     }
   }, []);
+
+  React.useEffect(() => {
+    const userData = user;
+    let beforeunload = false;
+    if (!beforeunload) {
+      let loading = false;
+      beforeunload = true;
+      window.addEventListener("beforeunload", async (event) => {
+        if (userData && !loading) {
+          loading = true;
+          const resonse = await UserService.updatePages(userData.pages);
+          if (resonse && resonse?.status === 200) {
+            loading = false;
+          }
+        }
+        event.preventDefault();
+        event.returnValue = "";
+      });
+    }
+  }, [user]);
 
   return (
     <>
