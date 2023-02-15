@@ -1,5 +1,5 @@
 import { IPage } from "../types/interface";
-const date = String(new Date());
+
 const dataNewPage: IPage = {
   property: {
     font: "default",
@@ -11,13 +11,13 @@ const dataNewPage: IPage = {
     position: 100,
   },
   content: "",
-  name: "New Page",
-  icon: "😜",
+  name: "",
+  icon: "",
   comment: "",
   favorite: false,
   dataTrash: "",
-  dataAdd: date,
-  dataMod: date,
+  dataAdd: "",
+  dataMod: "",
   children_page: [],
 };
 

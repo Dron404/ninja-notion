@@ -14,7 +14,7 @@ import { main } from "../../../data/languages/main";
 import { AVATAR_SIZE_M } from "../../../data/constants";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
-import UserServices from "../../../store/user/user.action";
+import UserService from "../../../store/user/user.action";
 import { IUserData } from "../../../types/interface";
 import logout from "../../../utils/logout";
 import { UploadFile } from "../UploadFile";
@@ -92,16 +92,17 @@ export const Settings: React.FC = () => {
 
   let isLoading = false;
   const handleUpdateUser = async (pass = "") => {
-    if (UserServices && user && !isLoading) {
+    if (UserService && user && !isLoading) {
       const userData: IUserData = password
         ? { ...user, ...{ password: pass } }
         : user;
       isLoading = true;
-      const response = await UserServices.updateUser(userData);
+      const response = await UserService.updateUser(userData);
       if (response?.status === 200) {
         setIsOpenModal(false);
         setIsOpenModalPassword(false);
       }
+      await UserService.updatePages(userData.pages);
     }
   };
 
@@ -199,7 +200,6 @@ export const Settings: React.FC = () => {
                           >
                             <div className="notion__modal_body">
                               <div className={styles.settings__wrapper}>
-                                {" "}
                                 <UploadFile />
                               </div>
                             </div>

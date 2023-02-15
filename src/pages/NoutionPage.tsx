@@ -23,25 +23,17 @@ function NoutionPage() {
     }
   }, []);
 
+  // !! проблема с отправкой запроса, если updateUserPages в теле useEffect то  user.pages имеет старый стейт
+  const updateUserPages = async () => {
+    user && (await UserService.updatePages(user.pages));
+  };
   React.useEffect(() => {
-    const userData = user;
-    let beforeunload = false;
-    if (!beforeunload) {
-      let loading = false;
-      beforeunload = true;
-      window.addEventListener("beforeunload", async (event) => {
-        if (userData && !loading) {
-          loading = true;
-          const resonse = await UserService.updatePages(userData.pages);
-          if (resonse && resonse?.status === 200) {
-            loading = false;
-          }
-        }
-        event.preventDefault();
-        event.returnValue = "";
-      });
-    }
-  }, [user]);
+    window.addEventListener("beforeunload", async (event) => {
+      updateUserPages();
+      event.preventDefault();
+      event.returnValue = "";
+    });
+  }, []);
 
   return (
     <>

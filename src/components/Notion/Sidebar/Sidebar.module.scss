@@ -38,3 +38,13 @@
     align-items: center;
   }
 }
+
+.bottombar {
+  box-shadow: rgb(55 53 47 / 9%) 0px -1px 0px;
+  flex: 0 0 auto;
+
+  &__wrapper {
+    padding: 10px 0;
+    font-weight: 500;
+  }
+}
