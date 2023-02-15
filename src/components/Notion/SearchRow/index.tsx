@@ -7,7 +7,7 @@ import { ISearchRow } from "../../../types/interface";
 import { Link } from "react-router-dom";
 import { main } from "../../../data/languages/main";
 import { useAppSelector } from "../../../hooks/redux";
-import { Button } from "../Button";
+import { Button } from "../buttons/Button";
 
 export const SearchRow: React.FC<ISearchRow> = ({
   page,

@@ -7,11 +7,11 @@ import { ReactComponent as DragSVG } from "../../../assets/img/svg/drag.svg";
 import { ReactComponent as CheckSVG } from "../../../assets/img/svg/check.svg";
 import { ReactComponent as LogoutSVG } from "../../../assets/img/svg/logout.svg";
 
-import { UserAvatar } from "../UserAvatar";
+import { UserAvatar } from "../Settings/UserAvatar";
 
 import { Menu } from "@headlessui/react";
-import { ButtonMini } from "../ButtonMini";
-import { Button } from "../Button";
+import { ButtonMini } from "../buttons/ButtonMini";
+import { Button } from "../buttons/Button";
 import { AVATAR_SIZE_L } from "../../../data/constants";
 import { main } from "../../../data/languages/main";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";

@@ -1,15 +1,15 @@
 import React, { ChangeEvent } from "react";
-import { Button } from "../Button";
+import { Button } from "../buttons/Button";
 import styles from "./Settings.module.scss";
 import { ReactComponent as SettingsSVG } from "../../../assets/img/svg/setting.svg";
 import { ReactComponent as LanguageSVG } from "../../../assets/img/svg/language.svg";
 import { ReactComponent as ThemeSVG } from "../../../assets/img/svg/theme.svg";
 import { ReactComponent as UserSVG } from "../../../assets/img/svg/user.svg";
 
-import { UserAvatar } from "../UserAvatar";
-import { SettingsTab } from "../SettingsTab";
-import { Language } from "../Language";
-import { Theme } from "../Theme";
+import { UserAvatar } from "./UserAvatar";
+import { SettingsTab } from "./SettingsTab";
+import { Language } from "./Language";
+import { Theme } from "./Theme";
 import { main } from "../../../data/languages/main";
 import { AVATAR_SIZE_M } from "../../../data/constants";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";

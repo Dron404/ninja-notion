@@ -20,7 +20,7 @@ import dateHomePage from "../../../data/dateHomePage";
 import dateDeletedPage from "../../../data/dateDeletedPage";
 import UserService from "../../../store/user/user.action";
 import addNewPageForState from "../../../utils/update/addNewPageForState";
-import { Button } from "../Button";
+import { Button } from "../buttons/Button";
 
 export const Sidebar = (): React.ReactElement => {
   const { lang, isLoading, arrayPage, trashPage, user, activePage } =

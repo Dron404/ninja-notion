@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./Header.module.scss";
 import { Breadcrumb } from "../Breadcrumb/";
-import { HeaderTopbar } from "../HeaderTopbar";
+import { HeaderTopbar } from "./HeaderTopbar";
 
 import { ReactComponent as TopbarCloseSVG } from "../../../assets/img/svg/topbar_close.svg";
-import { ButtonMini } from "../ButtonMini";
+import { ButtonMini } from "../buttons/ButtonMini";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
 
