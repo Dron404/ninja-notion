@@ -4,6 +4,7 @@ export const ROUT_USER = "user";
 export const ROUT_LOGIN = "login";
 export const ROUT_SAVE_PAGES = "savePages";
 export const ROUT_USER_ACTIVATION = "user/activation";
+export const ROUT_ACTIVATION = "activation";
 
 // avatar
 export const AVATAR_SIZE_XXL = "90";
