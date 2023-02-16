@@ -3,6 +3,8 @@ import {
   ROUT_GETUSER,
   ROUT_SAVE_PAGES,
   ROUT_USER,
+  ROUT_ACTIVATION,
+  ROUT_RESET_PASSWORD,
 } from "../../data/constants";
 // import { dataTestUser } from "../../data/dataTestUser";
 
@@ -50,6 +52,38 @@ export const gerUset =
       }
     }
   };
+
+export async function sendActivationMail(email: string) {
+  try {
+    const url = `${API_HOST}${ROUT_ACTIVATION}`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+    return response;
+  } catch (error) {
+    console.error("Couldn't send activation email");
+  }
+}
+
+export async function resetPasswordFromLogin(email: string) {
+  try {
+    const url = `${API_HOST}${ROUT_RESET_PASSWORD}`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+    return response;
+  } catch (error) {
+    console.error("Couldn't reset password");
+  }
+}
 
 const UserService = {
   async createUser(

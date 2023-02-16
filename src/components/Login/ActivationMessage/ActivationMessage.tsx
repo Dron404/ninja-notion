@@ -1,29 +1,11 @@
 import React, { useState } from "react";
 import styles from "./activationMessage.module.scss";
 import noActivation from "../../../assets/images/login/mail.png";
-import { API_HOST, ROUT_ACTIVATION } from "../../../data/constants";
+import { sendActivationMail } from "../../../store/user/user.action";
 
 function ActivationMessage(props: { email: string }) {
   const [clickedActivation, setClickedActivation] = useState(false);
   const email = props.email;
-
-  // request for repeating of activation email
-  async function sendActivationMail(email: string) {
-    try {
-      const url = `${API_HOST}${ROUT_ACTIVATION}`;
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-      console.log(response.status);
-      return response;
-    } catch (error) {
-      console.error("Couldn't send activation email");
-    }
-  }
 
   return (
     <div className={styles.wrapper}>

@@ -58,6 +58,7 @@ function LogInForm() {
 
       if (response.status === 400) {
         toggleNonValidPassword(!nonValidPassword);
+        setEmail({ email: data.email });
       }
 
       if (response.status === 403) {
@@ -81,8 +82,11 @@ function LogInForm() {
   };
 
   const messageNonValidEmail = nonValidEmail ? <MessageEmail /> : "";
-  const messageNonValidPassword = nonValidPassword ? <MessagePassword /> : "";
-  console.log(email);
+  const messageNonValidPassword = nonValidPassword ? (
+    <MessagePassword {...email} />
+  ) : (
+    ""
+  );
   const messageNonActive = nonActive ? <ActivationMessage {...email} /> : "";
 
   return (
