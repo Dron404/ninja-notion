@@ -1,10 +1,11 @@
-import dataNewPage from "../../data/dataNewPage";
 import { IPage } from "../../types/interface";
 
-const createNewPage = async (
+const addNewPageForState = async (
   pages: IPage[],
   pageId: string
 ): Promise<IPage[]> => {
+  const randomPage = await import("../getRandomNewPage");
+  const newRandomPage = await randomPage.default();
   function nextPage(pages: IPage[]): IPage[] {
     const iterationPages: IPage[] = [];
     pages.forEach((page) => {
@@ -17,7 +18,8 @@ const createNewPage = async (
       }
       if (page._id === pageId && state.children_page) {
         const children = [...state.children_page];
-        children.push(dataNewPage);
+
+        children.push(newRandomPage);
         state = { ...state, ...{ children_page: children } };
       }
 
@@ -30,9 +32,9 @@ const createNewPage = async (
     return await nextPage(pages);
   } else {
     result = [...pages];
-    result.push(dataNewPage);
+    result.push(newRandomPage);
     return result;
   }
 };
 
-export default createNewPage;
+export default addNewPageForState;

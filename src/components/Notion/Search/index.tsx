@@ -19,6 +19,7 @@ export const Search: React.FC<ISearch> = ({
   hotkey = "",
   cName = "",
   handle,
+  handleButton,
 }) => {
   const { lang, modalTarget } = useAppSelector((store) => store.userReducer);
   const { updateModalTarget } = userSlice.actions;
@@ -108,12 +109,13 @@ export const Search: React.FC<ISearch> = ({
                 </div>
               </div>
               <div className={styles.search__body}>
-                {dataSearch ? (
+                {dataSearch.length > 0 ? (
                   dataSearch.map((page, index) => (
                     <SearchRow
                       key={index}
                       page={page}
                       handle={handleCloseModal}
+                      handleButton={handleButton}
                       type={type}
                     />
                   ))
