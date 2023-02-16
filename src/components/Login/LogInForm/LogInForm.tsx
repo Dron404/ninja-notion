@@ -5,10 +5,16 @@ import styles from "./loginInForm.module.scss";
 import MessageEmail from "../MessageEmail/MessageEmail";
 import MessagePassword from "../MessagePassword/MessagePassword";
 import ActivationMessage from "../ActivationMessage/ActivationMessage";
-import { IUserData, IUserEmailPassword } from "../../../types/interface";
+import { API_HOST, ROUT_LOGIN } from "../../../data/constants";
+import { IUserData } from "../../../types/interface";
+import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
-import { Link } from "react-router-dom";
+
+interface EnterFormData {
+  email: string;
+  password: string;
+}
 
 function LogInForm() {
   const [nonValidEmail, toggleNonValidEmail] = useState(false);
