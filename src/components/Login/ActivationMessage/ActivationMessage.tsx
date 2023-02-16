@@ -16,7 +16,7 @@ function ActivationMessage(props: { email: string }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(email),
+        body: JSON.stringify({ email }),
       });
       console.log(response.status);
       return response;
