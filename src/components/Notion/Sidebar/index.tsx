@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Sidebar.module.scss";
 
-import { SidebarTopbar } from "../SidebarTopbar";
-import { SidebarPages } from "../SidebarPages";
-import { Search } from "../Search";
+import { SidebarTopbar } from "./SidebarTopbar";
+import { SidebarPages } from "./SidebarPages";
+import { Search } from "./Search";
 import { Settings } from "../Settings";
 import { main } from "../../../data/languages/main";
 import { useAppSelector, useAppDispatch } from "../../../hooks/redux";
@@ -20,7 +20,7 @@ import dateHomePage from "../../../data/dateHomePage";
 import dateDeletedPage from "../../../data/dateDeletedPage";
 import UserService from "../../../store/user/user.action";
 import addNewPageForState from "../../../utils/update/addNewPageForState";
-import { Button } from "../Button";
+import { Button } from "../buttons/Button";
 
 export const Sidebar = (): React.ReactElement => {
   const { lang, isLoading, arrayPage, trashPage, user, activePage } =

@@ -1,24 +1,24 @@
 import React, { ChangeEvent } from "react";
 import styles from "./Content.module.scss";
-import { ContentCover } from "../ContentCover";
-import { UserAvatar } from "../UserAvatar";
+import { ContentCover } from "./ContentCover";
+import { UserAvatar } from "../Settings/UserAvatar";
 import { ReactComponent as EmojiSVG } from "../../../assets/img/svg/emoji.svg";
 import { ReactComponent as CoverSVG } from "../../../assets/img/svg/cover.svg";
 import { ReactComponent as CommentSVG } from "../../../assets/img/svg/comment.svg";
-import { Button } from "../Button";
+import { Button } from "../buttons/Button";
 import { main } from "../../../data/languages/main";
 import { useParams } from "react-router-dom";
 
-import { ContentIconSettings } from "../ContentIconSettings";
+import { ContentIconSettings } from "./ContentIconSettings";
 import { AVATAR_SIZE_L } from "../../../data/constants";
 
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
 import getRandomEmojis from "../../../utils/getRandomEmojis";
 import getRandomCover from "../../../utils/getRandomCover";
-import { SidebarPage } from "../SidebarPage";
+import { SidebarPage } from "../Sidebar/SidebarPage";
 import { IPage } from "../../../types/interface";
-import { ButtonTrash } from "../ButtonTrash";
+import { ButtonTrash } from "../buttons/ButtonTrash";
 import UserService from "../../../store/user/user.action";
 
 export const Content = (): React.ReactElement => {

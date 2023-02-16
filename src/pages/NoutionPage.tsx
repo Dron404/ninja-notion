@@ -27,8 +27,9 @@ function NoutionPage() {
   const updateUserPages = async () => {
     user && (await UserService.updatePages(user.pages));
   };
+
   React.useEffect(() => {
-    window.addEventListener("beforeunload", async (event) => {
+    window.addEventListener("beforeunload", (event) => {
       updateUserPages();
       event.preventDefault();
       event.returnValue = "";
