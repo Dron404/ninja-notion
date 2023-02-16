@@ -1,9 +1,9 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import styles from "./ContentCoverSettings.module.scss";
 import { Menu } from "@headlessui/react";
 import { ButtonTab } from "../../buttons/ButtonTab";
 import { Button } from "../../buttons/Button";
-import { Gallery } from "../../Gallery";
+import { Gallery } from "../Gallery";
 import { UploadFile } from "../../UploadFile";
 import { LinkUrl } from "../../LinkUrl";
 
@@ -11,6 +11,7 @@ import { main } from "../../../../data/languages/main";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
 import { userSlice } from "../../../../store/user/user.slice";
 import { IPage } from "../../../../types/interface";
+import saveImage from "../../../../store/user/saveImage";
 
 export const ContentCoverSettings = ({
   cName,
@@ -40,7 +41,10 @@ export const ContentCoverSettings = ({
     const replaceObject = { cover: { url: "" } };
     updatePageStateFn(replaceObject);
   };
-
+  const setCaver = async (e: ChangeEvent<HTMLInputElement>) => {
+    const url = await saveImage(e);
+    updatePageStateFn({ cover: { url } });
+  };
   return (
     <Menu as="div" className="notion-popup__menu">
       <Menu.Button>
@@ -76,7 +80,8 @@ export const ContentCoverSettings = ({
 
           <div className={styles.body}>
             {tab === "gallery" && <Gallery />}
-            {tab === "upload" && <UploadFile />}
+            {tab === "upload" && <UploadFile handle={setCaver} />} //!
+            //!промежуточная фигня
             {tab === "link" && <LinkUrl />}
           </div>
         </div>

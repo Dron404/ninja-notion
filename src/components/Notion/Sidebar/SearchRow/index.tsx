@@ -1,13 +1,13 @@
 import React from "react";
 import styles from "./SearchRow.module.scss";
-import { ReactComponent as EnterSVG } from "../../../assets/img/svg/enter.svg";
-import { ReactComponent as DefaultSVG } from "../../../assets/img/svg/default.svg";
-import { ReactComponent as TrashSVG } from "../../../assets/img/svg/trash.svg";
-import { ISearchRow } from "../../../types/interface";
+import { ReactComponent as EnterSVG } from "../../../../assets/img/svg/enter.svg";
+import { ReactComponent as DefaultSVG } from "../../../../assets/img/svg/default.svg";
+import { ReactComponent as TrashSVG } from "../../../../assets/img/svg/trash.svg";
+import { ISearchRow } from "../../../../types/interface";
 import { Link } from "react-router-dom";
-import { main } from "../../../data/languages/main";
-import { useAppSelector } from "../../../hooks/redux";
-import { Button } from "../buttons/Button";
+import { main } from "../../../../data/languages/main";
+import { useAppSelector } from "../../../../hooks/redux";
+import { Button } from "../../buttons/Button";
 
 export const SearchRow: React.FC<ISearchRow> = ({
   page,

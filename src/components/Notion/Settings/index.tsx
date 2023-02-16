@@ -4,20 +4,19 @@ import styles from "./Settings.module.scss";
 import { ReactComponent as SettingsSVG } from "../../../assets/img/svg/setting.svg";
 import { ReactComponent as LanguageSVG } from "../../../assets/img/svg/language.svg";
 import { ReactComponent as ThemeSVG } from "../../../assets/img/svg/theme.svg";
-import { ReactComponent as UserSVG } from "../../../assets/img/svg/user.svg";
-
+import UserSVG from "../../../assets/img/svg/user.svg";
 import { UserAvatar } from "./UserAvatar";
 import { SettingsTab } from "./SettingsTab";
 import { Language } from "./Language";
 import { Theme } from "./Theme";
 import { main } from "../../../data/languages/main";
-import { AVATAR_SIZE_M } from "../../../data/constants";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
 import UserService from "../../../store/user/user.action";
 import { IUserData } from "../../../types/interface";
 import logout from "../../../utils/logout";
 import { UploadFile } from "../UploadFile";
+import saveImage from "../../../store/user/saveImage";
 
 export const Settings: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -27,7 +26,7 @@ export const Settings: React.FC = () => {
 
   const data = main[lang];
 
-  const avatarUrl = user?.avatar || "";
+  const avatarUrl = user?.avatar || UserSVG;
   const email = user?.email || "";
   const name = user?.name || "";
   const password = user?.password || "";
@@ -90,6 +89,12 @@ export const Settings: React.FC = () => {
     setUserPasswordRepeat(event.target.value);
   };
 
+  const setAvatar = async (e: ChangeEvent<HTMLInputElement>) => {
+    setIsOpenModalAvatar(false);
+    const url = await saveImage(e);
+    dispatch(updateUserState({ avatar: url }));
+  };
+
   let isLoading = false;
   const handleUpdateUser = async (pass = "") => {
     if (UserService && user && !isLoading) {
@@ -118,13 +123,6 @@ export const Settings: React.FC = () => {
 
   const handleLogOut = () => logout();
 
-  const avatar =
-    avatarUrl.length > 0 ? (
-      <UserAvatar url={avatarUrl} size={AVATAR_SIZE_M} />
-    ) : (
-      <UserSVG />
-    );
-
   return (
     <>
       <Button
@@ -141,7 +139,7 @@ export const Settings: React.FC = () => {
                   <div className={styles.settings__name}>{email}</div>
                   <SettingsTab
                     text={data.text_account}
-                    icon={avatar}
+                    icon={<UserAvatar url={avatarUrl} size={"15"} />}
                     state={tab}
                     target="account"
                     handle={setTab}
@@ -183,7 +181,7 @@ export const Settings: React.FC = () => {
                       <div
                         className={`${styles.settings__row} ${styles.settings__avatar}`}
                       >
-                        {avatar}
+                        <UserAvatar url={avatarUrl} size={"80"} />
                       </div>
                       <div className={styles.settings__row}>
                         <Button
@@ -200,7 +198,7 @@ export const Settings: React.FC = () => {
                           >
                             <div className="notion__modal_body">
                               <div className={styles.settings__wrapper}>
-                                <UploadFile />
+                                <UploadFile handle={setAvatar} />
                               </div>
                             </div>
                           </div>

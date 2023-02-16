@@ -1,15 +1,15 @@
 import React from "react";
 import styles from "./SidebarPages.module.scss";
 
-import { Button } from "../buttons/Button";
-import { SidebarPage } from "../SidebarPage/";
-import { ButtonMini } from "../buttons/ButtonMini";
-import { ReactComponent as AddSVG } from "../../../assets/img/svg/add.svg";
-import { main } from "../../../data/languages/main";
-import { useAppSelector, useAppDispatch } from "../../../hooks/redux";
-import createNewPage from "../../../utils/update/addNewPageForState";
-import { userSlice } from "../../../store/user/user.slice";
-import UserService from "../../../store/user/user.action";
+import { Button } from "../../buttons/Button";
+import { SidebarPage } from "../SidebarPage";
+import { ButtonMini } from "../../buttons/ButtonMini";
+import { ReactComponent as AddSVG } from "../../../../assets/img/svg/add.svg";
+import { main } from "../../../../data/languages/main";
+import { useAppSelector, useAppDispatch } from "../../../../hooks/redux";
+import createNewPage from "../../../../utils/update/addNewPageForState";
+import { userSlice } from "../../../../store/user/user.slice";
+import UserService from "../../../../store/user/user.action";
 
 export const SidebarPages = (): React.ReactElement => {
   const { user, lang, favoritePage } = useAppSelector(

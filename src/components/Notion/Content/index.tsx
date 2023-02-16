@@ -16,7 +16,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
 import getRandomEmojis from "../../../utils/getRandomEmojis";
 import getRandomCover from "../../../utils/getRandomCover";
-import { SidebarPage } from "../SidebarPage";
+import { SidebarPage } from "../Sidebar/SidebarPage";
 import { IPage } from "../../../types/interface";
 import { ButtonTrash } from "../buttons/ButtonTrash";
 import UserService from "../../../store/user/user.action";

@@ -1,15 +1,14 @@
 import React from "react";
 import styles from "./UploadFile.module.scss";
 import { main } from "../../../data/languages/main";
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import saveImage from "../../../store/user/saveImage";
-import { userSlice } from "../../../store/user/user.slice";
+import { useAppSelector } from "../../../hooks/redux";
 
-export const UploadFile: React.FC = () => {
+export const UploadFile = (props: {
+  handle: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+}) => {
+  const { handle } = props;
   const { lang } = useAppSelector((store) => store.userReducer);
   const data = main[lang];
-  const { updateUserState } = userSlice.actions;
-  const dicpatch = useAppDispatch();
 
   return (
     <>
@@ -28,10 +27,7 @@ export const UploadFile: React.FC = () => {
           id="file"
           name="file"
           style={{ display: "none" }}
-          onChange={async (e) => {
-            const url = await saveImage(e);
-            dicpatch(updateUserState({ avatar: url }));
-          }}
+          onChange={(e) => handle(e)}
         />
 
         <div className={styles.upload__information}>

@@ -1,22 +1,22 @@
 import React from "react";
 import styles from "./SidebarPage.module.scss";
-import { INotionButton } from "../../../types/interface";
+import { INotionButton } from "../../../../types/interface";
 import { Link } from "react-router-dom";
-import { ReactComponent as ToggleSVG } from "../../../assets/img/svg/toggle.svg";
-import { ReactComponent as MoreSVG } from "../../../assets/img/svg/more.svg";
-import { ReactComponent as AddSVG } from "../../../assets/img/svg/add.svg";
-import { ReactComponent as DefaultSVG } from "../../../assets/img/svg/default.svg";
-import { ButtonMini } from "../buttons/ButtonMini";
+import { ReactComponent as ToggleSVG } from "../../../../assets/img/svg/toggle.svg";
+import { ReactComponent as MoreSVG } from "../../../../assets/img/svg/more.svg";
+import { ReactComponent as AddSVG } from "../../../../assets/img/svg/add.svg";
+import { ReactComponent as DefaultSVG } from "../../../../assets/img/svg/default.svg";
+import { ButtonMini } from "../../buttons/ButtonMini";
 import { Menu } from "@headlessui/react";
-import { main } from "../../../data/languages/main";
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { main } from "../../../../data/languages/main";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
 
-import { ButtonTrash } from "../buttons/ButtonTrash";
-import { ButtonCopyLink } from "../buttons/ButtonCopyLink";
-import { ButtonFavorite } from "../buttons/ButtonFavorite";
-import { userSlice } from "../../../store/user/user.slice";
-import addNewPageForState from "../../../utils/update/addNewPageForState";
-import UserService from "../../../store/user/user.action";
+import { ButtonTrash } from "../../buttons/ButtonTrash";
+import { ButtonCopyLink } from "../../buttons/ButtonCopyLink";
+import { ButtonFavorite } from "../../buttons/ButtonFavorite";
+import { userSlice } from "../../../../store/user/user.slice";
+import addNewPageForState from "../../../../utils/update/addNewPageForState";
+import UserService from "../../../../store/user/user.action";
 
 export const SidebarPage: React.FC<INotionButton> = ({
   text,

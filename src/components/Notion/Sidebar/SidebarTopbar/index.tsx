@@ -1,22 +1,22 @@
 import React from "react";
 import styles from "./SidebarTopbar.module.scss";
-import { ReactComponent as TopbarCloseSVG } from "../../../assets/img/svg/topbar_close.svg";
-import { ReactComponent as TopbarMoreSVG } from "../../../assets/img/svg/topbar_more.svg";
-import { ReactComponent as MoreSVG } from "../../../assets/img/svg/more.svg";
-import { ReactComponent as DragSVG } from "../../../assets/img/svg/drag.svg";
-import { ReactComponent as CheckSVG } from "../../../assets/img/svg/check.svg";
-import { ReactComponent as LogoutSVG } from "../../../assets/img/svg/logout.svg";
-
-import { UserAvatar } from "../Settings/UserAvatar";
+import { ReactComponent as TopbarCloseSVG } from "../../../../assets/img/svg/topbar_close.svg";
+import { ReactComponent as TopbarMoreSVG } from "../../../../assets/img/svg/topbar_more.svg";
+import { ReactComponent as MoreSVG } from "../../../../assets/img/svg/more.svg";
+import { ReactComponent as DragSVG } from "../../../../assets/img/svg/drag.svg";
+import { ReactComponent as CheckSVG } from "../../../../assets/img/svg/check.svg";
+import { ReactComponent as LogoutSVG } from "../../../../assets/img/svg/logout.svg";
+import UserSVG from "../../../../assets/img/svg/user.svg";
+import { UserAvatar } from "../../Settings/UserAvatar";
 
 import { Menu } from "@headlessui/react";
-import { ButtonMini } from "../buttons/ButtonMini";
-import { Button } from "../buttons/Button";
-import { AVATAR_SIZE_L } from "../../../data/constants";
-import { main } from "../../../data/languages/main";
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { userSlice } from "../../../store/user/user.slice";
-import logout from "../../../utils/logout";
+import { ButtonMini } from "../../buttons/ButtonMini";
+import { Button } from "../../buttons/Button";
+import { AVATAR_SIZE_L } from "../../../../data/constants";
+import { main } from "../../../../data/languages/main";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
+import { userSlice } from "../../../../store/user/user.slice";
+import logout from "../../../../utils/logout";
 
 export const SidebarTopbar: React.FC = function slidebar() {
   const dispatch = useAppDispatch();
@@ -29,14 +29,14 @@ export const SidebarTopbar: React.FC = function slidebar() {
 
   const handleLogout = () => logout();
 
-  const avatarUrl = user?.avatar || "";
+  const avatarUrl = user?.avatar || UserSVG;
 
   return (
     <div className={`${styles.row} ${styles.topbar} sidebar_topbar`}>
       <Menu as="div" className={`${styles.topbar__menu} notion-popup__menu`}>
         <Menu.Button className={`${styles.topbar__more}`}>
           <div className={`${styles.topbar__user} aside_status`}>
-            <UserAvatar url={avatarUrl} size={AVATAR_SIZE_L} />
+            <UserAvatar url={avatarUrl} size={"15"} />
             <div className={styles.topbar__user_name}>{user?.name}</div>
             <div className={styles.topbar__user_more}>
               <TopbarMoreSVG />

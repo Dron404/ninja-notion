@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Gallery.module.scss";
-import { dataGallery } from "../../../data/dataGalery";
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { userSlice } from "../../../store/user/user.slice";
-import { IPage } from "../../../types/interface";
+import { dataGallery } from "../../../../data/dataGalery";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
+import { userSlice } from "../../../../store/user/user.slice";
+import { IPage } from "../../../../types/interface";
 
 export const Gallery: React.FC = () => {
   const dispatch = useAppDispatch();

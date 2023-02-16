@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Sidebar.module.scss";
 
-import { SidebarTopbar } from "../SidebarTopbar";
-import { SidebarPages } from "../SidebarPages";
-import { Search } from "../Search";
+import { SidebarTopbar } from "./SidebarTopbar";
+import { SidebarPages } from "./SidebarPages";
+import { Search } from "./Search";
 import { Settings } from "../Settings";
 import { main } from "../../../data/languages/main";
 import { useAppSelector, useAppDispatch } from "../../../hooks/redux";

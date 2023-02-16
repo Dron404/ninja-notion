@@ -1,14 +1,14 @@
 import React, { ChangeEvent } from "react";
-import { Button } from "../buttons/Button";
+import { Button } from "../../buttons/Button";
 import styles from "./Search.module.scss";
-import { ReactComponent as TopbarSearchSVG } from "../../../assets/img/svg/search.svg";
-import { ReactComponent as CloseSVG } from "../../../assets/img/svg/close.svg";
+import { ReactComponent as TopbarSearchSVG } from "../../../../assets/img/svg/search.svg";
+import { ReactComponent as CloseSVG } from "../../../../assets/img/svg/close.svg";
 import { SearchRow } from "../SearchRow";
-import { useAppSelector, useAppDispatch } from "../../../hooks/redux";
-import { main } from "../../../data/languages/main";
-import { IPage, ISearch } from "../../../types/interface";
-import { universalIncludes } from "../../../utils/search/universalIncludes";
-import { userSlice } from "../../../store/user/user.slice";
+import { useAppSelector, useAppDispatch } from "../../../../hooks/redux";
+import { main } from "../../../../data/languages/main";
+import { IPage, ISearch } from "../../../../types/interface";
+import { universalIncludes } from "../../../../utils/search/universalIncludes";
+import { userSlice } from "../../../../store/user/user.slice";
 
 export const Search: React.FC<ISearch> = ({
   dataPages,
