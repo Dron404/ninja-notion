@@ -232,12 +232,14 @@ export interface ISearch {
   target?: string;
   cName?: string;
   handle?: (pageId: string) => void;
+  handleButton?: (pageId: string) => void;
 }
 
 export interface ISearchRow {
   page: IPage;
   type?: string;
   handle?: (pageId: string) => void;
+  handleButton?: (pageId: string) => void;
 }
 
 export interface IActivePage {

@@ -235,6 +235,8 @@ a {
   &__icon {
     display: flex;
     align-items: center;
+    width: 19px;
+    overflow: hidden;
   }
 }
 

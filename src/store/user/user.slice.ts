@@ -44,13 +44,22 @@ export const userSlice = createSlice({
     },
     getUserSuccess(state, action: PayloadAction<IUserData>) {
       const pathname = window.location.pathname;
+      const homePage = "/pages/home";
+      const loginPage = "/login";
       const pageIdUrl = pathname.split("/")[2];
       state.isLoading = false;
       state.error = "";
       state.user = action.payload;
       const activeData = findActivePage(state.user.pages, pageIdUrl);
+      if (
+        !activeData?.activePage?._id &&
+        pathname !== homePage &&
+        pathname !== loginPage
+      ) {
+        window.location.pathname = "/404";
+      }
       state.activePage = activeData.activePage;
-      state.breadcrumbs = activeData.breadcrumbs;
+      // state.breadcrumbs = activeData.breadcrumbs;
       state.arrayPage = pagesToArray(state.user.pages) || null;
       if (state.arrayPage) {
         state.favoritePage = filterFavoritePage(state.arrayPage);
@@ -64,8 +73,6 @@ export const userSlice = createSlice({
       } else if (pathname === "/pages/home") {
         state.activePage = dateHomePage;
         state.breadcrumbs = null;
-      } else {
-        window.location.replace("/404");
       }
     },
     getUserError(state, action: PayloadAction<string>) {
@@ -79,11 +86,16 @@ export const userSlice = createSlice({
       if (pathname === "/pages/home") {
         state.activePage = dateHomePage;
         state.breadcrumbs = null;
-      } else if (state?.user?.pages) {
+      }
+      if (state?.user?.pages) {
         const data = findActivePage(state.user.pages, pageIdUrl);
         state.activePage = data.activePage;
-        state.breadcrumbs = data.breadcrumbs;
+        // state.breadcrumbs = data.breadcrumbs;
       }
+    },
+
+    replaceActivePage(state, action: PayloadAction<IPage>) {
+      state.activePage = action.payload;
     },
 
     updateArrayPage(state) {

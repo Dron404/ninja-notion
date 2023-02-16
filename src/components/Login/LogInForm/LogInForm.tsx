@@ -5,7 +5,10 @@ import styles from "./loginInForm.module.scss";
 import MessageEmail from "../MessageEmail/MessageEmail";
 import MessagePassword from "../MessagePassword/MessagePassword";
 import ActivationMessage from "../ActivationMessage/ActivationMessage";
-import { API_HOST, ROUT_LOGIN } from "../../../data/constants";
+import { IUserData, IUserEmailPassword } from "../../../types/interface";
+import { useAppDispatch } from "../../../hooks/redux";
+import { userSlice } from "../../../store/user/user.slice";
+import { Link } from "react-router-dom";
 
 function LogInForm() {
   const [nonValidEmail, toggleNonValidEmail] = useState(false);
@@ -13,10 +16,8 @@ function LogInForm() {
   const [nonActive, toggleNonActive] = useState(false);
   const [email, setEmail] = useState({ email: "" });
 
-  interface EnterFormData {
-    email: string;
-    password: string;
-  }
+  const dispatch = useAppDispatch();
+  const { updateUserLogin, getUserSuccess } = userSlice.actions;
 
   const {
     register,
@@ -59,7 +60,14 @@ function LogInForm() {
       }
 
       if (response.status === 200) {
-        navigate("/pages/1");
+        dispatch(updateUserLogin(dataUser));
+        const data: IUserData = await response.json();
+        data.accessToken &&
+          sessionStorage.setItem("accessToken", data.accessToken);
+        data.refreshToken &&
+          localStorage.setItem("refreshToken", data.refreshToken);
+        dispatch(getUserSuccess(data));
+        navigate("/pages/home");
       }
     } catch (error) {
       throw new Error("Couldn't login");
@@ -130,6 +138,9 @@ function LogInForm() {
         <button type="submit" className={styles.submit} disabled={!isValid}>
           Log In
         </button>
+        <Link to="/signup" className={styles.linkLogin}>
+          Sign Up
+        </Link>
       </form>
       {messageNonValidEmail}
       {messageNonValidPassword}

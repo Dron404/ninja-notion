@@ -9,7 +9,6 @@ import { ReactComponent as MoreSVG } from "../../../assets/img/svg/more.svg";
 import { ReactComponent as MoveToSVG } from "../../../assets/img/svg/move_to.svg";
 
 import { ButtonMini } from "../ButtonMini";
-import { Button } from "../Button";
 import { main } from "../../../data/languages/main";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";

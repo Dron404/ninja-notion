@@ -15,7 +15,7 @@ import { ButtonTrash } from "../ButtonTrash";
 import { ButtonCopyLink } from "../ButtonCopyLink";
 import { ButtonFavorite } from "../ButtonFavorite";
 import { userSlice } from "../../../store/user/user.slice";
-import createNewPage from "../../../utils/update/createNewPage";
+import addNewPageForState from "../../../utils/update/addNewPageForState";
 import UserService from "../../../store/user/user.action";
 
 export const SidebarPage: React.FC<INotionButton> = ({
@@ -44,21 +44,15 @@ export const SidebarPage: React.FC<INotionButton> = ({
 
   const pageUrl = `/pages/${dataPage?._id}`;
 
-  const handleRename = () => {
-    console.log("handleRename");
-  };
-
-  let loadingCreatePage = false;
   const handleCreatePage = async (pageId = "") => {
-    if (pageId && user && !loadingCreatePage) {
-      const pages = await createNewPage(user.pages, pageId);
-      loadingCreatePage = true;
+    if (pageId && user) {
+      const pages = await addNewPageForState(user.pages, pageId);
       const response = await UserService.updatePages(pages);
       if (response && response?.status === 200) {
-        loadingCreatePage = false;
         dispatch(updateUserState({ pages: response.pages }));
       }
     }
+    setToogleStatus(true);
   };
 
   return (
@@ -125,19 +119,6 @@ export const SidebarPage: React.FC<INotionButton> = ({
                   </div>
                 )}
               </Menu.Item>
-              {/* <Menu.Item>
-                {({ close }) => (
-                  <div onClick={close}>
-                    <Button
-                      icon={<RenameSVG />}
-                      text={data.text_rename}
-                      cName={styles.buttonPage__button}
-                      hotkey="Ctrl+Shft+R"
-                      handle={handleRename}
-                    />
-                  </div>
-                )}
-              </Menu.Item> */}
 
               <Menu.Item>
                 {({ close }) => (
