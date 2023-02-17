@@ -26,7 +26,6 @@ export const Gallery: React.FC = () => {
     if (url.length > 0) {
       const replaceObject = { cover: { url: url } };
       updatePageStateFn(replaceObject);
-      console.log(activePage);
     }
   };
 

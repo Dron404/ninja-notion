@@ -8,13 +8,24 @@ export const ButtonMini: React.FC<INotionButton> = ({
   link,
   cName,
   handle,
+  handleInlineStyle,
+  handleEvent,
+  InlineStyle,
 }) => {
-  const onClick = () => {
+  const onMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    handleEvent && handleEvent(event);
+    handleInlineStyle && InlineStyle && handleInlineStyle(InlineStyle);
     handle && handle();
   };
+  const className = cName || "";
   return (
     <>
-      <div className={`${styles.button} ${cName}`} onClick={onClick}>
+      <div
+        className={`${styles.button} ${className}`}
+        onMouseDown={onMouseDown}
+      >
         {link ? (
           <Link to={link} className={styles.button__link} tabIndex={0}>
             {icon && icon}

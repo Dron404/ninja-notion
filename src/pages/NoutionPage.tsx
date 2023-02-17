@@ -23,17 +23,17 @@ function NoutionPage() {
     }
   }, []);
 
-  // !! проблема с отправкой запроса, если updateUserPages в теле useEffect то  user.pages имеет старый стейт
-  const updateUserPages = async () => {
-    user && (await UserService.updatePages(user.pages));
-  };
-  React.useEffect(() => {
-    window.addEventListener("beforeunload", async (event) => {
-      updateUserPages();
-      event.preventDefault();
-      event.returnValue = "";
-    });
-  }, []);
+  // // !! проблема с отправкой запроса, если updateUserPages в теле useEffect то  user.pages имеет старый стейт
+  // const updateUserPages = async () => {
+  //   user && (await UserService.updatePages(user.pages));
+  // };
+  // React.useEffect(() => {
+  //   window.addEventListener("beforeunload", async (event) => {
+  //     updateUserPages();
+  //     event.preventDefault();
+  //     event.returnValue = "";
+  //   });
+  // }, []);
 
   return (
     <>

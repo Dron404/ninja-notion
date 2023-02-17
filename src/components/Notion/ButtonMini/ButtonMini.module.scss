@@ -5,6 +5,8 @@
   border-radius: 3px;
   transition: opacity 400ms ease 0s, color 400ms ease 0s,
     background-color 400ms ease 0s;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     background-color: var(--color-hover);

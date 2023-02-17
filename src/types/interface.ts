@@ -5,6 +5,8 @@ import {
   RefetchQueryFilters,
   QueryObserverResult,
 } from "react-query";
+import { InlineStyle } from "../editor/TextEditor/config";
+import { BlockType } from "../editor/TextEditor/config";
 
 export interface IUserAvatar {
   url: string;
@@ -22,13 +24,18 @@ export interface INotionButton {
   link?: string;
   cName?: string;
   name?: string;
-  toggle?: boolean;
+  toggle?: boolean | string;
   hotkey?: string;
   target?: string;
+  InlineStyle?: InlineStyle;
+  blockType?: BlockType;
   state?: string;
   dataPage?: IPage | null;
   padding?: number;
   handle?: () => void;
+  handleInlineStyle?: (InlineStyle: InlineStyle) => void;
+  handleBlockType?: (blockType: BlockType) => void;
+  handleEvent?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 export interface IButtonModal {

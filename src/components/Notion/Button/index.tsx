@@ -10,14 +10,21 @@ export const Button: React.FC<INotionButton> = ({
   cName = "",
   hotkey,
   handle,
+  handleEvent,
+  blockType,
+  handleBlockType,
 }) => {
-  const onClick = () => {
+  const onMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    handleBlockType && blockType && handleBlockType(blockType);
+    handleEvent && handleEvent(event);
     handle && handle();
   };
 
   return (
     <>
-      <div className={`${styles.button} ${cName}`} onClick={onClick}>
+      <div className={`${styles.button} ${cName}`} onMouseDown={onMouseDown}>
         {link ? (
           <Link
             to={link}
