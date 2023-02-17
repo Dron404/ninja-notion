@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import styles from "./messagePassword.module.scss";
 import invalidPassword from "../../../assets/images/login/invalidPassword.png";
+import { resetPasswordFromLogin } from "../../../store/user/user.action";
 
-function MessagePassword() {
+function MessagePassword(props: { email: string }) {
   const [clickeddPassword, setClickedPassword] = useState(false);
+  const email = props.email;
 
   return (
     <div className={styles.wrapper}>
@@ -13,10 +15,13 @@ function MessagePassword() {
         <button
           type="button"
           className={styles.btnRestore}
-          onClick={(event) => {
+          onClick={async (event) => {
             const btn = event.target as HTMLButtonElement;
             btn.disabled = true;
-            setClickedPassword(!clickeddPassword);
+            const response = await resetPasswordFromLogin(email);
+            if (response?.status === 200) {
+              setClickedPassword(!clickeddPassword);
+            }
           }}
         >
           Click here to restore password
