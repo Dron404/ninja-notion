@@ -8,8 +8,8 @@ export const ButtonMini: React.FC<INotionButton> = ({
   link,
   cName,
   handle,
-  handleInlineStyle,
   handleEvent,
+  handleInlineStyle,
   InlineStyle,
 }) => {
   const onMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
