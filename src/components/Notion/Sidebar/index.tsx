@@ -38,7 +38,11 @@ export const Sidebar = (): React.ReactElement => {
   const placeholderTrash = `${data.text_search} ${data.text_trash}`;
   const placeholderMoveTo = `${data.text_search} ${data.text_move_to}`;
 
-  const handleTrash = (pageId: string) => {
+  const message = (text: string, type: string) => {
+    console.log(text, type);
+  };
+
+  const handleTrash = async (pageId: string) => {
     const replaceObject = { dataTrash: "" };
     dispatch(
       updatePagesState({
@@ -47,23 +51,42 @@ export const Sidebar = (): React.ReactElement => {
       })
     );
     dispatch(updateArrayPage());
+    if (user) {
+      const response = await UserService.updatePages(user.pages);
+      if (response && response?.status === 200) {
+        message("updated", "success");
+      }
+    }
   };
 
-  const handleMoveTo = (pageIdTo: string) => {
+  const handleMoveTo = async (pageIdTo: string) => {
     if (user && user.pages && activePage) {
       const pages = moveToPage(user.pages, activePage, pageIdTo);
       dispatch(updateUserState({ ...user, ...{ pages: pages } }));
       dispatch(updateArrayPage());
+
+      const response = await UserService.updatePages(pages);
+      if (response && response?.status === 200) {
+        message("updated", "success");
+      }
     }
   };
 
-  const handleRemovePage = (pageId: string) => {
-    if (user && user.pages) {
+  const [isRemoving, setIsRemoving] = React.useState(false);
+
+  const handleRemovePage = async (pageId: string) => {
+    if (user && user.pages && !isRemoving) {
+      setIsRemoving(true);
       const pages = removePage(user.pages, pageId);
       dispatch(updateUserState({ ...user, ...{ pages: pages } }));
       dispatch(updateArrayPage());
       if (activePage?._id === pageId) {
-        dispatch(replaceActivePage(dateDeletedPage));
+        await dispatch(replaceActivePage(dateDeletedPage));
+      }
+      const response = await UserService.updatePages(pages);
+      if (response && response?.status === 200) {
+        setIsRemoving(false);
+        message("updated", "success");
       }
     }
   };
@@ -78,6 +101,7 @@ export const Sidebar = (): React.ReactElement => {
       const response = await UserService.updatePages(pages);
       if (response && response?.status === 200) {
         dispatch(updateUserState({ pages: response.pages }));
+        message("updated", "success");
       }
     }
   };
@@ -124,6 +148,7 @@ export const Sidebar = (): React.ReactElement => {
                   cName="modal-top"
                   handle={handleMoveTo}
                   hotkey="Ctrl+Shft+P"
+                  disabled={isRemoving}
                 />
               </div>
             </>

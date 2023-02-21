@@ -1,32 +1,50 @@
 .toolType {
-  display: none;
   position: absolute;
+  width: 160px;
   flex-flow: column;
   align-items: flex-start;
+  background-color: var(--color-aside);
   flex-wrap: nowrap;
   min-width: 60px;
   font-family: "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif,
     "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   transform: translate(0, 0);
-  background-color: var(--color-bg);
-  overflow: hidden;
+
   border-radius: 7px;
   transform: translate(-20px, -40px);
   box-shadow: rgb(15 15 15 / 5%) 0px 0px 0px 1px,
     rgb(15 15 15 / 10%) 0px 5px 10px, rgb(15 15 15 / 20%) 0px 15px 40px;
   transition: color 400ms ease 0s, background-color 400ms ease 0s;
-
+  justify-content: stretch;
   font-family: "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif,
     "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   z-index: 401;
+  font-size: 12px;
+
+  &__popupTurn {
+    transform: translate(150px, -25px);
+    position: absolute;
+    background: var(--color-aside);
+  }
 
   &__itemLink {
     cursor: pointer;
   }
 
   &__itemMini {
-    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    width: 100%;
+    color: var(--color-text);
+
+    .button__icon {
+      width: 22px;
+      height: 22px;
+      justify-content: center;
+    }
   }
+
   &__item {
     cursor: text;
     display: flex;
@@ -37,8 +55,11 @@
     font-size: 12px;
 
     &_active div {
-      color: red !important;
+      color: var(--color-active) !important;
     }
+  }
+  button {
+    width: 100%;
   }
 }
 
@@ -50,4 +71,11 @@
   flex-direction: row;
   cursor: pointer;
   z-index: 301;
+  transform: translateX(-50px);
+}
+
+.toolType__itemTurn {
+  .button__hotkey {
+    transform: rotate(270deg);
+  }
 }

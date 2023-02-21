@@ -1,11 +1,11 @@
 .toolFormat {
-  display: none;
+  display: flex;
+  opacity: 0;
   flex-flow: row nowrap;
   position: absolute;
-  background-color: var(--color-bg);
+  background-color: var(--color-aside);
   overflow: hidden;
   border-radius: 7px;
-  transform: translate(-20px, -40px);
   box-shadow: rgb(15 15 15 / 5%) 0px 0px 0px 1px,
     rgb(15 15 15 / 10%) 0px 5px 10px, rgb(15 15 15 / 20%) 0px 15px 40px;
   transition: color 400ms ease 0s, background-color 400ms ease 0s;

@@ -9,7 +9,7 @@ import { useAppSelector } from "../../../hooks/redux";
 import { main } from "../../../data/languages/main";
 import { EmojiesListItem } from "../EmojiesListItem";
 
-export const EmojiesList: React.FC<IValue> = ({ value }) => {
+const EmojiesList: React.FC<IValue> = ({ value }): React.ReactElement => {
   const { lang } = useAppSelector((store) => store.userReducer);
 
   const data = main[lang];
@@ -42,3 +42,6 @@ export const EmojiesList: React.FC<IValue> = ({ value }) => {
     </>
   );
 };
+
+export default EmojiesList;
+export type EmojiesListType = typeof EmojiesList;

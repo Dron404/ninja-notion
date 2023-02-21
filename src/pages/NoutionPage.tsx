@@ -1,17 +1,23 @@
 import React from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { Content } from "../components/Notion/Content";
 import { Header } from "../components/Notion/Header";
+import { Home } from "../components/Notion/Home";
 import { Sidebar } from "../components/Notion/Sidebar";
+import SkeletonContent from "../components/Notion/Skeleton/SkeletonContent";
+import { TextEditorProvider } from "../editor/TextEditor";
 
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import UserService, { gerUset } from "../store/user/user.action";
+import { gerUset } from "../store/user/user.action";
+import { userSlice } from "../store/user/user.slice";
 
 function NoutionPage() {
   const dispatch = useAppDispatch();
-  const { error, navigate, theme, user } = useAppSelector(
+  const { error, navigate, theme, user, isLoading } = useAppSelector(
     (state) => state.userReducer
   );
+  const { updateActivePage, updateArrayPage } = userSlice.actions;
+
   const navigates = useNavigate();
 
   React.useEffect(() => {
@@ -23,17 +29,14 @@ function NoutionPage() {
     }
   }, []);
 
-  // // !! проблема с отправкой запроса, если updateUserPages в теле useEffect то  user.pages имеет старый стейт
-  // const updateUserPages = async () => {
-  //   user && (await UserService.updatePages(user.pages));
-  // };
-  // React.useEffect(() => {
-  //   window.addEventListener("beforeunload", async (event) => {
-  //     updateUserPages();
-  //     event.preventDefault();
-  //     event.returnValue = "";
-  //   });
-  // }, []);
+  const { pageId } = useParams();
+
+  React.useEffect(() => {
+    if (pageId && user) {
+      dispatch(updateActivePage());
+      dispatch(updateArrayPage());
+    }
+  }, [pageId]);
 
   return (
     <>
@@ -44,7 +47,15 @@ function NoutionPage() {
         <section className="notion__section">
           <>
             <Header />
-            <Content />
+            {isLoading ? (
+              <SkeletonContent />
+            ) : pageId === "home" ? (
+              <Home />
+            ) : (
+              <TextEditorProvider>
+                <Content />
+              </TextEditorProvider>
+            )}
             {error && { error }}
           </>
         </section>

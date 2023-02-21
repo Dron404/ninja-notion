@@ -14,6 +14,7 @@ export const SearchRow: React.FC<ISearchRow> = ({
   handle,
   type,
   handleButton,
+  disabled,
 }) => {
   const { lang } = useAppSelector((store) => store.userReducer);
   const data = main[lang];
@@ -43,7 +44,9 @@ export const SearchRow: React.FC<ISearchRow> = ({
             <div className={styles.search__pageIcon}>
               {page.icon ? page.icon : <DefaultSVG />}
             </div>
-            <div className={styles.search__pageName}>{page.name}</div>
+            <div title={page.name} className={styles.search__pageName}>
+              {page.name}
+            </div>
           </div>
         ) : (
           <Link to={`/pages/${page._id}`} className={styles.search__page}>
@@ -68,7 +71,8 @@ export const SearchRow: React.FC<ISearchRow> = ({
             icon={<TrashSVG />}
             cName={styles.search__removeButton}
             text={data.text_remove}
-            handle={handleRemovePage}
+            disabled={disabled}
+            onClick={handleRemovePage}
           />
         )}
       </div>

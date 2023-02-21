@@ -35,10 +35,6 @@ export const stateToHTML = convertToHTML<InlineStyle, BlockType>({
         return <h3 />;
       case BlockType.h4:
         return <h4 />;
-      case BlockType.h5:
-        return <h5 />;
-      case BlockType.h6:
-        return <h6 />;
       case BlockType.orderList:
         return {
           element: <li />,
@@ -59,7 +55,7 @@ export const stateToHTML = convertToHTML<InlineStyle, BlockType>({
   },
   entityToHTML: (entity, originalText) => {
     if (entity.type === EntityType.link) {
-      return <a href={entity.data.url}>{originalText}</a>;
+      return <a href={String(entity.data.url)}>{originalText}</a>;
     }
     return originalText;
   },
@@ -85,9 +81,10 @@ export const HTMLtoState = convertFromHTML<DOMStringMap, BlockType>({
 
     return currentStyle;
   },
-  /** Типизация пакета не предусматривает параметр last, но он есть */
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  htmlToBlock(nodeName: string, node, last: string) {
+  htmlToBlock(nodeName: string, node: React.ReactNode, last: string) {
     switch (nodeName) {
       case "h1":
         return BlockType.h1;

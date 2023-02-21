@@ -3,7 +3,7 @@ import styles from "./ContentIconSettings.module.scss";
 import { Menu } from "@headlessui/react";
 import { ButtonTab } from "../ButtonTab";
 import { Button } from "../Button";
-import { EmojiesList } from "../EmojiesList";
+
 import { ReactComponent as RandomSVG } from "../../../assets/img/svg/random.svg";
 import { ReactComponent as CloseSVG } from "../../../assets/img/svg/close.svg";
 
@@ -12,12 +12,19 @@ import { main } from "../../../data/languages/main";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
 import getRandomEmojis from "../../../utils/getRandomEmojis";
-import { IPage } from "../../../types/interface";
+import { IPage, IValue } from "../../../types/interface";
+import type { EmojiesListType } from "../EmojiesList";
+import SkeletonEmojisList from "../Skeleton/SkeletonEmojisList";
 
 export const ContentIconSettings = (): React.ReactElement => {
   const dispatch = useAppDispatch();
   const { activePage, lang } = useAppSelector((store) => store.userReducer);
   const { updatePagesState, updateArrayPage } = userSlice.actions;
+
+  const EmojiesList = React.useMemo(
+    () => React.lazy(() => import("../EmojiesList")),
+    []
+  );
 
   function updatePageStateFn(replaceObject: Partial<IPage>) {
     if (activePage?._id) {
@@ -109,7 +116,17 @@ export const ContentIconSettings = (): React.ReactElement => {
               </div>
 
               <div className={styles.body}>
-                {tab === "emojis" && <EmojiesList value={search} />}
+                <Menu.Item>
+                  {({ close }) => (
+                    <div onClick={close}>
+                      {tab === "emojis" && (
+                        <React.Suspense fallback={<SkeletonEmojisList />}>
+                          <EmojiesList value={search} />
+                        </React.Suspense>
+                      )}
+                    </div>
+                  )}
+                </Menu.Item>
               </div>
             </div>
           </Menu.Items>

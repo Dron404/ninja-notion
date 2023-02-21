@@ -3,7 +3,7 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-
+  opacity: 1;
   transition: opacity 400ms ease 0s, color 400ms ease 0s,
     background-color 400ms ease 0s;
 
@@ -49,6 +49,23 @@
       width: 14px;
       height: 14px;
       fill: var(--color-icon);
+    }
+    img {
+      object-fit: cover;
+      border-radius: 3px;
+      background: white;
+      width: 22px;
+      height: 22px;
+      flex-grow: 0;
+      flex-shrink: 0;
+      box-shadow: rgb(15 15 15 / 10%) 0px 0px 0px 1px;
+    }
+  }
+
+  &__disabled {
+    div {
+      opacity: 0.6;
+      cursor: wait;
     }
   }
 }

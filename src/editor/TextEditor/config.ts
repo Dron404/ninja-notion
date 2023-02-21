@@ -10,14 +10,13 @@ export enum BlockType {
   h2 = "header-two",
   h3 = "header-three",
   h4 = "header-four",
-  h5 = "header-five",
-  h6 = "header-six",
   blockquote = "blockquote",
   code = "code-block",
   list = "unordered-list-item",
   orderList = "ordered-list-item",
   cite = "cite",
   default = "unstyled",
+  color = "color",
 }
 
 export enum InlineStyle {
@@ -25,7 +24,7 @@ export enum InlineStyle {
   ITALIC = "i",
   UNDERLINE = "U",
   ACCENT = "A",
-  link = "link",
+  color = "color",
 }
 
 export const BLOCK_LABELS = {
@@ -33,14 +32,13 @@ export const BLOCK_LABELS = {
   [BlockType.h2]: "Heading 2",
   [BlockType.h3]: "Heading 3",
   [BlockType.h4]: "Heading 4",
-  [BlockType.h5]: "Heading 5",
-  [BlockType.h6]: "Heading 6",
   [BlockType.blockquote]: "Quote",
   [BlockType.code]: "Code",
   [BlockType.list]: "ulleted list",
   [BlockType.orderList]: "Numbered list",
   [BlockType.cite]: "Footnote",
   [BlockType.default]: "Text",
+  [BlockType.color]: "color",
 };
 
 export type KeyCommand = DraftEditorCommand | "accent";
@@ -69,9 +67,7 @@ export const CUSTOM_STYLE_MAP = {
   [InlineStyle.ITALIC]: {
     fontStyle: "italic",
   },
-
-  [InlineStyle.link]: {
-    textDecoration: "underline",
+  [InlineStyle.color]: {
     color: "blue",
   },
 };

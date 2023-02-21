@@ -6,25 +6,42 @@ import { Link } from "react-router-dom";
 export const Button: React.FC<INotionButton> = ({
   text = "",
   icon,
+  src,
   link,
   cName = "",
   hotkey,
   handle,
+  disabled,
   handleEvent,
   blockType,
   handleBlockType,
+  onClick,
 }) => {
-  const onMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    handleBlockType && blockType && handleBlockType(blockType);
-    handleEvent && handleEvent(event);
-    handle && handle();
+  const handleOnMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (!onClick && !disabled) {
+      event.preventDefault();
+      event.stopPropagation();
+      handleBlockType && blockType && handleBlockType(blockType);
+      handleEvent && handleEvent(event);
+      handle && handle();
+    }
   };
+
+  const handleOnClick = () => {
+    if (onClick && !disabled) {
+      onClick();
+    }
+  };
+
+  const styleDisabled = disabled ? styles.button__disabled : "";
 
   return (
     <>
-      <div className={`${styles.button} ${cName}`} onMouseDown={onMouseDown}>
+      <div
+        className={`${styles.button} ${cName} ${styleDisabled}`}
+        onMouseDown={handleOnMouseDown}
+        onClick={handleOnClick}
+      >
         {link ? (
           <Link
             to={link}
@@ -33,6 +50,11 @@ export const Button: React.FC<INotionButton> = ({
           >
             <div className={styles.button__group}>
               {icon && <div className="button__icon">{icon}</div>}
+              {src && (
+                <div className="button__icon">
+                  <img src={`${src}`} />
+                </div>
+              )}
               {text && <div className="button__text">{text}</div>}
             </div>
             {hotkey && (
@@ -48,6 +70,11 @@ export const Button: React.FC<INotionButton> = ({
           >
             <div className={styles.button__group}>
               {icon && <div className="button__icon">{icon}</div>}
+              {src && (
+                <div className="button__icon">
+                  <img src={`${src}`} />
+                </div>
+              )}
               {text && <div className="button__text">{text}</div>}
             </div>
             {hotkey && (

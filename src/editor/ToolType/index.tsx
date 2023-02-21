@@ -3,139 +3,188 @@ import { useEditorApi } from "../TextEditor";
 import cn from "classnames";
 import "./ToolType.scss";
 
+// svg
+
+import { ReactComponent as TrashSVG } from "../../assets/img/svg/trash.svg";
 import { ReactComponent as DragSVG } from "../../assets/img/svg/drag.svg";
 import { ReactComponent as AddSVG } from "../../assets/img/svg/add.svg";
 
+import {
+  h1PNG,
+  h2PNG,
+  h3PNG,
+  quotePNG,
+  codePNG,
+  bulletedListPNG,
+  numberedListPNG,
+  textPNG,
+} from "../../data/dataPng";
+
 import { BlockType } from "../TextEditor/config";
 import { Button } from "../../components/Notion/Button";
+import { main } from "../../data/languages/main";
+
+import { useAppSelector } from "../../hooks/redux";
+import { Menu } from "@headlessui/react";
 import { ButtonMini } from "../../components/Notion/ButtonMini";
 
 const toolType: React.FC = () => {
-  const { toggleBlockType, currentBlockType } = useEditorApi();
+  const { toggleBlockType, currentBlockType, removeBlock, addEmptyBlock } =
+    useEditorApi();
+  const { lang } = useAppSelector((store) => store.userReducer);
+  const data = main[lang];
 
-  const [isOpenEditorMenu, setIsOpenEditorMenu] = React.useState(false);
-
-  const handleToogleEditorMenu = () => {
-    setIsOpenEditorMenu(!isOpenEditorMenu);
+  const handleRemoveRow = () => {
+    removeBlock();
   };
-
-  const styleDisplay = isOpenEditorMenu ? "flex" : "none";
 
   return (
     <>
-      <div className="toolButton" id="toolButton">
-        <ButtonMini icon={<AddSVG />} />
-        <ButtonMini icon={<DragSVG />} handle={handleToogleEditorMenu} />
-      </div>
-      <div className="toolType" id="toolType" style={{ display: styleDisplay }}>
-        <Button
-          text="Text"
-          cName={cn(
-            "toolType__itemMini",
-            currentBlockType === BlockType.default && "toolType__item_active"
-          )}
-          blockType={BlockType.default}
-          handleBlockType={toggleBlockType}
-          handle={handleToogleEditorMenu}
-          key="default"
-        />
-
-        <Button
-          text="Heading 1"
-          cName={cn(
-            "toolType__itemMini",
-            currentBlockType === BlockType.h1 && "toolType__item_active"
-          )}
-          blockType={BlockType.h1}
-          handleBlockType={toggleBlockType}
-          handle={handleToogleEditorMenu}
-          key="h1"
-        />
-
-        <Button
-          text="Heading 2"
-          cName={cn(
-            "toolType__itemMini",
-            currentBlockType === BlockType.h2 && "toolType__item_active"
-          )}
-          blockType={BlockType.h2}
-          handleBlockType={toggleBlockType}
-          handle={handleToogleEditorMenu}
-          key="h2"
-        />
-
-        <Button
-          text="Heading 3"
-          cName={cn(
-            "toolType__itemMini",
-            currentBlockType === BlockType.h3 && "toolType__item_active"
-          )}
-          blockType={BlockType.h3}
-          handleBlockType={toggleBlockType}
-          handle={handleToogleEditorMenu}
-          key="h3"
-        />
-
-        <Button
-          text="Quote"
-          cName={cn(
-            "toolType__itemMini",
-            currentBlockType === BlockType.blockquote && "toolType__item_active"
-          )}
-          blockType={BlockType.blockquote}
-          handleBlockType={toggleBlockType}
-          handle={handleToogleEditorMenu}
-          key="blockquote"
-        />
-
-        <Button
-          text="Code"
-          cName={cn(
-            "toolType__itemMini",
-            currentBlockType === BlockType.code && "toolType__item_active"
-          )}
-          blockType={BlockType.code}
-          handleBlockType={toggleBlockType}
-          handle={handleToogleEditorMenu}
-          key="code"
-        />
-
-        <Button
-          text="Bulleted list"
-          cName={cn(
-            "toolType__itemMini",
-            currentBlockType === BlockType.list && "toolType__item_active"
-          )}
-          blockType={BlockType.list}
-          handleBlockType={toggleBlockType}
-          handle={handleToogleEditorMenu}
-          key="list"
-        />
-
-        <Button
-          text="Numbered list"
-          cName={cn(
-            "toolType__itemMini",
-            currentBlockType === BlockType.orderList && "toolType__item_active"
-          )}
-          blockType={BlockType.orderList}
-          handleBlockType={toggleBlockType}
-          handle={handleToogleEditorMenu}
-          key="orderList"
-        />
-
-        <Button
-          text="Footnote"
-          cName={cn(
-            "toolType__itemMini",
-            currentBlockType === BlockType.cite && "toolType__item_active"
-          )}
-          blockType={BlockType.cite}
-          handleBlockType={toggleBlockType}
-          handle={handleToogleEditorMenu}
-          key="cite"
-        />
-      </div>
+      <ButtonMini icon={<AddSVG />} handle={addEmptyBlock} />
+      <Menu as="div" className="notion-popup__menu">
+        <Menu.Button>
+          <div className="button-page-more">
+            <ButtonMini icon={<DragSVG />} />
+          </div>
+        </Menu.Button>
+        <Menu.Items className="toolType">
+          <Menu.Item>
+            <div onClick={close}>
+              <Button
+                icon={<TrashSVG />}
+                text={data.text_delete}
+                cName="toolType__itemMini"
+                hotkey="Del"
+                handleEvent={handleRemoveRow}
+              />
+            </div>
+          </Menu.Item>
+          <Menu.Item>
+            <div onClick={close}>
+              <Button
+                src={textPNG}
+                text="Text"
+                cName={cn(
+                  "toolType__itemMini",
+                  currentBlockType === BlockType.default &&
+                    "toolType__item_active"
+                )}
+                blockType={BlockType.default}
+                handleBlockType={toggleBlockType}
+                key="default"
+              />
+            </div>
+          </Menu.Item>
+          <Menu.Item>
+            <div onClick={close}>
+              <Button
+                src={h1PNG}
+                text="Heading 1"
+                cName={cn(
+                  "toolType__itemMini",
+                  currentBlockType === BlockType.h1 && "toolType__item_active"
+                )}
+                blockType={BlockType.h1}
+                handleBlockType={toggleBlockType}
+                key="h1"
+              />
+            </div>
+          </Menu.Item>
+          <Menu.Item>
+            <div onClick={close}>
+              <Button
+                src={h2PNG}
+                text="Heading 2"
+                cName={cn(
+                  "toolType__itemMini",
+                  currentBlockType === BlockType.h2 && "toolType__item_active"
+                )}
+                blockType={BlockType.h2}
+                handleBlockType={toggleBlockType}
+                key="h2"
+              />
+            </div>
+          </Menu.Item>
+          <Menu.Item>
+            <div onClick={close}>
+              <Button
+                src={h3PNG}
+                text="Heading 3"
+                cName={cn(
+                  "toolType__itemMini",
+                  currentBlockType === BlockType.h3 && "toolType__item_active"
+                )}
+                blockType={BlockType.h3}
+                handleBlockType={toggleBlockType}
+                key="h3"
+              />
+            </div>
+          </Menu.Item>
+          <Menu.Item>
+            <div onClick={close}>
+              <Button
+                src={quotePNG}
+                text="Quote"
+                cName={cn(
+                  "toolType__itemMini",
+                  currentBlockType === BlockType.blockquote &&
+                    "toolType__item_active"
+                )}
+                blockType={BlockType.blockquote}
+                handleBlockType={toggleBlockType}
+                key="blockquote"
+              />
+            </div>
+          </Menu.Item>
+          <Menu.Item>
+            <div onClick={close}>
+              <Button
+                src={codePNG}
+                text="Code"
+                cName={cn(
+                  "toolType__itemMini",
+                  currentBlockType === BlockType.code && "toolType__item_active"
+                )}
+                blockType={BlockType.code}
+                handleBlockType={toggleBlockType}
+                key="code"
+                hotkey="Ctrl+J"
+              />
+            </div>
+          </Menu.Item>
+          <Menu.Item>
+            <div onClick={close}>
+              <Button
+                src={bulletedListPNG}
+                text="Bulleted list"
+                cName={cn(
+                  "toolType__itemMini",
+                  currentBlockType === BlockType.list && "toolType__item_active"
+                )}
+                blockType={BlockType.list}
+                handleBlockType={toggleBlockType}
+                key="list"
+              />
+            </div>
+          </Menu.Item>
+          <Menu.Item>
+            <div onClick={close}>
+              <Button
+                src={numberedListPNG}
+                text="Numbered list"
+                cName={cn(
+                  "toolType__itemMini",
+                  currentBlockType === BlockType.orderList &&
+                    "toolType__item_active"
+                )}
+                blockType={BlockType.orderList}
+                handleBlockType={toggleBlockType}
+                key="orderList"
+              />
+            </div>
+          </Menu.Item>
+        </Menu.Items>
+      </Menu>
     </>
   );
 };

@@ -45,14 +45,6 @@ const ToolFormat: React.FC = () => {
         cName="toolFormat__item toolFormat__itemLink"
         handle={handleAddLink}
       />
-
-      {/* <Button
-        text="Print"
-        cName="toolFormat__item"
-        handle={() => {
-          console.log(toHtml());
-        }}
-      /> */}
     </div>
   );
 };

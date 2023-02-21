@@ -4,7 +4,6 @@ import {
   ROUT_SAVE_PAGES,
   ROUT_USER,
 } from "../../data/constants";
-// import { dataTestUser } from "../../data/dataTestUser";
 
 import { IPage, IUserData, IUserResponseMessage } from "../../types/interface";
 

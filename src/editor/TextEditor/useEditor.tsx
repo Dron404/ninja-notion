@@ -6,8 +6,16 @@ import {
   DraftEntityMutability,
   EditorState,
   RichUtils,
+  Modifier,
+  SelectionState,
+  ContentState,
+  ContentBlock,
+  genKey,
 } from "draft-js";
+import { List } from "immutable";
 import * as React from "react";
+import { useParams } from "react-router-dom";
+import { IStyleTool } from "../../types/interface";
 import { BlockType, EntityType, InlineStyle, KeyCommand } from "./config";
 import { HTMLtoState, stateToHTML } from "./convert";
 import LinkDecorator from "./Link";
@@ -27,16 +35,33 @@ export type EditorApi = {
     editorState: EditorState
   ) => DraftHandleValue;
   handlerKeyBinding: (e: React.KeyboardEvent) => KeyCommand | null;
+  handleRerender: () => void;
+  currentItem: Element | null;
+  removeBlock: () => void;
+  addEmptyBlock: () => void;
 };
 
 const decorator = new CompositeDecorator([LinkDecorator]);
 
 export const useEditor = (html?: string): EditorApi => {
+  const { pageId } = useParams();
+  const [currentItem, setCurrentItem] = React.useState<Element | null>(null);
+  const [rerender, setRerender] = React.useState(false);
+  const handleRerender = () => setRerender(!rerender);
+
   const [state, setState] = React.useState(() =>
     html
       ? EditorState.createWithContent(HTMLtoState(html), decorator)
       : EditorState.createEmpty(decorator)
   );
+
+  React.useEffect(() => {
+    setState(() =>
+      html
+        ? EditorState.createWithContent(HTMLtoState(html), decorator)
+        : EditorState.createEmpty(decorator)
+    );
+  }, [rerender]);
 
   const toggleBlockType = React.useCallback((blockType: BlockType) => {
     setState((currentState) =>
@@ -50,147 +75,72 @@ export const useEditor = (html?: string): EditorApi => {
     return selectionElement && selectionElement.getRangeAt(0);
   };
 
-  // const getCoordsFormat = (
-  //   selectionRange: Range
-  // ):
-  //   | {
-  //       offsetLeft: number;
-  //       offsetTop: number;
-  //     }
-  //   | undefined => {
-  //   const editorBounds = document
-  //     ?.getElementById("editor")
-  //     ?.getBoundingClientRect();
-  //   if (editorBounds) {
-  //     const rangeBounds = selectionRange.getBoundingClientRect();
-  //     const rangeWidth = rangeBounds.right - rangeBounds.left;
-
-  //     const offsetLeft =
-  //       rangeBounds.left - editorBounds.left + rangeWidth / 2 - 107 / 2;
-
-  //     const offsetTop = rangeBounds.top - editorBounds.top - 42;
-  //     return { offsetLeft, offsetTop };
-  //   }
-  // };
-
-  const toolFormat = document.getElementById("toolFormat");
-  const toolType = document.getElementById("toolType");
   const toolButton = document.getElementById("toolButton");
+  const toolFormat = document.getElementById("toolFormat");
   const editor = document.getElementById("editor");
-  const coordEditor = editor?.getBoundingClientRect();
+  const coordCditor = editor?.getBoundingClientRect();
 
-  let position = {
-    format: { left: 33, top: -500, opacity: 0 },
-    type: { left: 33, top: 400, opacity: 0 },
-    button: { left: 33, top: 400, opacity: 0 },
+  const [style, setStyle] = React.useState<IStyleTool | null>({
+    button: { opacity: 1, y: 0 },
+    format: { opacity: 0, y: 0 },
+  });
+
+  const updateStyle = (key: string) => {
+    const currentBlock = document.querySelector(
+      `[data-offset-key="${key}-0-0"]`
+    );
+    setCurrentItem(currentBlock);
+
+    const selectionRange = getSelectionRange();
+    const isSelect =
+      Number(selectionRange?.endOffset) - Number(selectionRange?.startOffset);
+
+    const coordCurrentBlock = currentBlock?.getBoundingClientRect();
+
+    if (coordCurrentBlock && coordCditor && toolFormat && style) {
+      const Y = coordCurrentBlock?.y - window.pageYOffset - coordCditor?.y;
+
+      setStyle({
+        button: { opacity: 1, y: Y },
+        format: { opacity: isSelect ? 1 : 0, y: Y },
+      });
+    }
   };
 
   const currentBlockType = React.useMemo(() => {
-    const selectionRange = getSelectionRange();
-
     const selection = state.getSelection();
-    const startKey = selection.getStartKey();
+    const startKey = selection.getFocusKey();
     const content = state.getCurrentContent();
     const block = content.getBlockForKey(startKey);
-    const elementRow = document.querySelector(
-      `[data-offset-key="${startKey}-0-0"]`
-    );
+    const blockKey = block.getKey();
+    updateStyle(blockKey);
+    console.log("block", block);
 
-    const coordElementRow = elementRow?.getBoundingClientRect();
+    return block.getType() as BlockType;
+  }, [state, pageId]);
 
-    if (toolFormat && toolType && toolButton) {
-      position = {
-        format: { left: 33, top: -500, opacity: 0 },
-        type: { left: 33, top: 400, opacity: 0 },
-        button: { left: 33, top: 400, opacity: 0 },
-      };
-      elementRow &&
-        elementRow.setAttribute("style", `background-color: transparent;`);
-
-      if (coordElementRow && coordEditor && elementRow) {
-        const toolFormatLeft = 0;
-        const toolFormatTop = coordElementRow.y - coordEditor.top - 30;
-
-        const toolTypeLeft = 10;
-        const toolTypeTop =
-          coordElementRow.y - coordEditor.top - toolType.offsetHeight / 2;
-
-        const toolButtonLeft = 0;
-        const range =
-          coordElementRow.height > 32 ? coordElementRow.height / 2 : 7;
-        const toolButtonTop = coordElementRow.y - coordEditor.top + range;
-
-        const isSelect =
-          Number(selectionRange?.endOffset) -
-          Number(selectionRange?.startOffset);
-        if (isSelect) {
-          position = {
-            format: {
-              left: toolFormatLeft,
-              top: toolFormatTop,
-              opacity: 1,
-            },
-            type: {
-              left: toolTypeLeft,
-              top: toolTypeTop,
-              opacity: 1,
-            },
-            button: {
-              left: toolButtonLeft,
-              top: toolButtonTop,
-              opacity: 1,
-            },
-          };
-        } else {
-          position = {
-            format: {
-              left: toolFormatLeft,
-              top: toolFormatTop,
-              opacity: 0,
-            },
-            type: {
-              left: toolTypeLeft,
-              top: toolTypeTop,
-              opacity: 1,
-            },
-            button: {
-              left: toolButtonLeft,
-              top: toolButtonTop,
-              opacity: 1,
-            },
-          };
-        }
-      }
-
-      toolFormat.setAttribute(
-        "style",
-        `opacity: ${position.format.opacity};
-          display: ${position.format.opacity ? "flex" : "none"};
-          transform: translate(${position.format.left}px, ${
-          position.format.top
-        }px);
-          `
-      );
-
-      toolType.setAttribute(
-        "style",
-        `
-          transform: translate(${position.type.left}px, ${position.type.top}px);
-          `
-      );
-      if (position.button.left !== 30 && position.button.top !== 300) {
+  const updatePositonTools = () => {
+    if (style) {
+      toolButton &&
         toolButton.setAttribute(
           "style",
-          `opacity: ${position.button.opacity};
-          transform: translate(${position.button.left}px, ${position.button.top}px);
           `
+        opacity: ${style.button.opacity};
+        transform: translate(0px, ${style.button.y + 0}px);`
         );
-      }
-    }
 
-    /// console.log("block.toJS()", block.toJS());
-    return block.getType() as BlockType;
-  }, [state]);
+      const display = style.format.opacity ? "flex" : "none";
+      toolFormat &&
+        toolFormat.setAttribute(
+          "style",
+          `display: ${display};
+        opacity: ${style.format.opacity};
+        transform: translate(50px, ${style.format.y - 50}px);`
+        );
+    }
+  };
+
+  updatePositonTools();
 
   const toggleInlineStyle = React.useCallback((inlineStyle: InlineStyle) => {
     setState((currentState) =>
@@ -225,6 +175,81 @@ export const useEditor = (html?: string): EditorApi => {
     },
     []
   );
+
+  function removeBlock() {
+    const contentState = state.getCurrentContent();
+    const selection = state.getSelection();
+    const startKey = selection.getFocusKey();
+    const block = contentState.getBlockForKey(startKey);
+    const prev = contentState.getBlockBefore(String(block?.getKey()));
+
+    let removeSelection = new SelectionState({
+      anchorKey: block.getKey(),
+      anchorOffset: 0,
+      focusKey: block.getKey(),
+      focusOffset: block.getText().length,
+    });
+
+    if (block && prev) {
+      removeSelection = new SelectionState({
+        anchorKey: prev.getKey(),
+        anchorOffset: prev.getText().length,
+        focusKey: block.getKey(),
+        focusOffset: block.getText().length,
+      });
+    }
+
+    const newContentState = Modifier.removeRange(
+      contentState,
+      removeSelection,
+      "backward"
+    );
+
+    const newEditorState = EditorState.push(
+      state,
+      newContentState,
+      "remove-range"
+    );
+
+    setState(newEditorState);
+  }
+
+  const addEmptyBlock = () => {
+    const key = genKey();
+    const newBlock = new ContentBlock({
+      key: key,
+      type: "unstyled",
+      text: "",
+      characterList: List(),
+    });
+
+    const contentState = state.getCurrentContent();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const newBlockMap = contentState.getBlockMap().set(newBlock.key, newBlock);
+
+    const selectionBefore = contentState.getSelectionBefore();
+    const selectionAfter = contentState.getSelectionAfter();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const content = ContentState.createFromBlockArray(newBlockMap.toArray())
+      .set("selectionBefore", selectionBefore)
+      .set("selectionAfter", selectionAfter);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    let newEditorState = EditorState.push(state, content, "apply-entity");
+
+    const newSelection = new SelectionState({
+      anchorKey: key,
+      anchorOffset: 0,
+      focusKey: key,
+      focusOffset: 0,
+    });
+
+    newEditorState = EditorState.forceSelection(newEditorState, newSelection);
+
+    setState(newEditorState);
+  };
 
   const addEntity = React.useCallback(
     (
@@ -305,6 +330,10 @@ export const useEditor = (html?: string): EditorApi => {
       setEntityData,
       handleKeyCommand,
       handlerKeyBinding,
+      handleRerender,
+      currentItem,
+      removeBlock,
+      addEmptyBlock,
     }),
     [
       state,
@@ -317,6 +346,10 @@ export const useEditor = (html?: string): EditorApi => {
       setEntityData,
       handleKeyCommand,
       handlerKeyBinding,
+      handleRerender,
+      currentItem,
+      removeBlock,
+      addEmptyBlock,
     ]
   );
 };

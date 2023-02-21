@@ -73,6 +73,9 @@
     display: flex;
     align-items: center;
     font-weight: 800;
+    max-width: 350px;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   &__notResult {
