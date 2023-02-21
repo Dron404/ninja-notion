@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "./ButtonCopyLink.module.scss";
 import { Button } from "../Button";
-import { ReactComponent as CopySVG } from "../../../assets/img/svg/copy.svg";
+import { ReactComponent as CopySVG } from "../../../../assets/img/svg/copy.svg";
 
-import { useAppSelector } from "../../../hooks/redux";
-import { main } from "../../../data/languages/main";
+import { useAppSelector } from "../../../../hooks/redux";
+import { main } from "../../../../data/languages/main";
 import copy from "copy-to-clipboard";
-import { INotionButton } from "../../../types/interface";
+import { INotionButton } from "../../../../types/interface";
 
 export const ButtonCopyLink: React.FC<INotionButton> = (dataPage) => {
   const { lang } = useAppSelector((store) => store.userReducer);

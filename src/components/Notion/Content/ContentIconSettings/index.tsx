@@ -3,7 +3,7 @@ import styles from "./ContentIconSettings.module.scss";
 import { Menu } from "@headlessui/react";
 import { ButtonTab } from "../../buttons/ButtonTab";
 import { Button } from "../../buttons/Button";
-import EmojiesList from "../../EmojiesList";
+import { EmojiesList } from "../../EmojiesList";
 import { ReactComponent as RandomSVG } from "../../../../assets/img/svg/random.svg";
 import { ReactComponent as CloseSVG } from "../../../../assets/img/svg/close.svg";
 
