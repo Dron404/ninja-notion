@@ -19,6 +19,147 @@ export const stateToHTML = convertToHTML<InlineStyle, BlockType>({
             style={CUSTOM_STYLE_MAP[InlineStyle.ACCENT]}
           />
         );
+      case InlineStyle.colorDefault:
+        return (
+          <span
+            className="colorDefault"
+            style={CUSTOM_STYLE_MAP[InlineStyle.colorDefault]}
+          />
+        );
+      case InlineStyle.colorGray:
+        return (
+          <span
+            className="colorGray  "
+            style={CUSTOM_STYLE_MAP[InlineStyle.colorGray]}
+          />
+        );
+      case InlineStyle.colorBrown:
+        return (
+          <span
+            className="colorBrown "
+            style={CUSTOM_STYLE_MAP[InlineStyle.colorBrown]}
+          />
+        );
+      case InlineStyle.colorOrange:
+        return (
+          <span
+            className="colorOrange "
+            style={CUSTOM_STYLE_MAP[InlineStyle.colorOrange]}
+          />
+        );
+      case InlineStyle.colorYellow:
+        return (
+          <span
+            className="colorYellow "
+            style={CUSTOM_STYLE_MAP[InlineStyle.colorYellow]}
+          />
+        );
+      case InlineStyle.colorGreen:
+        return (
+          <span
+            className="colorGreen "
+            style={CUSTOM_STYLE_MAP[InlineStyle.colorGreen]}
+          />
+        );
+      case InlineStyle.colorBlue:
+        return (
+          <span
+            className="colorBlue  "
+            style={CUSTOM_STYLE_MAP[InlineStyle.colorBlue]}
+          />
+        );
+      case InlineStyle.colorPurple:
+        return (
+          <span
+            className="colorPurple "
+            style={CUSTOM_STYLE_MAP[InlineStyle.colorPurple]}
+          />
+        );
+      case InlineStyle.colorPink:
+        return (
+          <span
+            className="colorPink  "
+            style={CUSTOM_STYLE_MAP[InlineStyle.colorPink]}
+          />
+        );
+      case InlineStyle.colorRed:
+        return (
+          <span
+            className="colorRed"
+            style={CUSTOM_STYLE_MAP[InlineStyle.colorRed]}
+          />
+        );
+      case InlineStyle.bgColorDefault:
+        return (
+          <span
+            className="bgColorDefault "
+            style={CUSTOM_STYLE_MAP[InlineStyle.bgColorDefault]}
+          />
+        );
+      case InlineStyle.bgColorGray:
+        return (
+          <span
+            className="bgColorGray "
+            style={CUSTOM_STYLE_MAP[InlineStyle.bgColorGray]}
+          />
+        );
+      case InlineStyle.bgColorBrown:
+        return (
+          <span
+            className="bgColorBrown"
+            style={CUSTOM_STYLE_MAP[InlineStyle.bgColorBrown]}
+          />
+        );
+      case InlineStyle.bgColorOrange:
+        return (
+          <span
+            className="bgColorOrange  "
+            style={CUSTOM_STYLE_MAP[InlineStyle.bgColorOrange]}
+          />
+        );
+      case InlineStyle.bgColorYellow:
+        return (
+          <span
+            className="bgColorYellow  "
+            style={CUSTOM_STYLE_MAP[InlineStyle.bgColorYellow]}
+          />
+        );
+      case InlineStyle.bgColorGreen:
+        return (
+          <span
+            className="bgColorGreen"
+            style={CUSTOM_STYLE_MAP[InlineStyle.bgColorGreen]}
+          />
+        );
+      case InlineStyle.bgColorBlue:
+        return (
+          <span
+            className="bgColorBlue "
+            style={CUSTOM_STYLE_MAP[InlineStyle.bgColorBlue]}
+          />
+        );
+      case InlineStyle.bgColorPurple:
+        return (
+          <span
+            className="bgColorPurple  "
+            style={CUSTOM_STYLE_MAP[InlineStyle.bgColorPurple]}
+          />
+        );
+      case InlineStyle.bgColorPink:
+        return (
+          <span
+            className="bgColorPink "
+            style={CUSTOM_STYLE_MAP[InlineStyle.bgColorPink]}
+          />
+        );
+      case InlineStyle.bgColorRed:
+        return (
+          <span
+            className="bgColorRed "
+            style={CUSTOM_STYLE_MAP[InlineStyle.bgColorRed]}
+          />
+        );
+
       default:
         return null;
     }
@@ -77,6 +218,67 @@ export const HTMLtoState = convertFromHTML<DOMStringMap, BlockType>({
 
     if (nodeName === "span" && node.classList.contains("accent")) {
       return currentStyle.add(InlineStyle.ACCENT);
+    }
+
+    if (nodeName === "span" && node.classList.contains("colorDefault")) {
+      return currentStyle.add(InlineStyle.colorDefault);
+    }
+    if (nodeName === "span" && node.classList.contains("colorGray")) {
+      return currentStyle.add(InlineStyle.colorGray);
+    }
+    if (nodeName === "span" && node.classList.contains("colorBrown")) {
+      return currentStyle.add(InlineStyle.colorBrown);
+    }
+    if (nodeName === "span" && node.classList.contains("colorOrange")) {
+      return currentStyle.add(InlineStyle.colorOrange);
+    }
+    if (nodeName === "span" && node.classList.contains("colorYellow")) {
+      return currentStyle.add(InlineStyle.colorYellow);
+    }
+    if (nodeName === "span" && node.classList.contains("colorGreen")) {
+      return currentStyle.add(InlineStyle.colorGreen);
+    }
+    if (nodeName === "span" && node.classList.contains("colorBlue")) {
+      return currentStyle.add(InlineStyle.colorBlue);
+    }
+    if (nodeName === "span" && node.classList.contains("colorPurple")) {
+      return currentStyle.add(InlineStyle.colorPurple);
+    }
+    if (nodeName === "span" && node.classList.contains("colorPink")) {
+      return currentStyle.add(InlineStyle.colorPink);
+    }
+    if (nodeName === "span" && node.classList.contains("colorRed")) {
+      return currentStyle.add(InlineStyle.colorRed);
+    }
+    if (nodeName === "span" && node.classList.contains("bgColorDefault")) {
+      return currentStyle.add(InlineStyle.bgColorDefault);
+    }
+    if (nodeName === "span" && node.classList.contains("bgColorGray")) {
+      return currentStyle.add(InlineStyle.bgColorGray);
+    }
+    if (nodeName === "span" && node.classList.contains("bgColorBrown")) {
+      return currentStyle.add(InlineStyle.bgColorBrown);
+    }
+    if (nodeName === "span" && node.classList.contains("bgColorOrange")) {
+      return currentStyle.add(InlineStyle.bgColorOrange);
+    }
+    if (nodeName === "span" && node.classList.contains("bgColorYellow")) {
+      return currentStyle.add(InlineStyle.bgColorYellow);
+    }
+    if (nodeName === "span" && node.classList.contains("bgColorGreen")) {
+      return currentStyle.add(InlineStyle.bgColorGreen);
+    }
+    if (nodeName === "span" && node.classList.contains("bgColorBlue")) {
+      return currentStyle.add(InlineStyle.bgColorBlue);
+    }
+    if (nodeName === "span" && node.classList.contains("bgColorPurple")) {
+      return currentStyle.add(InlineStyle.bgColorPurple);
+    }
+    if (nodeName === "span" && node.classList.contains("bgColorPink")) {
+      return currentStyle.add(InlineStyle.bgColorPink);
+    }
+    if (nodeName === "span" && node.classList.contains("bgColorRed")) {
+      return currentStyle.add(InlineStyle.bgColorRed);
     }
 
     return currentStyle;

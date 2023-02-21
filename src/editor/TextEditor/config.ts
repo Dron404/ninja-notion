@@ -16,7 +16,6 @@ export enum BlockType {
   orderList = "ordered-list-item",
   cite = "cite",
   default = "unstyled",
-  color = "color",
 }
 
 export enum InlineStyle {
@@ -24,7 +23,26 @@ export enum InlineStyle {
   ITALIC = "i",
   UNDERLINE = "U",
   ACCENT = "A",
-  color = "color",
+  colorDefault = "Default",
+  colorGray = "Gray",
+  colorBrown = "Brown",
+  colorOrange = "Orange",
+  colorYellow = "Yellow",
+  colorGreen = "Green",
+  colorBlue = "Blue",
+  colorPurple = "Purple",
+  colorPink = "Pink",
+  colorRed = "Red",
+  bgColorDefault = "Background Default",
+  bgColorGray = "Background Gray",
+  bgColorBrown = "Background Brown",
+  bgColorOrange = "Background Orange",
+  bgColorYellow = "Background Yellow",
+  bgColorGreen = "Background Green",
+  bgColorBlue = "Background Blue",
+  bgColorPurple = "Background Purple",
+  bgColorPink = "Background Pink",
+  bgColorRed = "Background Red",
 }
 
 export const BLOCK_LABELS = {
@@ -38,7 +56,6 @@ export const BLOCK_LABELS = {
   [BlockType.orderList]: "Numbered list",
   [BlockType.cite]: "Footnote",
   [BlockType.default]: "Text",
-  [BlockType.color]: "color",
 };
 
 export type KeyCommand = DraftEditorCommand | "accent";
@@ -67,7 +84,24 @@ export const CUSTOM_STYLE_MAP = {
   [InlineStyle.ITALIC]: {
     fontStyle: "italic",
   },
-  [InlineStyle.color]: {
-    color: "blue",
-  },
+  [InlineStyle.colorDefault]: { color: "unset" },
+  [InlineStyle.colorGray]: { color: "gray" },
+  [InlineStyle.colorBrown]: { color: "brown" },
+  [InlineStyle.colorOrange]: { color: "orange" },
+  [InlineStyle.colorYellow]: { color: "goldenrod" },
+  [InlineStyle.colorGreen]: { color: "green" },
+  [InlineStyle.colorBlue]: { color: "blue" },
+  [InlineStyle.colorPurple]: { color: "purple" },
+  [InlineStyle.colorPink]: { color: "pink" },
+  [InlineStyle.colorRed]: { color: "red" },
+  [InlineStyle.bgColorDefault]: { backgroundColor: "unset" },
+  [InlineStyle.bgColorGray]: { backgroundColor: "gray" },
+  [InlineStyle.bgColorBrown]: { backgroundColor: "brown", color: "white" },
+  [InlineStyle.bgColorOrange]: { backgroundColor: "orange", color: "white" },
+  [InlineStyle.bgColorYellow]: { backgroundColor: "goldenrod" },
+  [InlineStyle.bgColorGreen]: { backgroundColor: "green", color: "white" },
+  [InlineStyle.bgColorBlue]: { backgroundColor: "blue", color: "white" },
+  [InlineStyle.bgColorPurple]: { backgroundColor: "purple", color: "white" },
+  [InlineStyle.bgColorPink]: { backgroundColor: "pink" },
+  [InlineStyle.bgColorRed]: { backgroundColor: "red", color: "white" },
 };

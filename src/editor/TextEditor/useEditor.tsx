@@ -114,7 +114,6 @@ export const useEditor = (html?: string): EditorApi => {
     const block = content.getBlockForKey(startKey);
     const blockKey = block.getKey();
     updateStyle(blockKey);
-    console.log("block", block);
 
     return block.getType() as BlockType;
   }, [state, pageId]);

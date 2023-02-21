@@ -15,12 +15,15 @@ export const Button: React.FC<INotionButton> = ({
   handleEvent,
   blockType,
   handleBlockType,
+  handleInlineStyle,
+  InlineStyle,
   onClick,
 }) => {
   const handleOnMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!onClick && !disabled) {
       event.preventDefault();
       event.stopPropagation();
+      handleInlineStyle && InlineStyle && handleInlineStyle(InlineStyle);
       handleBlockType && blockType && handleBlockType(blockType);
       handleEvent && handleEvent(event);
       handle && handle();
