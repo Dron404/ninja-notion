@@ -21,12 +21,12 @@ import {
 } from "../../data/dataPng";
 
 import { BlockType } from "../TextEditor/config";
-import { Button } from "../../components/Notion/Button";
+import { Button } from "../../components/Notion/buttons/Button";
 import { main } from "../../data/languages/main";
 
 import { useAppSelector } from "../../hooks/redux";
 import { Menu } from "@headlessui/react";
-import { ButtonMini } from "../../components/Notion/ButtonMini";
+import { ButtonMini } from "../../components/Notion/buttons/ButtonMini";
 
 const toolType: React.FC = () => {
   const { toggleBlockType, currentBlockType, removeBlock, addEmptyBlock } =

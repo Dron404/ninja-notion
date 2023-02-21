@@ -7,9 +7,8 @@ import { ReactComponent as LinkSVG } from "../../assets/img/svg/link.svg";
 import { ReactComponent as ToggleSVG } from "../../assets/img/svg/toggle.svg";
 import { InlineStyle } from "../TextEditor/config";
 
-import { Button } from "../../components/Notion/Button";
-import { ButtonMini } from "../../components/Notion/ButtonMini";
-import { Menu } from "@headlessui/react";
+import { Button } from "../../components/Notion/buttons/Button";
+import { ButtonMini } from "../../components/Notion/buttons/ButtonMini";
 
 const ToolFormat: React.FC = () => {
   const { addLink, toggleInlineStyle, hasInlineStyle } = useEditorApi();

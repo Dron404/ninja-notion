@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "./Home.module.scss";
-import { ContentCover } from "../ContentCover";
+import { ContentCover } from "../Content/ContentCover";
 import { main } from "../../../data/languages/main";
-import { ContentIconSettings } from "../ContentIconSettings";
+import { ContentIconSettings } from "../Content/ContentIconSettings";
 import { useAppSelector } from "../../../hooks/redux";
-import { SidebarPage } from "../SidebarPage";
-import { ButtonTrash } from "../ButtonTrash";
+import { SidebarPage } from "../Sidebar/SidebarPage";
+import { ButtonTrash } from "../buttons/ButtonTrash";
 
 export const Home = (): React.ReactElement => {
   const { user, lang, activePage } = useAppSelector(
