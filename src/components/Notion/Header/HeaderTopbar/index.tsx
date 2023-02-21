@@ -158,7 +158,7 @@ export const HeaderTopbar = (): React.ReactElement => {
               </div>
               <div className="hr-line"></div>
 
-              <ButtonCopyLink dataPage={activePage} />
+              <ButtonCopyLink pageId={activePage?._id} />
               <ButtonFavorite dataPage={activePage} />
 
               {activePage?._id !== "home" && (

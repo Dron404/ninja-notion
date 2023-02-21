@@ -25,7 +25,7 @@ export const Header = (): React.ReactElement => {
         )}
 
         <Breadcrumb />
-        {activePage?._id !== "home" && <HeaderTopbar />}
+        {activePage?._id !== "home" && activePage && <HeaderTopbar />}
       </header>
     </>
   );

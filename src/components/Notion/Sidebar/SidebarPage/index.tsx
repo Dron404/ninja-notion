@@ -58,10 +58,10 @@ export const SidebarPage: React.FC<INotionButton> = ({
   return (
     <>
       <div
-        className={`${styles.buttonPage} ${cName}`}
+        className={`${styles.SidebarPage} ${cName}`}
         style={{ paddingLeft: `${newPadding}px` }}
       >
-        <div className={styles.buttonPage__group}>
+        <div className={styles.SidebarPage__group}>
           {dataPage?.children_page && (
             <div
               className={`button__toggle ${toggleStyle}`}
@@ -72,38 +72,45 @@ export const SidebarPage: React.FC<INotionButton> = ({
           )}
           <Link
             to={pageUrl}
-            className={`${styles.buttonPage__link} button__link`}
+            className={`${styles.SidebarPage__link} button__link`}
             tabIndex={0}
           >
             <div className="button__icon">{icon ? icon : <DefaultSVG />}</div>
 
-            {text && <div className="button__text">{text}</div>}
+            {text && (
+              <div
+                className={`${styles.SidebarPage__text} button__text`}
+                title={text}
+              >
+                {text}
+              </div>
+            )}
           </Link>
         </div>
 
-        <div className={styles.buttonPage__groupHidden}>
+        <div className={styles.SidebarPage__groupHidden}>
           {dataPage?.children_page && (
             <ButtonMini
               icon={<AddSVG />}
-              cName={styles.buttonPage__add}
+              cName={styles.SidebarPage__add}
               handle={() => handleCreatePage(dataPage._id)}
             />
           )}
 
           <Menu
             as="div"
-            className={`${styles.buttonPage__menu} notion-popup__menu`}
+            className={`${styles.SidebarPage__menu} notion-popup__menu`}
           >
-            <Menu.Button className={styles.buttonPage__menuButton}>
+            <Menu.Button className={styles.SidebarPage__menuButton}>
               <div className="button-page-more">
                 <ButtonMini
                   icon={<MoreSVG />}
-                  cName={styles.buttonPage__more}
+                  cName={styles.SidebarPage__more}
                 />
               </div>
             </Menu.Button>
             <Menu.Items
-              className={`${styles.buttonPage__popup} notion-popup__body`}
+              className={`${styles.SidebarPage__popup} notion-popup__body`}
             >
               <Menu.Item>
                 {({ close }) => (
@@ -115,7 +122,7 @@ export const SidebarPage: React.FC<INotionButton> = ({
               <Menu.Item>
                 {({ close }) => (
                   <div onClick={close}>
-                    <ButtonCopyLink dataPage={dataPage} />
+                    <ButtonCopyLink pageId={dataPage?._id} />
                   </div>
                 )}
               </Menu.Item>
@@ -133,7 +140,7 @@ export const SidebarPage: React.FC<INotionButton> = ({
       </div>
       {toogleStatus && (
         <div
-          className={styles.buttonPage__children}
+          className={styles.SidebarPage__children}
           style={{ paddingLeft: `${newPadding}px` }}
         >
           {dataPage?.children_page && dataPage?.children_page.length > 0 ? (
@@ -152,7 +159,7 @@ export const SidebarPage: React.FC<INotionButton> = ({
             )
           ) : (
             <div
-              className={styles.buttonPage__not}
+              className={styles.SidebarPage__not}
               style={{ paddingLeft: `${newPadding}` }}
             >
               {data.text_not_page}

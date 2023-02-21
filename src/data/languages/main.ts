@@ -83,6 +83,17 @@ export const main = {
     text_deleted_page_name: "This page has been removed",
     text_deleted_page_content:
       "Sorry, you have deleted this page. Go to another page or create a new one.",
+    text_placeholder_comment: "Enter you comment ...",
+    text_placeholder_title: "Untitled",
+    text_placeholder_heading_1: "Heading 1",
+    text_placeholder_heading_2: "Heading 2",
+    text_placeholder_heading_3: "Heading 3",
+    text_placeholder_heading_4: "Heading 4",
+    text_text: "Text",
+    text_quote: "Quote",
+    text_code: "Code",
+    text_bulleted_list: "Bulleted list",
+    text_numbered_list: "Numbered list",
   },
 
   pl: {
@@ -173,6 +184,17 @@ export const main = {
     text_deleted_page_name: "Ta strona została usunięta",
     text_deleted_page_content:
       "Przepraszamy, usunąłeś tę stronę. Przejdź na inną stronę lub utwórz nową.",
+    text_placeholder_comment: "Wpisz swój komentarz ...",
+    text_placeholder_title: "Nieuprawny",
+    text_placeholder_heading_1: "Nagłówek 1",
+    text_placeholder_heading_2: "Nagłówek 2",
+    text_placeholder_heading_3: "Nagłówek 3",
+    text_placeholder_heading_4: "Nagłówek 4",
+    text_text: "Tekst",
+    text_quote: "Cytat",
+    text_code: "Kod",
+    text_bulleted_list: "Lista wypunktowana",
+    text_numbered_list: "Lista numerowana",
   },
   ru: {
     text_workspace: "Workspace",
@@ -260,5 +282,16 @@ export const main = {
     text_deleted_page_name: "Эта страница удалена",
     text_deleted_page_content:
       "Извините, Вы удалили эту страницу. Перейдите на другую страницу или создайте новую.",
+    text_placeholder_comment: "Введите ваш комментарий ...",
+    text_placeholder_title: "Без названия",
+    text_placeholder_heading_1: "Заголовок 1",
+    text_placeholder_heading_2: "Заголовок 2",
+    text_placeholder_heading_3: "Заголовок 3",
+    text_placeholder_heading_4: "Заголовок 4",
+    text_text: "Текст",
+    text_quote: "Цитата",
+    text_code: "Код",
+    text_bulleted_list: "Маркированный список",
+    text_numbered_list: "Нумерованный список",
   },
 };

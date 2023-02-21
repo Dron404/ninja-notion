@@ -23,7 +23,6 @@
   left: 0;
   background-color: rgba(66, 66, 66, 0.406);
   z-index: 1;
-  text-shadow: -7px 0px 8px white;
 
   &__button {
     background-color: var(--color-active-svg);
@@ -46,10 +45,6 @@
 
   &__header {
     margin-bottom: 1rem;
-
-    &:hover .content__toolbar {
-      opacity: 1;
-    }
   }
 
   &__button {
@@ -74,18 +69,6 @@
     &_button {
       border-radius: 4px;
     }
-  }
-
-  &__nameInput {
-    flex: 1 1 auto;
-    overflow: hidden;
-    max-width: 100%;
-    overflow-wrap: normal;
-    word-wrap: normal;
-    hyphens: manual;
-    padding: 10px 0;
-    white-space: pre-wrap;
-    word-break: break-word;
   }
 
   &__comment {
@@ -117,6 +100,9 @@
       width: 20px;
       height: 20px;
     }
+  }
+  &__title {
+    margin-bottom: 70px;
   }
 }
 

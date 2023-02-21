@@ -18,6 +18,7 @@ import {
   getLocalStorage,
   setLocalStorage,
 } from "../../utils/strorage/localStorage";
+import UserService from "./user.action";
 
 const initialState: IUserState = {
   userLogin: null,
@@ -83,15 +84,17 @@ export const userSlice = createSlice({
     updateActivePage(state) {
       const pathname = window.location.pathname;
       const pageIdUrl = pathname.split("/")[2];
-      if (pathname === "/pages/home") {
+      if (pageIdUrl === "home") {
         state.activePage = dateHomePage;
         state.breadcrumbs = null;
+      } else {
+        if (state?.user?.pages) {
+          const data = findActivePage(state.user.pages, pageIdUrl);
+          state.activePage = data.activePage;
+        }
       }
-      if (state?.user?.pages) {
-        const data = findActivePage(state.user.pages, pageIdUrl);
-        state.activePage = data.activePage;
-        // state.breadcrumbs = data.breadcrumbs;
-      }
+
+      console.log("updateActivePage");
     },
 
     replaceActivePage(state, action: PayloadAction<IPage>) {
@@ -146,6 +149,7 @@ export const userSlice = createSlice({
         const props = action.payload;
         const replaceObject = props.replaceObject;
         const pageId = props.pageId;
+        const oldStateUser = { ...state.user };
 
         if (state.activePage?._id === pageId) {
           state.activePage = { ...state.activePage, ...replaceObject };
@@ -158,6 +162,9 @@ export const userSlice = createSlice({
         );
 
         state.user = { ...state.user, pages };
+        if (JSON.stringify(oldStateUser) !== JSON.stringify(state.user)) {
+          UserService.updatePages(pages);
+        }
       }
     },
   },

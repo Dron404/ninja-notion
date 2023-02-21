@@ -1,0 +1,158 @@
+.toolFormat {
+  display: flex;
+  opacity: 0;
+  flex-flow: row nowrap;
+  position: absolute;
+  background-color: var(--color-aside);
+  border-radius: 7px;
+  box-shadow: rgb(15 15 15 / 5%) 0px 0px 0px 1px,
+    rgb(15 15 15 / 10%) 0px 5px 10px, rgb(15 15 15 / 20%) 0px 15px 40px;
+  transition: color 400ms ease 0s, background-color 400ms ease 0s;
+  font-family: "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif,
+    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  z-index: 301;
+
+  &__itemLink {
+    cursor: pointer;
+  }
+
+  &__item {
+    cursor: text;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 4px 6px;
+    height: 24px;
+
+    &_active div {
+      color: var(--color-active) !important;
+      font-weight: bold;
+    }
+  }
+
+  &__popup {
+    position: absolute;
+    background-color: var(--color-bg);
+    text-align: left;
+    z-index: 9999;
+  }
+
+  &__colorDefault {
+    .button__icon {
+      color: unset;
+    }
+  }
+  &__colorGray {
+    .button__icon {
+      color: gray;
+    }
+  }
+  &__colorBrown {
+    .button__icon {
+      color: brown;
+    }
+  }
+  &__colorOrange {
+    .button__icon {
+      color: orange;
+    }
+  }
+  &__colorYellow {
+    .button__icon {
+      color: yellow;
+    }
+  }
+  &__colorGreen {
+    .button__icon {
+      color: green;
+    }
+  }
+  &__colorBlue {
+    .button__icon {
+      color: blue;
+    }
+  }
+  &__colorPurple {
+    .button__icon {
+      color: purple;
+    }
+  }
+  &__colorPink {
+    .button__icon {
+      color: pink;
+    }
+  }
+  &__colorRed {
+    .button__icon {
+      color: red;
+    }
+  }
+  &__bgColorDefault {
+    .button__icon {
+      background-color: unset;
+    }
+  }
+  &__bgColorGray {
+    .button__icon {
+      background-color: gray;
+    }
+  }
+  &__bgColorBrown {
+    .button__icon {
+      background-color: brown;
+      color: white;
+    }
+  }
+  &__bgColorOrange {
+    .button__icon {
+      background-color: orange;
+      color: white;
+    }
+  }
+  &__bgColorYellow {
+    .button__icon {
+      background-color: goldenrod;
+    }
+  }
+  &__bgColorGreen {
+    .button__icon {
+      background-color: green;
+      color: white;
+    }
+  }
+  &__bgColorBlue {
+    .button__icon {
+      background-color: blue;
+      color: white;
+    }
+  }
+  &__bgColorPurple {
+    .button__icon {
+      background-color: purple;
+      color: white;
+    }
+  }
+  &__bgColorPink {
+    .button__icon {
+      background-color: pink;
+    }
+  }
+  &__bgColorRed {
+    .button__icon {
+      background-color: red;
+      color: white;
+    }
+  }
+
+  .button__text {
+    font-size: 14px;
+  }
+
+  .button__icon {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -1,4 +1,4 @@
-.buttonPage {
+.SidebarPage {
   fill: var(--color-icon);
   display: flex;
   flex-flow: row nowrap;
@@ -6,6 +6,8 @@
   padding: 5px 2px 5px 14px;
   position: relative;
   justify-content: space-between;
+  transition: opacity 700ms ease 0s, color 700ms ease 0s,
+    background-color 700ms ease 0s;
 
   &:hover {
     background-color: var(--color-hover);
@@ -70,14 +72,24 @@
       fill: var(--color-icon);
     }
   }
-}
+  &__more {
+    transition: opacity 700ms ease 0s, color 700ms ease 0s,
+      background-color 700ms ease 0s;
+  }
 
-.buttonPage__menuButton,
-.buttonPage__add {
+  &__text {
+    max-width: 130px;
+    overflow: hidden;
+    height: 16px;
+  }
+}
+.SidebarPage__more,
+.SidebarPage__menuButton,
+.SidebarPage__add {
   opacity: 0;
 }
-
-.buttonPage:hover .buttonPage__menuButton,
-.buttonPage:hover .buttonPage__add {
+.SidebarPage:hover .SidebarPage__more,
+.SidebarPage:hover .SidebarPage__menuButton,
+.SidebarPage:hover .SidebarPage__add {
   opacity: 1;
 }

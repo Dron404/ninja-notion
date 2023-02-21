@@ -5,6 +5,8 @@ import {
   RefetchQueryFilters,
   QueryObserverResult,
 } from "react-query";
+import { InlineStyle } from "../editor/TextEditor/config";
+import { BlockType } from "../editor/TextEditor/config";
 
 export interface IUserAvatar {
   url: string;
@@ -19,16 +21,24 @@ export interface INotionButton {
   _id?: string;
   text?: string;
   icon?: React.ReactNode;
+  src?: string;
   link?: string;
   cName?: string;
   name?: string;
-  toggle?: boolean;
-  hotkey?: string;
+  toggle?: boolean | string;
+  disabled?: boolean;
+  hotkey?: React.ReactNode;
   target?: string;
+  InlineStyle?: InlineStyle;
+  blockType?: BlockType;
   state?: string;
   dataPage?: IPage | null;
   padding?: number;
   handle?: () => void;
+  onClick?: () => void;
+  handleInlineStyle?: (InlineStyle: InlineStyle) => void;
+  handleBlockType?: (blockType: BlockType) => void;
+  handleEvent?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 export interface IButtonModal {
@@ -229,6 +239,7 @@ export interface ISearch {
   icon: React.ReactNode;
   type?: string;
   hotkey?: string;
+  disabled?: boolean;
   target?: string;
   cName?: string;
   handle?: (pageId: string) => void;
@@ -238,6 +249,7 @@ export interface ISearch {
 export interface ISearchRow {
   page: IPage;
   type?: string;
+  disabled?: boolean;
   handle?: (pageId: string) => void;
   handleButton?: (pageId: string) => void;
 }
@@ -259,3 +271,26 @@ export interface IUpdateUserPages {
   accessToken: string;
   userPages: IPage[];
 }
+
+export interface IStyleTool {
+  button: { opacity: number; y: number };
+  format: { opacity: number; y: number };
+}
+
+type EditorChangeType =
+  | "adjust-depth"
+  | "apply-entity"
+  | "backspace-character"
+  | "change-block-data"
+  | "change-block-type"
+  | "change-inline-style"
+  | "move-block"
+  | "delete-character"
+  | "insert-characters"
+  | "insert-fragment"
+  | "redo"
+  | "remove-range"
+  | "remove-block"
+  | "spellcheck-change"
+  | "split-block"
+  | "undo";
