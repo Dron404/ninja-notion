@@ -8,7 +8,8 @@ function HomeFooter() {
   const [selected, setSelected] = useState("Language");
 
   const LanguageChoose = (
-    <DropDown selected={selected} setSelected={setSelected} />
+    // <DropDown selected={selected} setSelected={setSelected} />
+    <DropDown />
   );
 
   const FooterTools = (
