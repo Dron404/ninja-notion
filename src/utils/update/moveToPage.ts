@@ -37,10 +37,13 @@ const moveToPage = (
     });
     return iterationPages;
   }
+
   const result = nextPage(pages);
-  if (pageId === "") {
+
+  if (pageId.length > 0) {
     result.push(dataPage);
   }
+  console.log("pages", pages, "pageId", pageId, "result", result);
   return result;
 };
 
