@@ -63,7 +63,7 @@ const toolType: React.FC = () => {
             <div onClick={close}>
               <Button
                 src={textPNG}
-                text="Text"
+                text={data.text_text}
                 cName={cn(
                   "toolType__itemMini",
                   currentBlockType === BlockType.default &&
@@ -79,7 +79,7 @@ const toolType: React.FC = () => {
             <div onClick={close}>
               <Button
                 src={h1PNG}
-                text="Heading 1"
+                text={data.text_placeholder_heading_1}
                 cName={cn(
                   "toolType__itemMini",
                   currentBlockType === BlockType.h1 && "toolType__item_active"
@@ -94,7 +94,7 @@ const toolType: React.FC = () => {
             <div onClick={close}>
               <Button
                 src={h2PNG}
-                text="Heading 2"
+                text={data.text_placeholder_heading_2}
                 cName={cn(
                   "toolType__itemMini",
                   currentBlockType === BlockType.h2 && "toolType__item_active"
@@ -109,7 +109,7 @@ const toolType: React.FC = () => {
             <div onClick={close}>
               <Button
                 src={h3PNG}
-                text="Heading 3"
+                text={data.text_placeholder_heading_3}
                 cName={cn(
                   "toolType__itemMini",
                   currentBlockType === BlockType.h3 && "toolType__item_active"
@@ -124,7 +124,7 @@ const toolType: React.FC = () => {
             <div onClick={close}>
               <Button
                 src={quotePNG}
-                text="Quote"
+                text={data.text_quote}
                 cName={cn(
                   "toolType__itemMini",
                   currentBlockType === BlockType.blockquote &&
@@ -140,7 +140,7 @@ const toolType: React.FC = () => {
             <div onClick={close}>
               <Button
                 src={codePNG}
-                text="Code"
+                text={data.text_code}
                 cName={cn(
                   "toolType__itemMini",
                   currentBlockType === BlockType.code && "toolType__item_active"
@@ -156,7 +156,7 @@ const toolType: React.FC = () => {
             <div onClick={close}>
               <Button
                 src={bulletedListPNG}
-                text="Bulleted list"
+                text={data.text_bulleted_list}
                 cName={cn(
                   "toolType__itemMini",
                   currentBlockType === BlockType.list && "toolType__item_active"
@@ -171,7 +171,7 @@ const toolType: React.FC = () => {
             <div onClick={close}>
               <Button
                 src={numberedListPNG}
-                text="Numbered list"
+                text={data.text_numbered_list}
                 cName={cn(
                   "toolType__itemMini",
                   currentBlockType === BlockType.orderList &&

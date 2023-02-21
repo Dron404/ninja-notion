@@ -89,6 +89,11 @@ export const main = {
     text_placeholder_heading_2: "Heading 2",
     text_placeholder_heading_3: "Heading 3",
     text_placeholder_heading_4: "Heading 4",
+    text_text: "Text",
+    text_quote: "Quote",
+    text_code: "Code",
+    text_bulleted_list: "Bulleted list",
+    text_numbered_list: "Numbered list",
   },
 
   pl: {
@@ -185,6 +190,11 @@ export const main = {
     text_placeholder_heading_2: "Nagłówek 2",
     text_placeholder_heading_3: "Nagłówek 3",
     text_placeholder_heading_4: "Nagłówek 4",
+    text_text: "Tekst",
+    text_quote: "Cytat",
+    text_code: "Kod",
+    text_bulleted_list: "Lista wypunktowana",
+    text_numbered_list: "Lista numerowana",
   },
   ru: {
     text_workspace: "Workspace",
@@ -278,5 +288,10 @@ export const main = {
     text_placeholder_heading_2: "Заголовок 2",
     text_placeholder_heading_3: "Заголовок 3",
     text_placeholder_heading_4: "Заголовок 4",
+    text_text: "Текст",
+    text_quote: "Цитата",
+    text_code: "Код",
+    text_bulleted_list: "Маркированный список",
+    text_numbered_list: "Нумерованный список",
   },
 };

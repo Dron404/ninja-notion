@@ -122,7 +122,7 @@ export const SidebarPage: React.FC<INotionButton> = ({
               <Menu.Item>
                 {({ close }) => (
                   <div onClick={close}>
-                    <ButtonCopyLink dataPage={dataPage} />
+                    <ButtonCopyLink pageId={dataPage?._id} />
                   </div>
                 )}
               </Menu.Item>
