@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Breadcrumb.module.scss";
-import { Button } from "../Button";
+import { Button } from "../buttons/Button";
 import { useAppSelector } from "../../../hooks/redux";
 import SkeletonBreadcrumb from "../Skeleton/SkeletonBreadcrumb";
 import { main } from "../../../data/languages/main";

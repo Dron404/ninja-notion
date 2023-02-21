@@ -1,19 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styles from "./loginInForm.module.scss";
 import MessageEmail from "../MessageEmail/MessageEmail";
 import MessagePassword from "../MessagePassword/MessagePassword";
 import ActivationMessage from "../ActivationMessage/ActivationMessage";
-import { IUserData, IUserEmailPassword } from "../../../types/interface";
+import { API_HOST, ROUT_LOGIN } from "../../../data/constants";
+import { IUserData } from "../../../types/interface";
+import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
-import { Link } from "react-router-dom";
+
+interface EnterFormData {
+  email: string;
+  password: string;
+}
 
 function LogInForm() {
-  const [nonValidEmail, toggleNonValidEmail] = React.useState(false);
-  const [nonValidPassword, toggleNonValidPassword] = React.useState(false);
-  const [nonActive, toggleNonActive] = React.useState(false);
+  const [nonValidEmail, toggleNonValidEmail] = useState(false);
+  const [nonValidPassword, toggleNonValidPassword] = useState(false);
+  const [nonActive, toggleNonActive] = useState(false);
+  const [email, setEmail] = useState({ email: "" });
 
   const dispatch = useAppDispatch();
   const { updateUserLogin, getUserSuccess } = userSlice.actions;
@@ -22,13 +29,13 @@ function LogInForm() {
     register,
     formState: { errors, isValid },
     handleSubmit,
-  } = useForm<IUserEmailPassword>({
+  } = useForm<EnterFormData>({
     mode: "onBlur",
   });
 
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<IUserEmailPassword> = async (data) => {
+  const onSubmit: SubmitHandler<EnterFormData> = async (data) => {
     try {
       const emailLower = data.email.toLowerCase();
       const dataUser = {
@@ -36,26 +43,29 @@ function LogInForm() {
         password: data.password,
       };
 
-      const response = await fetch(
-        "https://ninja-notion-api-production.up.railway.app/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(dataUser),
-        }
-      );
+      const url = `${API_HOST}${ROUT_LOGIN}`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataUser),
+      });
 
       if (response.status === 404) {
         toggleNonValidEmail(!nonValidEmail);
       }
+
       if (response.status === 400) {
         toggleNonValidPassword(!nonValidPassword);
+        setEmail({ email: data.email });
       }
+
       if (response.status === 403) {
         toggleNonActive(!nonActive);
+        setEmail({ email: data.email });
       }
+
       if (response.status === 200) {
         dispatch(updateUserLogin(dataUser));
         const data: IUserData = await response.json();
@@ -72,8 +82,12 @@ function LogInForm() {
   };
 
   const messageNonValidEmail = nonValidEmail ? <MessageEmail /> : "";
-  const messageNonValidPassword = nonValidPassword ? <MessagePassword /> : "";
-  const messageNonActive = nonActive ? <ActivationMessage /> : "";
+  const messageNonValidPassword = nonValidPassword ? (
+    <MessagePassword {...email} />
+  ) : (
+    ""
+  );
+  const messageNonActive = nonActive ? <ActivationMessage {...email} /> : "";
 
   return (
     <main className={styles.main}>

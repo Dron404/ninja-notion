@@ -31,12 +31,12 @@ function MobileMenu(props: {
 
   const MobileMenuTools = (
     <div className="mobile-tools-container">
-      <button type="button" className="mobile-log">
+      <a href="/login" className="mobile-log">
         Log In
-      </button>
-      <button type="button" className="mobile-try">
-        Try Notion free
-      </button>
+      </a>
+      <a href="/signup" className="mobile-try">
+        Try Notion Free
+      </a>
     </div>
   );
 
