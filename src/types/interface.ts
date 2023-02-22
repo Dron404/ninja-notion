@@ -277,7 +277,7 @@ export interface IStyleTool {
   format: { opacity: number; y: number };
 }
 
-type EditorChangeType =
+export type EditorChangeType =
   | "adjust-depth"
   | "apply-entity"
   | "backspace-character"

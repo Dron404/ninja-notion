@@ -80,8 +80,7 @@ export const ContentCoverSettings = ({
 
           <div className={styles.body}>
             {tab === "gallery" && <Gallery />}
-            {tab === "upload" && <UploadFile handle={setCaver} />} //!
-            //!промежуточная фигня
+            {tab === "upload" && <UploadFile handle={setCaver} />}
             {tab === "link" && <LinkUrl />}
           </div>
         </div>
