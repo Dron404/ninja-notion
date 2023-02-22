@@ -41,11 +41,11 @@ export const SidebarPages = (): React.ReactElement => {
           </div>
           <div className={styles.pages__list}>
             <div className={`${styles.pages__row} aside-page-row`}>
-              {favoritePage.map((data) => (
+              {favoritePage.map((data, index) => (
                 <SidebarPage
                   icon={data.icon}
                   text={data.name}
-                  key={data._id}
+                  key={data._id + "_favorite" + index}
                   dataPage={data}
                 />
               ))}
@@ -75,12 +75,12 @@ export const SidebarPages = (): React.ReactElement => {
           <div className={`${styles.pages__row} aside-page-row`}>
             {user &&
               user?.pages?.map(
-                (data) =>
+                (data, index) =>
                   !data.dataTrash && (
                     <SidebarPage
                       icon={data.icon}
                       text={data.name}
-                      key={data._id}
+                      key={data._id + "_private" + index}
                       dataPage={data}
                     />
                   )

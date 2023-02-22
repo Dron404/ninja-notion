@@ -50,7 +50,7 @@ export const Home = (): React.ReactElement => {
                       icon={data.icon}
                       text={data.name}
                       dataPage={data}
-                      key={data._id}
+                      key={data._id + "_home"}
                     />
                   ))}
                 </div>

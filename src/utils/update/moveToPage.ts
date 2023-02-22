@@ -40,10 +40,10 @@ const moveToPage = (
 
   const result = nextPage(pages);
 
-  if (pageId.length > 0) {
+  if (pageId.length === 0) {
     result.push(dataPage);
   }
-  console.log("pages", pages, "pageId", pageId, "result", result);
+
   return result;
 };
 
