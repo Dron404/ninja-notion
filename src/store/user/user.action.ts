@@ -11,47 +11,67 @@ import {
 import { IPage, IUserData, IUserResponseMessage } from "../../types/interface";
 
 import { AppDispatch } from "../store";
+import autorization from "./autorization";
 import { userSlice } from "./user.slice";
 
-export const gerUset =
-  (accessToken: string) => async (dispatch: AppDispatch) => {
-    try {
-      dispatch(userSlice.actions.getUser());
-      const url = `${API_HOST}${ROUT_GETUSER}`;
-      const response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify({ accessToken }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const status = response.status;
+export const getUser = () => async (dispatch: AppDispatch) => {
+  try {
+    dispatch(userSlice.actions.getUser());
+    const url = `${API_HOST}${ROUT_GETUSER}`;
+    const accessToken = sessionStorage.getItem("accessToken");
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify({ accessToken }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-      if (status === 500) {
-        throw new Error("Server is not available");
-      }
+    const status = response.status;
 
-      if (status === 401) {
-        window.location.pathname = "/login";
-        throw new Error("Invalid token");
-      }
+    if (status === 500) {
+      throw new Error("Server is not available");
+    }
 
-      if (status === 200) {
-        const data: IUserData = await response.json();
-        data.accessToken &&
-          sessionStorage.setItem("accessToken", data.accessToken);
-        data.refreshToken &&
-          localStorage.setItem("refreshToken", data.refreshToken);
-        dispatch(userSlice.actions.getUserSuccess(data));
-      } else {
-        throw new Error("Error Server");
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        dispatch(userSlice.actions.getUserError(error?.message));
+    if (status === 401) {
+      console.log("ppppp");
+      try {
+        await fetch(`${API_HOST}refresh`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
+          },
+        })
+          .then(async (response) => {
+            const body = await response.json();
+            console.log(body);
+            sessionStorage.setItem("accessToken", body.accessToken);
+            localStorage.setItem("refreshToken", body.refreshToken);
+          })
+          .then(async () => {
+            console.log("getUser");
+            getUser();
+          });
+      } catch (e) {
+        throw new Error("Autorization failed");
       }
     }
-  };
+
+    if (status === 200) {
+      const data: IUserData = await response.json();
+      data.accessToken &&
+        sessionStorage.setItem("accessToken", data.accessToken);
+      data.refreshToken &&
+        localStorage.setItem("refreshToken", data.refreshToken);
+      dispatch(userSlice.actions.getUserSuccess(data));
+    } else {
+      throw new Error("Error Server");
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      dispatch(userSlice.actions.getUserError(error?.message));
+    }
+  }
+};
 
 export async function sendActivationMail(email: string) {
   try {
@@ -176,7 +196,7 @@ const UserService = {
           throw new Error("Server is not available");
         }
         if (status === 401) {
-          window.location.pathname = "/login";
+          //window.location.pathname = "/login";
           throw new Error("Invalid token");
         }
         if (status === 200) {
