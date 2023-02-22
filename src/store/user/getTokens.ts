@@ -11,6 +11,7 @@ async function getTokens() {
       sessionStorage.setItem("accessToken", body.accessToken);
       localStorage.setItem("refreshToken", body.refreshToken);
     } else {
+      localStorage.removeItem("refreshToken");
       window.location.replace("/");
       return;
     }
