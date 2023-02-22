@@ -11,6 +11,8 @@ import { IPage, IUserData, IUserResponseMessage } from "../../types/interface";
 
 import { AppDispatch } from "../store";
 import { userSlice } from "./user.slice";
+import autorization from "./autorization";
+import getTokens from "./getTokens";
 
 export const getUser = () => async (dispatch: AppDispatch) => {
   try {
@@ -32,29 +34,7 @@ export const getUser = () => async (dispatch: AppDispatch) => {
     }
 
     if (status === 401) {
-      try {
-        await fetch(`${API_HOST}refresh`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
-          },
-        })
-          .then(async (response) => {
-            const body = await response.json();
-            if (response.ok) {
-              sessionStorage.setItem("accessToken", body.accessToken);
-              localStorage.setItem("refreshToken", body.refreshToken);
-            } else {
-              window.location.replace("/");
-              return;
-            }
-          })
-          .then(async () => {
-            console.log("getUser");
-            getUser();
-          });
-      } catch (e) {
-        throw new Error("Autorization failed");
-      }
+      await autorization(getUser());
     }
 
     if (status === 200) {
@@ -162,7 +142,8 @@ const UserService = {
           throw new Error("Server is not available");
         }
         if (status === 401) {
-          throw new Error("Invalid token");
+          await getTokens();
+          this.updateUser(updateData);
         }
         if (status === 200) {
           const pagesData: IUserResponseMessage = await response.json();
@@ -197,8 +178,8 @@ const UserService = {
           throw new Error("Server is not available");
         }
         if (status === 401) {
-          //window.location.pathname = "/login";
-          throw new Error("Invalid token");
+          await getTokens();
+          this.updatePages(pages);
         }
         if (status === 200) {
           const pagesData: IUserResponseMessage = await response.json();

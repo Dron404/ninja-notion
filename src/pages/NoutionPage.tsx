@@ -19,10 +19,14 @@ function NoutionPage() {
   );
   const { updateActivePage, updateArrayPage } = userSlice.actions;
 
-  if (!user) {
-    console.log(isLoading);
-    dispatch(getUser());
+  async function load() {
+    if (!user) {
+      const logData = await getUser();
+      dispatch(logData);
+    }
   }
+
+  load();
 
   const updateUserPages = async () => {
     user && (await UserService.updatePages(user.pages));

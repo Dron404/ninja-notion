@@ -1,19 +1,13 @@
-import { API_HOST } from "../../data/constants";
-import { getUser } from "./user.action";
+import { AppDispatch } from "../store";
+import getTokens from "./getTokens";
 
-const autorization = async () => {
+const autorization = async (
+  callback: (dispatch: AppDispatch) => Promise<void>
+) => {
   try {
-    const response = await fetch(`${API_HOST}refresh`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
-      },
+    await getTokens().then(async () => {
+      callback;
     });
-    if (response.ok) {
-      const body = await response.json();
-      console.log(body);
-      sessionStorage.setItem("accessToken", body.accessToken);
-      localStorage.setItem("refreshToken", body.refreshToken);
-    }
   } catch (e) {
     throw new Error("Autorization failed");
   }
