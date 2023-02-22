@@ -3,8 +3,10 @@
   flex-flow: row nowrap;
   margin-right: 2px;
   border-radius: 3px;
-  transition: opacity 400ms ease 0s, color 400ms ease 0s,
-    background-color 400ms ease 0s;
+  transition: opacity 700ms ease 0s, color 700ms ease 0s,
+    background-color 700ms ease 0s;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     background-color: var(--color-hover);

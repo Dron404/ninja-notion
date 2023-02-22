@@ -6,7 +6,6 @@ import {
   ROUT_ACTIVATION,
   ROUT_RESET_PASSWORD,
 } from "../../data/constants";
-// import { dataTestUser } from "../../data/dataTestUser";
 
 import { IPage, IUserData, IUserResponseMessage } from "../../types/interface";
 

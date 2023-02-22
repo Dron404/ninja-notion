@@ -1,10 +1,11 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import styles from "./Content.module.scss";
 import { ContentCover } from "./ContentCover";
 import { UserAvatar } from "../Settings/UserAvatar";
 import { ReactComponent as EmojiSVG } from "../../../assets/img/svg/emoji.svg";
 import { ReactComponent as CoverSVG } from "../../../assets/img/svg/cover.svg";
 import { ReactComponent as CommentSVG } from "../../../assets/img/svg/comment.svg";
+
 import { Button } from "../buttons/Button";
 import { main } from "../../../data/languages/main";
 import { useParams } from "react-router-dom";
@@ -16,22 +17,26 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
 import getRandomEmojis from "../../../utils/getRandomEmojis";
 import getRandomCover from "../../../utils/getRandomCover";
-import { SidebarPage } from "../Sidebar/SidebarPage";
 import { IPage } from "../../../types/interface";
 import { ButtonTrash } from "../buttons/ButtonTrash";
-import UserService from "../../../store/user/user.action";
+import TextEditor, { useEditorApi } from "../../../editor/TextEditor";
+import ToolType from "../../../editor/ToolType";
+import ToolFormat from "../../../editor/ToolFormat";
+import { useDebounce } from "../../../hooks/useDebounce";
+import Contenteditable from "../Contenteditable";
 
 export const Content = (): React.ReactElement => {
   const { user, activePage, lang } = useAppSelector(
     (store) => store.userReducer
   );
+  const { toHtml, handleRerender } = useEditorApi();
+
   const data = main[lang];
 
   const { pageId } = useParams();
 
   const dispatch = useAppDispatch();
-  const { updateActivePage, updateArrayPage, updatePagesState } =
-    userSlice.actions;
+  const { updateArrayPage, updatePagesState } = userSlice.actions;
 
   function updatePageStateFn(replaceObject: Partial<IPage>) {
     if (activePage?._id) {
@@ -46,23 +51,11 @@ export const Content = (): React.ReactElement => {
     }
   }
 
-  React.useEffect(() => {
-    if (pageId && user) {
-      dispatch(updateActivePage());
-      dispatch(updateArrayPage());
-      UserService.updatePages(user.pages);
-    }
-  }, [pageId]);
-
   const [commentStatus, setCommentStatus] = React.useState(
     !!activePage?.comment
   );
 
   const avatarUrl = user?.avatar || "";
-
-  const styleContentFullWidth = activePage?.property?.full_width
-    ? styles.content__full
-    : "";
 
   const handleAddRandomEmojis = () => {
     const replaceObject = { icon: getRandomEmojis() };
@@ -78,12 +71,18 @@ export const Content = (): React.ReactElement => {
     setCommentStatus(true);
   };
 
-  const handleChangeComment = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target?.value) {
-      const replaceObject = { comment: event.target.value };
-      updatePageStateFn(replaceObject);
+  const content = useDebounce(toHtml(), 1000);
+  React.useEffect(() => {
+    if (activePage) {
+      const replaceObject = { content: content };
+      const pageId = activePage?._id || "";
+      dispatch(updatePagesState({ replaceObject, pageId }));
     }
-  };
+  }, [content]);
+
+  React.useEffect(() => {
+    handleRerender();
+  }, [pageId]);
 
   return (
     <div className={styles.body}>
@@ -105,17 +104,15 @@ export const Content = (): React.ReactElement => {
         }
       >
         <ContentCover />
-        <div
-          className={styles.content__wrapperIcon + " " + styleContentFullWidth}
-        >
-          <ContentIconSettings />
+        <div className="containerIcon">
+          <div className="wrapperIcon">
+            <ContentIconSettings />
+          </div>
         </div>
         <div className={styles.content} data-font={activePage?.property?.font}>
-          <div
-            className={styles.content__wrapper + " " + styleContentFullWidth}
-          >
-            <div className={styles.content__header}>
-              {activePage?._id !== "home" && (
+          <div className="containerHeader">
+            <div className="wrapperHeader">
+              <div className={styles.content__header}>
                 <div className={styles.content__toolbar}>
                   {!activePage?.icon && (
                     <Button
@@ -144,41 +141,47 @@ export const Content = (): React.ReactElement => {
                     />
                   )}
                 </div>
-              )}
-              <h1 className={styles.content__title}>
-                {activePage?.name || ""}
-              </h1>
-              {activePage?._id !== "home" && commentStatus && (
+
+                <Contenteditable
+                  text={activePage?.name || ""}
+                  tag="h1"
+                  pageId={pageId}
+                  keyName="name"
+                  className={styles.content__nameInput}
+                  placeholder={data.text_placeholder_title}
+                />
+
                 <div className={styles.content__comment}>
-                  <UserAvatar url={avatarUrl} size={AVATAR_SIZE_L} />
-                  <div
-                    className={styles.content__comment_input}
-                    placeholder={data.text_add_a_comment}
-                    onChange={handleChangeComment}
-                  >
-                    {activePage?.comment}
+                  <div className={styles.content__commentAvatar}>
+                    <UserAvatar url={avatarUrl} size={AVATAR_SIZE_L} />
                   </div>
-                </div>
-              )}
-            </div>
-
-            <div>{activePage?.content || ""}</div>
-
-            {activePage?._id === "home" && (
-              <div className="">
-                <h2>{data.text_you_pages}</h2>
-                <div>
-                  {user?.pages?.map((data) => (
-                    <SidebarPage
-                      icon={data.icon}
-                      text={data.name}
-                      dataPage={data}
-                      key={data._id}
-                    />
-                  ))}
+                  <Contenteditable
+                    text={activePage?.comment || ""}
+                    tag="div"
+                    pageId={pageId}
+                    keyName="comment"
+                    className={styles.content__commentInput}
+                    placeholder={data.text_placeholder_comment}
+                  />
                 </div>
               </div>
-            )}
+            </div>
+          </div>
+
+          <div className="containerEditor">
+            <div className="wrapperEditor">
+              <div className={styles.editor}>
+                <ToolFormat />
+
+                <div className={styles.editor__block}>
+                  <div className="toolButton" id="toolButton">
+                    <ToolType />
+                  </div>
+
+                  <TextEditor />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

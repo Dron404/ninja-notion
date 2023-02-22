@@ -18,6 +18,7 @@ export const Search: React.FC<ISearch> = ({
   type = "search",
   hotkey = "",
   cName = "",
+  disabled,
   handle,
   handleButton,
 }) => {
@@ -117,6 +118,7 @@ export const Search: React.FC<ISearch> = ({
                       handle={handleCloseModal}
                       handleButton={handleButton}
                       type={type}
+                      disabled={disabled}
                     />
                   ))
                 ) : (

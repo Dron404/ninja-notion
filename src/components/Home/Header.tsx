@@ -1,11 +1,16 @@
 import React, { SetStateAction } from "react";
 import HomeLogo from "./Logo";
 import { ReactComponent as BurgerIcon } from "../../assets/icons/home/burger.svg";
+import { useAppSelector } from "../../hooks/redux";
+import home from "../../data/languages/home";
 
 function HomeHeader(props: {
   mobileMenuActive: boolean;
   setMobileMenuActive: React.Dispatch<SetStateAction<boolean>>;
 }) {
+  const { lang } = useAppSelector((store) => store.userReducer);
+  const data = home[lang];
+
   const { setMobileMenuActive, mobileMenuActive } = props;
 
   const HeaderBurgerIcon = (
@@ -21,10 +26,10 @@ function HomeHeader(props: {
   const HeaderRegistration = (
     <div className="registration">
       <a href="/login" className="registration__log">
-        Log In
+        {data.btn_logIn}
       </a>
       <a href="/signup" className="button button_header">
-        Try Notion Free
+        {data.btn_signUp}
       </a>
     </div>
   );

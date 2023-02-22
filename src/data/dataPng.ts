@@ -1,0 +1,9 @@
+export { default as h1PNG } from "../assets/img/content/h1.png";
+export { default as h2PNG } from "../assets/img/content/h2.png";
+export { default as h3PNG } from "../assets/img/content/h3.png";
+export { default as codePNG } from "../assets/img/content/code.png";
+export { default as numberedListPNG } from "../assets/img/content/numbered-list.png";
+export { default as bulletedListPNG } from "../assets/img/content/bulleted-list.png";
+export { default as quotePNG } from "../assets/img/content/quote.png";
+export { default as textPNG } from "../assets/img/content/text.png";
+export { default as calloutPNG } from "../assets/img/content/callout.png";

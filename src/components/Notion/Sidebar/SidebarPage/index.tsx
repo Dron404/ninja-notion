@@ -19,6 +19,7 @@ import addNewPageForState from "../../../../utils/update/addNewPageForState";
 import UserService from "../../../../store/user/user.action";
 
 export const SidebarPage: React.FC<INotionButton> = ({
+  _id,
   text,
   icon,
   cName = "",
@@ -55,13 +56,23 @@ export const SidebarPage: React.FC<INotionButton> = ({
     setToogleStatus(true);
   };
 
+  let name = "";
+  if (text) {
+    if (_id === "home") {
+      name = text;
+    } else {
+      name = text && text?.length > 11 ? text?.substring(0, 11) + "..." : text;
+    }
+  }
+
   return (
     <>
-      <div
-        className={`${styles.buttonPage} ${cName}`}
+      <Link
+        to={pageUrl}
+        className={`${styles.SidebarPage} ${cName}`}
         style={{ paddingLeft: `${newPadding}px` }}
       >
-        <div className={styles.buttonPage__group}>
+        <div className={styles.SidebarPage__group}>
           {dataPage?.children_page && (
             <div
               className={`button__toggle ${toggleStyle}`}
@@ -70,40 +81,46 @@ export const SidebarPage: React.FC<INotionButton> = ({
               <ToggleSVG />
             </div>
           )}
-          <Link
-            to={pageUrl}
-            className={`${styles.buttonPage__link} button__link`}
+          <div
+            className={`${styles.SidebarPage__link} button__link`}
             tabIndex={0}
           >
             <div className="button__icon">{icon ? icon : <DefaultSVG />}</div>
 
-            {text && <div className="button__text">{text}</div>}
-          </Link>
+            {text && (
+              <div
+                className={`${styles.SidebarPage__text} button__text`}
+                title={text}
+              >
+                {name}
+              </div>
+            )}
+          </div>
         </div>
 
-        <div className={styles.buttonPage__groupHidden}>
+        <div className={styles.SidebarPage__groupHidden}>
           {dataPage?.children_page && (
             <ButtonMini
               icon={<AddSVG />}
-              cName={styles.buttonPage__add}
+              cName={styles.SidebarPage__add}
               handle={() => handleCreatePage(dataPage._id)}
             />
           )}
 
           <Menu
             as="div"
-            className={`${styles.buttonPage__menu} notion-popup__menu`}
+            className={`${styles.SidebarPage__menu} notion-popup__menu`}
           >
-            <Menu.Button className={styles.buttonPage__menuButton}>
+            <Menu.Button className={styles.SidebarPage__menuButton}>
               <div className="button-page-more">
                 <ButtonMini
                   icon={<MoreSVG />}
-                  cName={styles.buttonPage__more}
+                  cName={styles.SidebarPage__more}
                 />
               </div>
             </Menu.Button>
             <Menu.Items
-              className={`${styles.buttonPage__popup} notion-popup__body`}
+              className={`${styles.SidebarPage__popup} notion-popup__body`}
             >
               <Menu.Item>
                 {({ close }) => (
@@ -115,7 +132,7 @@ export const SidebarPage: React.FC<INotionButton> = ({
               <Menu.Item>
                 {({ close }) => (
                   <div onClick={close}>
-                    <ButtonCopyLink dataPage={dataPage} />
+                    <ButtonCopyLink pageId={dataPage?._id} />
                   </div>
                 )}
               </Menu.Item>
@@ -130,10 +147,10 @@ export const SidebarPage: React.FC<INotionButton> = ({
             </Menu.Items>
           </Menu>
         </div>
-      </div>
+      </Link>
       {toogleStatus && (
         <div
-          className={styles.buttonPage__children}
+          className={styles.SidebarPage__children}
           style={{ paddingLeft: `${newPadding}px` }}
         >
           {dataPage?.children_page && dataPage?.children_page.length > 0 ? (
@@ -152,7 +169,7 @@ export const SidebarPage: React.FC<INotionButton> = ({
             )
           ) : (
             <div
-              className={styles.buttonPage__not}
+              className={styles.SidebarPage__not}
               style={{ paddingLeft: `${newPadding}` }}
             >
               {data.text_not_page}

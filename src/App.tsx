@@ -1,12 +1,11 @@
-import React, { useCallback } from "react";
+import React from "react";
 
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import NoutionPage from "./pages/NoutionPage";
-import autorization from "./store/user/autorization";
 import {
   getLocalStorage,
   setLocalStorage,
@@ -14,7 +13,6 @@ import {
 
 if (!getLocalStorage("lang")) setLocalStorage("lang", "en");
 if (!getLocalStorage("theme")) setLocalStorage("theme", "light");
-//autorization();
 
 function App() {
   return (

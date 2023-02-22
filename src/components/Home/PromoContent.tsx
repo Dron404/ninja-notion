@@ -6,20 +6,23 @@ import mixPanel from "../../assets/images/home/mixpanel.png";
 import pixar from "../../assets/images/home/pixar.png";
 import match from "../../assets/images/home/match.png";
 import monzo from "../../assets/images/home/monzo.png";
+import { useAppSelector } from "../../hooks/redux";
+import home from "../../data/languages/home";
 
 function PromoDescription() {
   const navigate = useNavigate();
+  const { lang } = useAppSelector((store) => store.userReducer);
+  const data = home[lang];
 
   return (
     <div className="promo__description">
       <h1 className="promo__description-title">
-        One workspace.
+        {data.promo_descriptionTitleOne}
         <br />
-        Every team.
+        {data.promo_descriptionTitleTwo}
       </h1>
       <p className="promo__description-text">
-        We’re more than a doc. Or a table. Customize <br /> Notion to work the
-        way you do.
+        {data.promo_desctiptionTextOne} <br /> {data.promo_desctiptionTextTwo}
       </p>
       <button
         type="button"
@@ -28,9 +31,11 @@ function PromoDescription() {
           navigate("/signup");
         }}
       >
-        Try Notion free
+        {data.btn_signUp}
       </button>
-      <div className="promo__description-subtext">Trusted by teams at</div>
+      <div className="promo__description-subtext">
+        {data.promo_desctiptionSubtext}
+      </div>
       <div className="promo__description-brands">
         <img
           className="promo__brand"

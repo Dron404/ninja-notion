@@ -1,6 +1,6 @@
 import { IPage } from "../types/interface";
 
-import getRandomCover from "../utils/getRandomCover";
+import url from "../assets/img/cover/g_011.jpg";
 
 const dateHomePage: IPage = {
   _id: "home",
@@ -18,7 +18,7 @@ const dateHomePage: IPage = {
   dataAdd: "2023-01-01",
   dataMod: "2023-01-01",
   cover: {
-    url: getRandomCover(),
+    url: url,
     position: 100,
   },
   children_page: [],

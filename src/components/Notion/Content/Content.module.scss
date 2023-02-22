@@ -23,6 +23,7 @@
   left: 0;
   background-color: rgba(66, 66, 66, 0.406);
   z-index: 1;
+  text-shadow: -7px 0px 8px white;
 
   &__button {
     background-color: var(--color-active-svg);
@@ -43,24 +44,12 @@
   position: relative;
   z-index: 110;
 
-  &__wrapperIcon,
-  &__wrapper {
-    width: 60%;
-    margin: 0 auto;
-    transition: width 0.7s ease;
-  }
-
-  &__wrapperIcon {
-    height: 31px;
-  }
-
-  &__full {
-    width: unset;
-    padding: 10px;
-  }
-
   &__header {
     margin-bottom: 1rem;
+
+    &:hover .content__toolbar {
+      opacity: 1;
+    }
   }
 
   &__button {
@@ -75,7 +64,6 @@
     opacity: 0;
     display: flex;
     flex-flow: row wrap;
-    gap: 15px;
     transition: opacity 700ms ease 0s, color 700ms ease 0s,
       background-color 700ms ease 0s;
 
@@ -88,6 +76,18 @@
     }
   }
 
+  &__nameInput {
+    flex: 1 1 auto;
+    overflow: hidden;
+    max-width: 100%;
+    overflow-wrap: normal;
+    word-wrap: normal;
+    hyphens: manual;
+    padding: 10px 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
   &__comment {
     color: var(--color-icon);
     display: flex;
@@ -97,21 +97,26 @@
     border-bottom: 1px solid var(--color-icon);
     padding-bottom: 12px;
     padding-left: 2px;
-
-    &_avatar {
-      img {
-        border-radius: 50%;
-        width: 20px;
-        height: 20px;
-      }
-    }
   }
-  &__title {
-    padding-bottom: 14px;
-    color: var(--color-text);
-    font-weight: 700;
-    line-height: 1.2;
-    font-size: 40px;
+  &__commentInput {
+    flex: 1 1 auto;
+    overflow: hidden;
+    max-width: 100%;
+    overflow-wrap: normal;
+    word-wrap: normal;
+    hyphens: manual;
+    padding: 10px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  &__commentAvatar {
+    flex: 0 0 30px;
+    img {
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+    }
   }
 }
 
@@ -131,4 +136,41 @@
     rgb(15 15 15 / 10%) 0px 2px 4px;
   border-radius: 3px;
   min-height: 24px;
+}
+
+.editor {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  font-size: 1.2em;
+  cursor: text;
+  overflow-wrap: normal;
+  white-space: pre-wrap;
+  word-break: break-word;
+  hyphens: manual;
+  max-width: calc(100vw - 300px);
+  overflow: hidden;
+
+  &:hover .toolType,
+  &:hover .toolFormat {
+    opacity: 1;
+  }
+
+  &__block {
+    width: 100%;
+  }
+
+  &__control {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
+  &__modal {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background-color: transparent;
+    position: absolute;
+  }
 }
