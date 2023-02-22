@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import SignUpForm from "../components/Login/SignUpForm/SignUpForm";
 import HomeLogo from "../components/Home/Logo";
+import autorizationCheck from "../utils/autorizationCheck";
 
 function SignupPage() {
   const [invitationActive, setInvitationActive] = useState(false);
   const [userExistsActive, setUserExistsActive] = useState(false);
+  autorizationCheck();
 
   return (
     <>
