@@ -11,7 +11,6 @@ import {
 import { IPage, IUserData, IUserResponseMessage } from "../../types/interface";
 
 import { AppDispatch } from "../store";
-import autorization from "./autorization";
 import { userSlice } from "./user.slice";
 
 export const getUser = () => async (dispatch: AppDispatch) => {
@@ -34,7 +33,6 @@ export const getUser = () => async (dispatch: AppDispatch) => {
     }
 
     if (status === 401) {
-      console.log("ppppp");
       try {
         await fetch(`${API_HOST}refresh`, {
           headers: {
@@ -43,9 +41,13 @@ export const getUser = () => async (dispatch: AppDispatch) => {
         })
           .then(async (response) => {
             const body = await response.json();
-            console.log(body);
-            sessionStorage.setItem("accessToken", body.accessToken);
-            localStorage.setItem("refreshToken", body.refreshToken);
+            if (response.ok) {
+              sessionStorage.setItem("accessToken", body.accessToken);
+              localStorage.setItem("refreshToken", body.refreshToken);
+            } else {
+              window.location.replace("/");
+              return;
+            }
           })
           .then(async () => {
             console.log("getUser");
