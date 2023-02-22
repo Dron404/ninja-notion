@@ -19,6 +19,7 @@ import addNewPageForState from "../../../../utils/update/addNewPageForState";
 import UserService from "../../../../store/user/user.action";
 
 export const SidebarPage: React.FC<INotionButton> = ({
+  _id,
   text,
   icon,
   cName = "",
@@ -55,9 +56,19 @@ export const SidebarPage: React.FC<INotionButton> = ({
     setToogleStatus(true);
   };
 
+  let name = "";
+  if (text) {
+    if (_id === "home") {
+      name = text;
+    } else {
+      name = text && text?.length > 11 ? text?.substring(0, 11) + "..." : text;
+    }
+  }
+
   return (
     <>
-      <div
+      <Link
+        to={pageUrl}
         className={`${styles.SidebarPage} ${cName}`}
         style={{ paddingLeft: `${newPadding}px` }}
       >
@@ -70,8 +81,7 @@ export const SidebarPage: React.FC<INotionButton> = ({
               <ToggleSVG />
             </div>
           )}
-          <Link
-            to={pageUrl}
+          <div
             className={`${styles.SidebarPage__link} button__link`}
             tabIndex={0}
           >
@@ -82,10 +92,10 @@ export const SidebarPage: React.FC<INotionButton> = ({
                 className={`${styles.SidebarPage__text} button__text`}
                 title={text}
               >
-                {text}
+                {name}
               </div>
             )}
-          </Link>
+          </div>
         </div>
 
         <div className={styles.SidebarPage__groupHidden}>
@@ -137,7 +147,7 @@ export const SidebarPage: React.FC<INotionButton> = ({
             </Menu.Items>
           </Menu>
         </div>
-      </div>
+      </Link>
       {toogleStatus && (
         <div
           className={styles.SidebarPage__children}

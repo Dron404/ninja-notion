@@ -42,7 +42,11 @@ export const Breadcrumb = (): React.ReactElement => {
                 <li className={styles.breadcrumb__li} key={breadcrumb._id}>
                   <Button
                     link={`/pages/${breadcrumb?._id}`}
-                    text={breadcrumb?.name}
+                    text={
+                      breadcrumb?.name?.length > 20
+                        ? breadcrumb?.name?.substring(0, 20) + "..."
+                        : breadcrumb.name
+                    }
                     icon={breadcrumb?.icon}
                     cName={styles.breadcrumb__link}
                   />

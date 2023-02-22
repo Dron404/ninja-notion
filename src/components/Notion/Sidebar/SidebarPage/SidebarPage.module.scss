@@ -8,6 +8,7 @@
   justify-content: space-between;
   transition: opacity 700ms ease 0s, color 700ms ease 0s,
     background-color 700ms ease 0s;
+  text-decoration: none;
 
   &:hover {
     background-color: var(--color-hover);
