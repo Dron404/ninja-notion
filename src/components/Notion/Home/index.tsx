@@ -47,6 +47,7 @@ export const Home = (): React.ReactElement => {
                 <div>
                   {user?.pages?.map((data) => (
                     <SidebarPage
+                      _id="home"
                       icon={data.icon}
                       text={data.name}
                       dataPage={data}
