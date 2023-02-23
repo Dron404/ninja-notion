@@ -1,8 +1,13 @@
 import React from "react";
 import styles from "./messageEmail.module.scss";
 import question from "../../../assets/images/login/question.png";
+import { useAppSelector } from "../../../hooks/redux";
+import login from "../../../data/languages/login";
 
 function MessageEmail() {
+  const { lang } = useAppSelector((store) => store.userReducer);
+  const data = login[lang];
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -12,12 +17,11 @@ function MessageEmail() {
           alt="blue question mark"
         />
         <p className={styles.title}>
-          Something went wrong!
-          <br /> We do not have user with such email. Please use the link for
-          registration!
+          {data.errorEmail_textOne}
+          <br /> {data.errorEmail_textTwo}
         </p>
         <a href="/signup" className={styles.linkRegistr}>
-          Link for registration
+          {data.errorEmail_linkToRegistration}
         </a>
       </div>
     </div>

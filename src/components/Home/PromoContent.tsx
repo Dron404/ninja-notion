@@ -37,31 +37,11 @@ function PromoDescription() {
         {data.promo_desctiptionSubtext}
       </div>
       <div className="promo__description-brands">
-        <img
-          className="promo__brand"
-          src={figmaImg}
-          alt="three persons put on the wall plans"
-        />
-        <img
-          className="promo__brand"
-          src={mixPanel}
-          alt="three persons put on the wall plans"
-        />
-        <img
-          className="promo__brand"
-          src={pixar}
-          alt="three persons put on the wall plans"
-        />
-        <img
-          className="promo__brand"
-          src={match}
-          alt="three persons put on the wall plans"
-        />
-        <img
-          className="promo__brand"
-          src={monzo}
-          alt="three persons put on the wall plans"
-        />
+        <img className="promo__brand" src={figmaImg} alt="letters" />
+        <img className="promo__brand" src={mixPanel} alt="letters" />
+        <img className="promo__brand" src={pixar} alt="letters" />
+        <img className="promo__brand" src={match} alt="letters" />
+        <img className="promo__brand" src={monzo} alt="letters" />
       </div>
     </div>
   );

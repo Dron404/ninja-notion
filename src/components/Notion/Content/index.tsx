@@ -149,6 +149,7 @@ export const Content = (): React.ReactElement => {
                   keyName="name"
                   className={styles.content__nameInput}
                   placeholder={data.text_placeholder_title}
+                  disabledEnter={true}
                 />
 
                 <div className={styles.content__comment}>
@@ -162,6 +163,7 @@ export const Content = (): React.ReactElement => {
                     keyName="comment"
                     className={styles.content__commentInput}
                     placeholder={data.text_placeholder_comment}
+                    disabledEnter={true}
                   />
                 </div>
               </div>

@@ -4,6 +4,8 @@ import styles from "./signUpForm.module.scss";
 import ShowInvitation from "../ShowInvitation/ShowInvitation";
 import UserExists from "../UserExists/UserExists";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../../hooks/redux";
+import signup from "../../../data/languages/signup";
 
 function SignUpForm(props: {
   invitationActive: boolean;
@@ -11,6 +13,9 @@ function SignUpForm(props: {
   userExistsActive: boolean;
   setUserExistsActive: React.Dispatch<SetStateAction<boolean>>;
 }) {
+  const { lang } = useAppSelector((store) => store.userReducer);
+  const data = signup[lang];
+
   const {
     setInvitationActive,
     invitationActive,
@@ -51,7 +56,6 @@ function SignUpForm(props: {
           body: JSON.stringify(dataUser),
         }
       );
-      console.log(dataUser);
 
       if (response.status === 200) {
         setInvitationActive(!invitationActive);
@@ -66,7 +70,7 @@ function SignUpForm(props: {
 
   return (
     <main className={styles.main}>
-      <h1 className={styles.title}>Sign Up</h1>
+      <h1 className={styles.title}>{data.signup}</h1>
       <div>
         <form
           className={styles.registrationform}
@@ -74,18 +78,18 @@ function SignUpForm(props: {
         >
           <div className={styles.inputcontainer}>
             <label htmlFor="userName">
-              <span className={styles.label}>Name</span>
+              <span className={styles.label}>{data.label_name}</span>
               <input
                 className={styles.input}
                 type="text"
-                placeholder="Enter your name..."
+                placeholder={data.nameInput_placeholder}
                 autoComplete="on"
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...register("userName", {
-                  required: "Field must be filled in",
+                  required: data.requiredMessage,
                   minLength: {
                     value: 5,
-                    message: "Minimum 5 characters",
+                    message: data.errorMessage,
                   },
                 })}
               />
@@ -101,15 +105,15 @@ function SignUpForm(props: {
 
           <div className={styles.inputcontainer}>
             <label htmlFor="email">
-              <span className={styles.label}>Email</span>
+              <span className={styles.label}>{data.label_email}</span>
               <input
                 className={styles.input}
                 type="email"
-                placeholder="Enter your email..."
+                placeholder={data.emailInput_placeholder}
                 autoComplete="on"
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...register("email", {
-                  required: "Field must be filled in",
+                  required: data.requiredMessage,
                 })}
               />
             </label>
@@ -124,17 +128,17 @@ function SignUpForm(props: {
 
           <div className={styles.inputcontainer}>
             <label htmlFor="password">
-              <span className={styles.label}>Password</span>
+              <span className={styles.label}>{data.label_password}</span>
               <input
                 className={styles.input}
                 type="password"
-                placeholder="Enter your password..."
+                placeholder={data.passwordInput_placeholder}
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...register("password", {
-                  required: "Field must be filled in",
+                  required: data.requiredMessage,
                   minLength: {
                     value: 5,
-                    message: "Minimum 5 characters",
+                    message: data.errorMessage,
                   },
                 })}
               />
@@ -149,11 +153,11 @@ function SignUpForm(props: {
           </div>
 
           <button type="submit" className={styles.submit} disabled={!isValid}>
-            Sign Up
+            {data.signup}
           </button>
 
           <Link to="/login" className={styles.linkLogin}>
-            Login
+            {data.link_toLogin}
           </Link>
         </form>
       </div>

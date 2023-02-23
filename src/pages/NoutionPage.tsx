@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import { Content } from "../components/Notion/Content";
 import { Header } from "../components/Notion/Header";
 import { Home } from "../components/Notion/Home";
@@ -8,26 +8,29 @@ import SkeletonContent from "../components/Notion/Skeleton/SkeletonContent";
 import { TextEditorProvider } from "../editor/TextEditor";
 
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { gerUset } from "../store/user/user.action";
+import UserService, { getUser } from "../store/user/user.action";
 import { userSlice } from "../store/user/user.slice";
 
 function NoutionPage() {
   const dispatch = useAppDispatch();
-  const { error, navigate, theme, user, isLoading } = useAppSelector(
+
+  const { navigate, theme, user, isLoading } = useAppSelector(
     (state) => state.userReducer
   );
   const { updateActivePage, updateArrayPage } = userSlice.actions;
 
-  const navigates = useNavigate();
-
-  React.useEffect(() => {
-    const accessToken = sessionStorage.getItem("accessToken");
-    if (accessToken) {
-      dispatch(gerUset(accessToken));
-    } else {
-      navigates("/login");
+  async function load() {
+    if (!user) {
+      const logData = await getUser();
+      dispatch(logData);
     }
-  }, []);
+  }
+
+  load();
+
+  const updateUserPages = async () => {
+    user && (await UserService.updatePages(user.pages));
+  };
 
   const { pageId } = useParams();
 
@@ -37,6 +40,10 @@ function NoutionPage() {
       dispatch(updateArrayPage());
     }
   }, [pageId]);
+
+  onunload = () => {
+    updateUserPages();
+  };
 
   return (
     <>
@@ -56,7 +63,6 @@ function NoutionPage() {
                 <Content />
               </TextEditorProvider>
             )}
-            {error && { error }}
           </>
         </section>
       </div>

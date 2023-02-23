@@ -1,6 +1,7 @@
 import React from "react";
+import { ComponentType } from "react";
 
-function Social(social: string, link: string) {
+function Social(Social: ComponentType, link: string) {
   return (
     <a
       className="social-container__link"
@@ -8,13 +9,9 @@ function Social(social: string, link: string) {
       target="_blank"
       rel="noreferrer"
     >
-      <img
-        className="social-container__image"
-        src={social}
-        alt="blue letter f"
-      />
+      <Social />
     </a>
   );
 }
-
+// className="social-container__image"
 export default Social;
