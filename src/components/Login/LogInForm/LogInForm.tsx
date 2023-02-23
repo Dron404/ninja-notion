@@ -8,8 +8,9 @@ import ActivationMessage from "../ActivationMessage/ActivationMessage";
 import { API_HOST, ROUT_LOGIN } from "../../../data/constants";
 import { IUserData } from "../../../types/interface";
 import { Link } from "react-router-dom";
-import { useAppDispatch } from "../../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
+import login from "../../../data/languages/login";
 
 interface EnterFormData {
   email: string;
@@ -24,6 +25,9 @@ function LogInForm() {
 
   const dispatch = useAppDispatch();
   const { updateUserLogin, getUserSuccess } = userSlice.actions;
+
+  const { lang } = useAppSelector((store) => store.userReducer);
+  const data = login[lang];
 
   const {
     register,
@@ -91,22 +95,22 @@ function LogInForm() {
 
   return (
     <main className={styles.main}>
-      <h1 className={styles.title}>Log In</h1>
+      <h1 className={styles.title}>{data.login}</h1>
       <form
         className={styles.registrationform}
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className={styles.inputcontainer}>
           <label htmlFor="email">
-            <span className={styles.label}>Email</span>
+            <span className={styles.label}>{data.label_email}</span>
             <input
               className={styles.input}
               type="email"
-              placeholder="Enter your email..."
+              placeholder={data.email_placeholder}
               autoComplete="on"
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...register("email", {
-                required: "Field must be filled in",
+                required: data.requiredMessage,
               })}
             />
           </label>
@@ -121,17 +125,17 @@ function LogInForm() {
 
         <div className={styles.inputcontainer}>
           <label htmlFor="password">
-            <span className={styles.label}>Password</span>
+            <span className={styles.label}>{data.label_password}</span>
             <input
               className={styles.input}
               type="password"
-              placeholder="Enter your password..."
+              placeholder={data.password_placeholder}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...register("password", {
-                required: "Field must be filled in",
+                required: data.requiredMessage,
                 minLength: {
                   value: 5,
-                  message: "Minimum 5 characters",
+                  message: data.password_errorMessage,
                 },
               })}
             />
@@ -146,10 +150,10 @@ function LogInForm() {
         </div>
 
         <button type="submit" className={styles.submit} disabled={!isValid}>
-          Log In
+          {data.login}
         </button>
         <Link to="/signup" className={styles.linkLogin}>
-          Sign Up
+          {data.login_linkToSignUp}
         </Link>
       </form>
       {messageNonValidEmail}
