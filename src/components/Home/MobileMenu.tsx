@@ -1,11 +1,16 @@
 import React, { SetStateAction } from "react";
 import { ReactComponent as IconClose } from "../../assets/icons/home/icon-close.svg";
 import HomeLogo from "./Logo";
+import { useAppSelector } from "../../hooks/redux";
+import mobileMenu from "../../data/languages/mobileMenu";
 
 function MobileMenu(props: {
   active: boolean;
   setActive: React.Dispatch<SetStateAction<boolean>>;
 }) {
+  const { lang } = useAppSelector((store) => store.userReducer);
+  const data = mobileMenu[lang];
+
   const { active, setActive } = props;
 
   const HeaderIconClose = (
@@ -32,10 +37,10 @@ function MobileMenu(props: {
   const MobileMenuTools = (
     <div className="mobile-tools-container">
       <a href="/login" className="mobile-log">
-        Log In
+        {data.login}
       </a>
       <a href="/signup" className="mobile-try">
-        Try Notion Free
+        {data.signup}
       </a>
     </div>
   );
