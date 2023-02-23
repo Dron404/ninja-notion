@@ -10,7 +10,7 @@ const home = {
   },
   pl: {
     btn_logIn: "Zaloguj się",
-    btn_signUp: "Wypróbuj Notion Free",
+    btn_signUp: "Rejestracja",
     promo_descriptionTitleOne: "Jeden obszar roboczy.",
     promo_descriptionTitleTwo: "Każda drużyna.",
     promo_desctiptionTextOne:
@@ -21,7 +21,7 @@ const home = {
   ru: {
     btn_logIn: "Вход",
     btn_signUp: "Регистрация",
-    promo_descriptionTitleOne: "Единое пространство.",
+    promo_descriptionTitleOne: "Единое место.",
     promo_descriptionTitleTwo: "Любая команда.",
     promo_desctiptionTextOne:
       "Мы больше, чем просто документ. Или стол. Настроить",
