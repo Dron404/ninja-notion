@@ -2,12 +2,18 @@ import React, { SetStateAction } from "react";
 import styles from "./showInvitation.module.scss";
 import { ReactComponent as IconClose } from "../../../assets/icons/home/icon-close.svg";
 import checkmark from "../../../assets/images/login/checkmark.png";
+import { useAppSelector } from "../../../hooks/redux";
+import signup from "../../../data/languages/signup";
 
 function ShowInvitation(props: {
   active: boolean;
   setActive: React.Dispatch<SetStateAction<boolean>>;
 }) {
   const { active, setActive } = props;
+
+  const { lang } = useAppSelector((store) => store.userReducer);
+  const data = signup[lang];
+
   const Icon = (
     <IconClose
       onClick={() => {
@@ -37,11 +43,8 @@ function ShowInvitation(props: {
             src={checkmark}
             alt="check mark completed"
           />
-          <p className={styles.title}>Registration is mostly finished!</p>
-          <p className={styles.text}>
-            Please, check your email and activate your account by clicking the
-            link. Be aware - the letter may be with spam
-          </p>
+          <p className={styles.title}>{data.invitation_text}</p>
+          <p className={styles.text}>{data.invitation_notification}</p>
           <div className={styles.background} />
         </div>
         {Icon}
