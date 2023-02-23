@@ -12,6 +12,7 @@ interface IContenteditable {
   keyName: "name" | "comment";
   className?: string;
   placeholder?: string;
+  disabledEnter?: boolean;
 }
 
 const Contenteditable: React.FC<IContenteditable> = ({
@@ -42,23 +43,30 @@ const Contenteditable: React.FC<IContenteditable> = ({
     }
   }, [html]);
 
+  const handleOnKeyDown = (event: React.KeyboardEvent | undefined) => {
+    if (event && event.key === "Enter") event.preventDefault();
+  };
+
   return (
-    <ContentEditable
-      className={className}
-      placeholder={placeholder}
-      ref={editableRef}
-      tagName={tag}
-      html={editableText}
-      onPaste={(e) => {
-        e.preventDefault();
-        const text = e.clipboardData.getData("text");
-        document.execCommand("insertText", false, text);
-      }}
-      onChange={(e) => {
-        const html = e.target.value;
-        setEditableText(html);
-      }}
-    />
+    <div>
+      <ContentEditable
+        onKeyDown={handleOnKeyDown}
+        className={className}
+        placeholder={placeholder}
+        ref={editableRef}
+        tagName={tag}
+        html={editableText}
+        onPaste={(e) => {
+          e.preventDefault();
+          const text = e.clipboardData.getData("text");
+          document.execCommand("insertText", false, text);
+        }}
+        onChange={(e) => {
+          const html = e.target.value;
+          setEditableText(html);
+        }}
+      />
+    </div>
   );
 };
 
