@@ -45,6 +45,9 @@ export const ContentCoverSettings = ({
     const url = await saveImage(e);
     updatePageStateFn({ cover: { url } });
   };
+
+  const addCoverLink = (url: string) => updatePageStateFn({ cover: { url } });
+
   return (
     <Menu as="div" className="notion-popup__menu">
       <Menu.Button>
@@ -81,7 +84,7 @@ export const ContentCoverSettings = ({
           <div className={styles.body}>
             {tab === "gallery" && <Gallery />}
             {tab === "upload" && <UploadFile handle={setCaver} />}
-            {tab === "link" && <LinkUrl />}
+            {tab === "link" && <LinkUrl handle={addCoverLink} />}
           </div>
         </div>
       </Menu.Items>
