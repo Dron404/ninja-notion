@@ -1,137 +1,82 @@
-*:focus-visible {
-  outline: unset;
+.toolType {
+  position: absolute;
+  width: 160px;
+  flex-flow: column;
+  align-items: flex-start;
+  background-color: var(--color-aside);
+  flex-wrap: nowrap;
+  min-width: 60px;
+  font-family: "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif,
+    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  transform: translate(0, 0);
+
+  border-radius: 7px;
+  transform: translate(-20px, -40px);
+  box-shadow: rgb(15 15 15 / 5%) 0px 0px 0px 1px,
+    rgb(15 15 15 / 10%) 0px 5px 10px, rgb(15 15 15 / 20%) 0px 15px 40px;
+  transition: color 400ms ease 0s, background-color 400ms ease 0s;
+  justify-content: stretch;
+  font-family: "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif,
+    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  z-index: 401;
+  font-size: 12px;
+
+  &__popupTurn {
+    transform: translate(150px, -25px);
+    position: absolute;
+    background: var(--color-aside);
+  }
+
+  &__itemLink {
+    cursor: pointer;
+  }
+
+  &__itemMini {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    width: 100%;
+    color: var(--color-text);
+
+    .button__icon {
+      width: 22px;
+      height: 22px;
+      justify-content: center;
+    }
+  }
+
+  &__item {
+    cursor: text;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 2px 4px;
+    height: 18px;
+    font-size: 12px;
+
+    &_active div {
+      color: var(--color-active) !important;
+    }
+  }
+  button {
+    width: 100%;
+  }
 }
 
-.text-editor {
-  cursor: text;
-  font-size: 18px;
-  min-height: 100vh;
-  padding-bottom: 100px;
-  color: var(--color-text);
+.toolButton {
+  opacity: 0;
+  position: absolute;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  z-index: 301;
+  transform: translateX(-50px);
+}
 
-  a {
-    cursor: pointer;
-    color: var(--color-active);
-  }
-
-  .public-DraftStyleDefault-block {
-    margin-left: 50px;
-    margin-bottom: 10px;
-
-    &:hover {
-      background-color: var(--color-hover);
-    }
-  }
-
-  h1,
-  h2,
-  h3 {
-    margin-block-start: 0;
-
-    .public-DraftStyleDefault-block {
-      white-space: pre-wrap;
-      word-break: break-word;
-      font-weight: 600;
-      line-height: 1.25;
-      width: 100%;
-      color: var(--color-text);
-    }
-  }
-
-  h1 {
-    font-size: 2.4em;
-  }
-
-  h2 {
-    font-size: 1.8em;
-  }
-
-  h3 {
-    font-size: 1.2em;
-  }
-
-  blockquote {
-    width: calc(100% - 60px);
-    display: block;
-    margin-block-start: 0;
-    margin-block-end: 1em;
-    margin-inline-start: 4px;
-    margin-inline-end: 40px;
-
-    .public-DraftStyleDefault-block {
-      border-left: 4px solid var(--color-icon);
-      padding: 5px 10px;
-    }
-  }
-  .public-DraftStyleDefault-pre {
-    margin-block-start: 0;
-    margin-block-end: 15px;
-    width: calc(100% - 50px);
-    margin-left: 50px;
-    flex-grow: 1;
-    border-radius: 3px;
-    text-align: left;
-    overflow: scroll;
-    background: var(--color-bg-code) !important;
-    font-family: "IBM Plex Mono", monospace;
-    tab-size: 2;
-    padding: 15px 20px;
-    min-height: 1em;
-    cursor: text;
-    white-space: pre-wrap;
-    word-break: break-word;
-
-    .public-DraftStyleDefault-block {
-      padding: 0;
-      margin: 0;
-    }
-
-    &::-webkit-scrollbar {
-      background: var(--сolor-bg);
-      position: absolute;
-      width: 12px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: var(--color-hover);
-    }
-  }
-
-  pre {
-    margin: 0;
-  }
-
-  ul {
-    display: block;
-    list-style-type: disc;
-    margin-block-start: 0px;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 71px;
-
-    .public-DraftStyleDefault-block {
-      margin-left: 0px;
-      margin-bottom: 10px;
-    }
-  }
-
-  ol {
-    display: block;
-    list-style-type: decimal;
-    margin-block-start: 0px;
-    margin-block-end: 1em;
-    margin-inline-start: 10px;
-    margin-inline-end: 0px;
-    padding-inline-start: 71px;
-
-    .public-DraftStyleDefault-block {
-      margin-left: 0px;
-    }
-  }
-
-  img {
-    width: 100%;
-    margin-left: 10px;
+.toolType__itemTurn {
+  .button__hotkey {
+    transform: rotate(270deg);
   }
 }
