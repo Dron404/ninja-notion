@@ -38,12 +38,12 @@ export const ContentCoverSettings = ({
   }
 
   const handleRemoveBackground = () => {
-    const replaceObject = { cover: { url: "" } };
+    const replaceObject = { cover: { url: "", position: 100 } };
     updatePageStateFn(replaceObject);
   };
   const setCaver = async (e: ChangeEvent<HTMLInputElement>) => {
     const url = await saveImage(e);
-    updatePageStateFn({ cover: { url } });
+    updatePageStateFn({ cover: { url, position: 100 } });
   };
 
   const addCoverLink = (url: string) => updatePageStateFn({ cover: { url } });
