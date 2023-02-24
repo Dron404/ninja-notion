@@ -46,7 +46,8 @@ export const ContentCoverSettings = ({
     updatePageStateFn({ cover: { url, position: 100 } });
   };
 
-  const addCoverLink = (url: string) => updatePageStateFn({ cover: { url } });
+  const addCoverLink = (url: string) =>
+    updatePageStateFn({ cover: { url, position: 100 } });
 
   return (
     <Menu as="div" className="notion-popup__menu">

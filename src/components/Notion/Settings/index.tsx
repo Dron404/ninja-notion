@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import { Button } from "../buttons/Button";
 import styles from "./Settings.module.scss";
 import { ReactComponent as SettingsSVG } from "../../../assets/img/svg/setting.svg";
@@ -21,39 +21,40 @@ import saveImage from "../../../store/user/saveImage";
 export const Settings: React.FC = () => {
   const dispatch = useAppDispatch();
   const { user, lang } = useAppSelector((store) => store.userReducer);
+  const defUser = useRef(user);
 
   const { updateUserState } = userSlice.actions;
 
   const data = main[lang];
 
   const avatarUrl = user?.avatar || UserSVG;
-  const email = user?.email || "";
-  const name = user?.name || "";
-  const password = user?.password || "";
+
+  const { name, email } = user as IUserData;
 
   const [tab, setTab] = React.useState<string>("account");
 
-  const [userName, setUserName] = React.useState<string>(name);
-
-  const [userPassword, setUserPassword] = React.useState<string>("");
-  const [userPasswordRepeat, setUserPasswordRepeat] =
-    React.useState<string>("");
+  const [userPassword, setUserPassword] = useState({ pass1: "", pass2: "" });
 
   const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false);
+
   const [isOpenModalAvatar, setIsOpenModalAvatar] =
     React.useState<boolean>(false);
+
   const [isOpenModalPassword, setIsOpenModalPassword] =
     React.useState<boolean>(false);
+
   const openModal = () => setIsOpenModal(true);
+
   const openModalAvatar = () => setIsOpenModalAvatar(true);
+
   const openModalPassword = () => setIsOpenModalPassword(true);
+
   const closeModal = (e: React.MouseEvent<Element>) => {
     if ((e.target as Element).id === "settings") handleCancelUser();
     if ((e.target as Element).id === "avatar") setIsOpenModalAvatar(false);
     if ((e.target as Element).id === "reset-password") {
       setIsOpenModalPassword(false);
-      setUserPassword("");
-      setUserPasswordRepeat("");
+      setUserPassword({ pass1: "", pass2: "" });
     }
   };
 
@@ -63,31 +64,28 @@ export const Settings: React.FC = () => {
 
   const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
     const name = event.target.value;
-    setUserName(name);
     dispatch(updateUserState({ name }));
   };
 
   const isUpdatePassword = () =>
     !!(
-      userPassword.length > 6 &&
-      userPasswordRepeat.length > 6 &&
-      userPassword === userPasswordRepeat
+      userPassword.pass1.length > 6 &&
+      userPassword.pass2.length > 6 &&
+      userPassword.pass2 === userPassword.pass1
     );
+  //! TO DO - переделать эту фигню
+  //const handleUpdatePassword = () => {
+  //  dispatch(updateUserState({ password: userPassword }));
+  //  handleUpdateUser(userPassword);
+  //  setUserPassword("");
+  //  setUserPasswordRepeat("");
+  //};
 
-  const handleUpdatePassword = () => {
-    dispatch(updateUserState({ password: userPassword }));
-    handleUpdateUser(userPassword);
-    setUserPassword("");
-    setUserPasswordRepeat("");
-  };
+  //const handleChangePassword = (event: ChangeEvent<HTMLInputElement>) => {};
 
-  const handleChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
-    setUserPassword(event.target.value);
-  };
-
-  const handleChangePasswordRepeat = (event: ChangeEvent<HTMLInputElement>) => {
-    setUserPasswordRepeat(event.target.value);
-  };
+  //const handleChangePasswordRepeat = (
+  //  event: ChangeEvent<HTMLInputElement>
+  //) => {};
 
   const setAvatar = async (e: ChangeEvent<HTMLInputElement>) => {
     setIsOpenModalAvatar(false);
@@ -96,18 +94,16 @@ export const Settings: React.FC = () => {
   };
 
   let isLoading = false;
+
   const handleUpdateUser = async (pass = "") => {
     if (UserService && user && !isLoading) {
-      const userData: IUserData = password
-        ? { ...user, ...{ password: pass } }
-        : user;
       isLoading = true;
-      const response = await UserService.updateUser(userData);
+      const response = await UserService.updateUser(user);
       if (response?.status === 200) {
         setIsOpenModal(false);
         setIsOpenModalPassword(false);
       }
-      await UserService.updatePages(userData.pages);
+      await UserService.updatePages(user.pages);
     }
   };
 
@@ -117,7 +113,7 @@ export const Settings: React.FC = () => {
     if (defaultUser) {
       dispatch(updateUserState(defaultUser));
       setIsOpenModal(false);
-      setUserName(defaultUser.name);
+      //setUserName(defaultUser.name);
     }
   };
 
@@ -222,7 +218,7 @@ export const Settings: React.FC = () => {
                           type="text"
                           name="name"
                           className={styles.settings__input}
-                          value={userName}
+                          value={name}
                           onChange={handleChangeName}
                         />
                       </div>
@@ -263,7 +259,7 @@ export const Settings: React.FC = () => {
                                   type="password"
                                   name="password"
                                   className={styles.settings__input}
-                                  onChange={handleChangePassword}
+                                  //onChange={handleChangePassword}
                                 />
                                 <div className={styles.settings__label}>
                                   {data.text_repeat_password}
@@ -272,14 +268,14 @@ export const Settings: React.FC = () => {
                                   type="password"
                                   name="password_repeat"
                                   className={styles.settings__input}
-                                  onChange={handleChangePasswordRepeat}
+                                  //onChange={}
                                 />
                                 {isUpdatePassword() && (
                                   <div className={styles.settings__row}>
                                     <Button
                                       text={data.text_update_password}
                                       cName={styles.button__primary}
-                                      handle={handleUpdatePassword}
+                                      //handle={}
                                     />
                                   </div>
                                 )}
@@ -307,11 +303,16 @@ export const Settings: React.FC = () => {
                     </div>
                   </div>
                   <div className={styles.settings__footer}>
-                    <Button
-                      text={data.text_update}
-                      cName={styles.button__primary}
-                      handle={handleUpdateUser}
-                    />
+                    {user !== defUser.current ? (
+                      ""
+                    ) : (
+                      <Button
+                        text={data.text_update}
+                        cName={styles.button__primary}
+                        handle={handleUpdateUser}
+                      />
+                    )}
+
                     <Button
                       text={data.text_cancel}
                       cName={styles.button__default}

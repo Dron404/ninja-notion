@@ -86,7 +86,7 @@ export const ContentCover: React.FC = () => {
             {activePage._id !== "home" && (
               <div className={styles.cover__wrapper + " " + styleFullWidth}>
                 <div className={styles.cover__buttons}>
-                  <div className={styles.button} onMouseDown={handleReposition}>
+                  <div className={styles.button} onClick={handleReposition}>
                     {textReposition}
                   </div>
                   <ContentCoverSettings cName={styles.button} />
