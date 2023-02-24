@@ -73,18 +73,17 @@ export const SidebarPages = (): React.ReactElement => {
 
         <div className={styles.pages__list}>
           <div className={`${styles.pages__row} aside-page-row`}>
-            {user &&
-              user?.pages?.map(
-                (data, index) =>
-                  !data.dataTrash && (
-                    <SidebarPage
-                      icon={data.icon}
-                      text={data.name}
-                      key={data._id + "_private" + index}
-                      dataPage={data}
-                    />
-                  )
-              )}
+            {(user?.pages &&
+              user?.pages?.length > 0 &&
+              user?.pages?.map((data) => (
+                <SidebarPage
+                  icon={data.icon}
+                  text={data.name}
+                  dataPage={data}
+                  key={data._id + "_private"}
+                />
+              ))) ||
+              data.text_not_page}
           </div>
         </div>
       </div>

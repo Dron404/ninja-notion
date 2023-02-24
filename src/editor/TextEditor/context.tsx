@@ -1,12 +1,10 @@
 import * as React from "react";
 import { EditorApi, useEditor } from "./useEditor";
 import { useAppSelector } from "../../hooks/redux";
+import { ITextEditorProvider } from "../../types/interface";
 
 const TextEditorContext = React.createContext<EditorApi | undefined>(undefined);
 
-interface ITextEditorProvider {
-  children: React.ReactNode;
-}
 export const TextEditorProvider: React.FC<ITextEditorProvider> = ({
   children,
 }) => {

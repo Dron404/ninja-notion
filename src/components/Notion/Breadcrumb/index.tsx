@@ -27,8 +27,8 @@ export const Breadcrumb = (): React.ReactElement => {
                 cName={styles.breadcrumb__link}
               />
             </li>
-            {activePage ? (
-              <li className={styles.breadcrumb__li} key={activePage._id}>
+            {activePage?._id !== "home" ? (
+              <li className={styles.breadcrumb__li} key={activePage?._id}>
                 <Button
                   link={`/pages/${activePage?._id}`}
                   text={activePage?.name}

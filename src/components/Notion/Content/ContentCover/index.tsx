@@ -39,12 +39,16 @@ export const ContentCover: React.FC = () => {
     : data.text_reposition_off;
 
   const prev: MutableRefObject<null | number> = useRef(null);
+
+  const [position, setPosition] = React.useState(
+    Number(activePage?.cover?.position)
+  );
   const handleReposition = () => {
     setReposition(!reposition);
+    updatePageStateFn({ cover: { ...activePage?.cover, position } });
     dispatch(updateArrayPage());
   };
 
-  const position = Number(activePage?.cover?.position);
   const move = useRef(false);
 
   const moveCover = (e: MouseEvent) => {
@@ -56,7 +60,7 @@ export const ContentCover: React.FC = () => {
       if (typeof prev.current === "number") {
         current < prev.current ? (dif = position + 3) : (dif = position - 3);
         if (dif > 10 && dif < 110) {
-          updatePageStateFn({ cover: { ...activePage?.cover, position: dif } });
+          setPosition(dif);
         }
         prev.current = current;
       } else {
@@ -79,7 +83,7 @@ export const ContentCover: React.FC = () => {
             onMouseMove={(e: MouseEvent) => moveCover(e)}
             ref={ref}
             style={{
-              backgroundPosition: `center ${activePage?.cover?.position}%`,
+              backgroundPosition: `center ${position}%`,
               backgroundImage: `url(${activePage?.cover?.url})`,
             }}
           >
