@@ -38,13 +38,16 @@ export const ContentCoverSettings = ({
   }
 
   const handleRemoveBackground = () => {
-    const replaceObject = { cover: { url: "" } };
+    const replaceObject = { cover: { url: "", position: 100 } };
     updatePageStateFn(replaceObject);
   };
   const setCaver = async (e: ChangeEvent<HTMLInputElement>) => {
     const url = await saveImage(e);
-    updatePageStateFn({ cover: { url } });
+    updatePageStateFn({ cover: { url, position: 100 } });
   };
+
+  const addCoverLink = (url: string) => updatePageStateFn({ cover: { url } });
+
   return (
     <Menu as="div" className="notion-popup__menu">
       <Menu.Button>
@@ -81,7 +84,7 @@ export const ContentCoverSettings = ({
           <div className={styles.body}>
             {tab === "gallery" && <Gallery />}
             {tab === "upload" && <UploadFile handle={setCaver} />}
-            {tab === "link" && <LinkUrl />}
+            {tab === "link" && <LinkUrl handle={addCoverLink} />}
           </div>
         </div>
       </Menu.Items>

@@ -1,14 +1,14 @@
-import React from "react";
+import React, { MouseEvent, MutableRefObject, useRef } from "react";
 import styles from "./ContentCover.module.scss";
 import { ContentCoverSettings } from "../ContentCoverSettings";
 import { main } from "../../../../data/languages/main";
-import { useAppSelector } from "../../../../hooks/redux";
-// import { userSlice } from "../../../store/user/user.slice";
-// import { IPage } from "../../../types/interface";
+import { useAppSelector, useAppDispatch } from "../../../../hooks/redux";
+import { IPage } from "../../../../types/interface";
+import { userSlice } from "../../../../store/user/user.slice";
 
 export const ContentCover: React.FC = () => {
-  // const dispatch = useAppDispatch();
-  // const { updatePagesState, updateArrayPage } = userSlice.actions;
+  const dispatch = useAppDispatch();
+  const { updatePagesState, updateArrayPage } = userSlice.actions;
 
   const { lang, activePage } = useAppSelector((store) => store.userReducer);
 
@@ -18,18 +18,17 @@ export const ContentCover: React.FC = () => {
     ? styles.cover__fullWidth
     : styles.cover__defaultWidth;
 
-  // function updatePageStateFn(replaceObject: Partial<IPage>) {
-  //   if (activePage?._id) {
-  //     const pageId = activePage._id;
-  //     dispatch(
-  //       updatePagesState({
-  //         replaceObject,
-  //         pageId,
-  //       })
-  //     );
-  //     dispatch(updateArrayPage());
-  //   }
-  // }
+  function updatePageStateFn(replaceObject: Partial<IPage>) {
+    if (activePage?._id) {
+      const pageId = activePage._id;
+      dispatch(
+        updatePagesState({
+          replaceObject,
+          pageId,
+        })
+      );
+    }
+  }
 
   const ref = React.useRef<HTMLDivElement>(null);
 
@@ -39,42 +38,35 @@ export const ContentCover: React.FC = () => {
     ? data.text_reposition_on
     : data.text_reposition_off;
 
+  const prev: MutableRefObject<null | number> = useRef(null);
   const handleReposition = () => {
     setReposition(!reposition);
+    dispatch(updateArrayPage());
   };
 
-  let isMousedown = false;
-  let start = Number(activePage?.cover?.position);
+  const position = Number(activePage?.cover?.position);
+  const move = useRef(false);
 
-  // TESTING
-  React.useEffect(() => {
-    const element = ref.current;
-    const height = element?.offsetHeight;
-    const proc = Number(height) / 100;
-    element?.addEventListener("mousedown", (e) => {
-      isMousedown = true;
-      start = e.clientY;
-    });
-
-    element?.addEventListener("mousemove", (e) => {
-      if (isMousedown) {
-        const diff = start - e.clientY;
-        const newPosition = diff / proc;
-
-        if (ref.current) {
-          ref.current.style.backgroundPosition = `center ${newPosition}%`;
-
-          // const replaceObject = { cover: { position: newPosition } };
-          // updatePageStateFn(replaceObject);
+  const moveCover = (e: MouseEvent) => {
+    if (e.type === "mousedown" && reposition === true) {
+      move.current = true;
+    } else if (e.type === "mousemove" && move.current === true) {
+      const current = e.clientY;
+      let dif: number;
+      if (typeof prev.current === "number") {
+        current < prev.current ? (dif = position + 3) : (dif = position - 3);
+        if (dif > 10 && dif < 110) {
+          updatePageStateFn({ cover: { ...activePage?.cover, position: dif } });
         }
+        prev.current = current;
+      } else {
+        dif = position;
+        prev.current = current;
       }
-    });
-    element?.addEventListener("mouseup", () => {
-      if (isMousedown) {
-        isMousedown = false;
-      }
-    });
-  }, [activePage?.cover?.position]);
+    } else {
+      move.current = false;
+    }
+  };
 
   return (
     <>
@@ -82,6 +74,9 @@ export const ContentCover: React.FC = () => {
         {activePage?.cover?.url && (
           <div
             className={styles.cover__bg}
+            onMouseDown={(e: MouseEvent) => moveCover(e)}
+            onMouseUp={(e: MouseEvent) => moveCover(e)}
+            onMouseMove={(e: MouseEvent) => moveCover(e)}
             ref={ref}
             style={{
               backgroundPosition: `center ${activePage?.cover?.position}%`,
