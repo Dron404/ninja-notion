@@ -5,6 +5,7 @@ import { UserAvatar } from "../Settings/UserAvatar";
 import { ReactComponent as EmojiSVG } from "../../../assets/img/svg/emoji.svg";
 import { ReactComponent as CoverSVG } from "../../../assets/img/svg/cover.svg";
 import { ReactComponent as CommentSVG } from "../../../assets/img/svg/comment.svg";
+import { ReactComponent as ToggleSVG } from "../../../assets/img/svg/toggle.svg";
 
 import { Button } from "../buttons/Button";
 import { main } from "../../../data/languages/main";
@@ -24,6 +25,7 @@ import ToolType from "../../../editor/ToolType";
 import ToolFormat from "../../../editor/ToolFormat";
 import { useDebounce } from "../../../hooks/useDebounce";
 import Contenteditable from "../Contenteditable";
+import { ContentRestore } from "./ContentRestore";
 
 export const Content = (): React.ReactElement => {
   const { user, activePage, lang } = useAppSelector(
@@ -52,7 +54,7 @@ export const Content = (): React.ReactElement => {
   }
 
   const [commentStatus, setCommentStatus] = React.useState(
-    !!activePage?.comment
+    Boolean(activePage?.comment)
   );
 
   const avatarUrl = user?.avatar || "";
@@ -87,106 +89,126 @@ export const Content = (): React.ReactElement => {
   return (
     <div className={styles.body}>
       {activePage?.dataTrash && !!activePage?.dataTrash && (
-        <div className={styles.restore}>
-          <div className={styles.restore__button}>
-            <ButtonTrash dataPage={activePage} />
+        <ContentRestore
+          button={<ButtonTrash dataPage={activePage} />}
+          message={data.text_restore_message}
+        />
+      )}
+      {activePage?._id === "home" && (
+        <ContentRestore
+          button={
+            <Button
+              cName={styles.body__goHome}
+              icon={<ToggleSVG />}
+              text={data.text_home}
+              link="/pages/home"
+            />
+          }
+          message={activePage.content}
+        />
+      )}
+
+      {activePage?._id !== "home" && (
+        <div
+          data-width={activePage?.property?.full_width}
+          data-small={activePage?.property?.small_text}
+          data-status={
+            activePage?.dataTrash && !!activePage?.dataTrash
+              ? "arhive"
+              : "active"
+          }
+        >
+          <ContentCover />
+          <div className="containerIcon">
+            <div className="wrapperIcon">
+              <ContentIconSettings />
+            </div>
           </div>
-          <div className={styles.restore__message}>
-            <span>{data.text_restore_message}</span>
+          <div
+            className={styles.content}
+            data-font={activePage?.property?.font}
+          >
+            <div className="containerHeader">
+              <div className="wrapperHeader">
+                <div className={styles.content__header}>
+                  <div className={styles.content__toolbar}>
+                    {!activePage?.icon && (
+                      <Button
+                        text={data.text_add_icon}
+                        cName={styles.content__toolbar_button}
+                        icon={<EmojiSVG />}
+                        handle={handleAddRandomEmojis}
+                      />
+                    )}
+
+                    {!activePage?.cover.url && (
+                      <Button
+                        text={data.text_add_cover}
+                        cName={styles.content__toolbar_button}
+                        icon={<CoverSVG />}
+                        handle={handleAddCove}
+                      />
+                    )}
+
+                    {!commentStatus && (
+                      <Button
+                        text={data.text_add_comment}
+                        cName={styles.content__toolbar_button}
+                        icon={<CommentSVG />}
+                        handle={handleAddComment}
+                      />
+                    )}
+                  </div>
+
+                  <Contenteditable
+                    text={activePage?.name || ""}
+                    tag="h1"
+                    pageId={pageId}
+                    keyName="name"
+                    className={styles.content__nameInput}
+                    placeholder={data.text_placeholder_title}
+                    disabledEnter={true}
+                  />
+
+                  {commentStatus && (
+                    <div className={styles.content__comment}>
+                      <div className={styles.content__commentAvatar}>
+                        <UserAvatar url={avatarUrl} size={AVATAR_SIZE_L} />
+                      </div>
+
+                      <Contenteditable
+                        text={activePage?.comment || ""}
+                        tag="div"
+                        pageId={pageId}
+                        keyName="comment"
+                        className={styles.content__commentInput}
+                        placeholder={data.text_placeholder_comment}
+                        disabledEnter={true}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="containerEditor">
+              <div className="wrapperEditor">
+                <div className={styles.editor}>
+                  <ToolFormat />
+
+                  <div className={styles.editor__block}>
+                    <div className="toolButton" id="toolButton">
+                      <ToolType />
+                    </div>
+
+                    <TextEditor />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}
-      <div
-        data-width={activePage?.property?.full_width}
-        data-small={activePage?.property?.small_text}
-        data-status={
-          activePage?.dataTrash && !!activePage?.dataTrash ? "arhive" : "active"
-        }
-      >
-        <ContentCover />
-        <div className="containerIcon">
-          <div className="wrapperIcon">
-            <ContentIconSettings />
-          </div>
-        </div>
-        <div className={styles.content} data-font={activePage?.property?.font}>
-          <div className="containerHeader">
-            <div className="wrapperHeader">
-              <div className={styles.content__header}>
-                <div className={styles.content__toolbar}>
-                  {!activePage?.icon && (
-                    <Button
-                      text={data.text_add_icon}
-                      cName={styles.content__toolbar_button}
-                      icon={<EmojiSVG />}
-                      handle={handleAddRandomEmojis}
-                    />
-                  )}
-
-                  {!activePage?.cover.url && (
-                    <Button
-                      text={data.text_add_cover}
-                      cName={styles.content__toolbar_button}
-                      icon={<CoverSVG />}
-                      handle={handleAddCove}
-                    />
-                  )}
-
-                  {!commentStatus && (
-                    <Button
-                      text={data.text_add_comment}
-                      cName={styles.content__toolbar_button}
-                      icon={<CommentSVG />}
-                      handle={handleAddComment}
-                    />
-                  )}
-                </div>
-
-                <Contenteditable
-                  text={activePage?.name || ""}
-                  tag="h1"
-                  pageId={pageId}
-                  keyName="name"
-                  className={styles.content__nameInput}
-                  placeholder={data.text_placeholder_title}
-                  disabledEnter={true}
-                />
-
-                <div className={styles.content__comment}>
-                  <div className={styles.content__commentAvatar}>
-                    <UserAvatar url={avatarUrl} size={AVATAR_SIZE_L} />
-                  </div>
-                  <Contenteditable
-                    text={activePage?.comment || ""}
-                    tag="div"
-                    pageId={pageId}
-                    keyName="comment"
-                    className={styles.content__commentInput}
-                    placeholder={data.text_placeholder_comment}
-                    disabledEnter={true}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="containerEditor">
-            <div className="wrapperEditor">
-              <div className={styles.editor}>
-                <ToolFormat />
-
-                <div className={styles.editor__block}>
-                  <div className="toolButton" id="toolButton">
-                    <ToolType />
-                  </div>
-
-                  <TextEditor />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

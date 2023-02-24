@@ -60,7 +60,6 @@ export const userSlice = createSlice({
         window.location.pathname = "/404";
       }
       state.activePage = activeData.activePage;
-      // state.breadcrumbs = activeData.breadcrumbs;
       state.arrayPage = pagesToArray(state.user.pages) || null;
       if (state.arrayPage) {
         state.favoritePage = filterFavoritePage(state.arrayPage);
@@ -93,8 +92,6 @@ export const userSlice = createSlice({
           state.activePage = data.activePage;
         }
       }
-
-      console.log("updateActivePage");
     },
 
     replaceActivePage(state, action: PayloadAction<IPage>) {
@@ -145,7 +142,7 @@ export const userSlice = createSlice({
       state,
       action: PayloadAction<{ replaceObject: Partial<IPage>; pageId: string }>
     ) {
-      if (state.user) {
+      if (state.user && state.activePage?._id !== "home") {
         const props = action.payload;
         const replaceObject = props.replaceObject;
         const pageId = props.pageId;

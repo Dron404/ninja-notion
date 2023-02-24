@@ -45,15 +45,18 @@ export const Home = (): React.ReactElement => {
               <div className="">
                 <h2>{data.text_you_pages}</h2>
                 <div>
-                  {user?.pages?.map((data) => (
-                    <SidebarPage
-                      _id="home"
-                      icon={data.icon}
-                      text={data.name}
-                      dataPage={data}
-                      key={data._id + "_home"}
-                    />
-                  ))}
+                  {(user?.pages &&
+                    user?.pages?.length > 0 &&
+                    user?.pages?.map((data) => (
+                      <SidebarPage
+                        _id="home"
+                        icon={data.icon}
+                        text={data.name}
+                        dataPage={data}
+                        key={data._id + "_home"}
+                      />
+                    ))) ||
+                    data.text_not_page}
                 </div>
               </div>
             </div>

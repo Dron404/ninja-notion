@@ -65,7 +65,9 @@ export const SidebarPage: React.FC<INotionButton> = ({
     }
   }
 
-  return (
+  return dataPage?.dataTrash !== "" ? (
+    <> </>
+  ) : (
     <>
       <Link
         to={pageUrl}
