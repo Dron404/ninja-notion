@@ -49,7 +49,6 @@ export const ContentCover: React.FC = () => {
 
   const moveCover = (e: MouseEvent) => {
     if (e.type === "mousedown" && reposition === true) {
-      console.log("Mousedown");
       move.current = true;
     } else if (e.type === "mousemove" && move.current === true) {
       const current = e.clientY;
@@ -59,14 +58,12 @@ export const ContentCover: React.FC = () => {
         if (dif > 10 && dif < 110) {
           updatePageStateFn({ cover: { ...activePage?.cover, position: dif } });
         }
-        console.log("Set position to", dif);
         prev.current = current;
       } else {
         dif = position;
         prev.current = current;
       }
     } else {
-      console.log("Mouse Up");
       move.current = false;
     }
   };

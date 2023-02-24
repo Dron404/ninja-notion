@@ -51,7 +51,6 @@ function SignUpForm(props: {
           body: JSON.stringify(dataUser),
         }
       );
-      console.log(dataUser);
 
       if (response.status === 200) {
         setInvitationActive(!invitationActive);
