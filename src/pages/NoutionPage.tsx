@@ -8,7 +8,7 @@ import SkeletonContent from "../components/Notion/Skeleton/SkeletonContent";
 import { TextEditorProvider } from "../editor/TextEditor";
 
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import UserService, { getUser } from "../store/user/user.action";
+import { getUser } from "../store/user/user.action";
 import { userSlice } from "../store/user/user.slice";
 
 function NoutionPage() {
@@ -28,10 +28,6 @@ function NoutionPage() {
 
   load();
 
-  const updateUserPages = async () => {
-    user && (await UserService.updatePages(user.pages));
-  };
-
   const { pageId } = useParams();
 
   React.useEffect(() => {
@@ -40,10 +36,6 @@ function NoutionPage() {
       dispatch(updateArrayPage());
     }
   }, [pageId]);
-
-  onunload = () => {
-    updateUserPages();
-  };
 
   return (
     <>

@@ -13,27 +13,11 @@
   &::-webkit-scrollbar-thumb {
     background-color: var(--color-hover);
   }
-}
 
-.restore {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(66, 66, 66, 0.406);
-  z-index: 1;
-  text-shadow: -7px 0px 8px white;
-
-  &__button {
-    background-color: var(--color-active-svg);
-  }
-
-  &__message {
-    margin: 120px auto 0;
-    width: 300px;
-    font-size: 18px;
-    text-align: center;
+  &__goHome {
+    svg {
+      transform: rotate(90deg);
+    }
   }
 }
 

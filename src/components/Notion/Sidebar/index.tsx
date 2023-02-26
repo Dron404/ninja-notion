@@ -38,10 +38,6 @@ export const Sidebar = (): React.ReactElement => {
   const placeholderTrash = `${data.text_search} ${data.text_trash}`;
   const placeholderMoveTo = `${data.text_search} ${data.text_move_to}`;
 
-  const message = (text: string, type: string) => {
-    console.log(text, type);
-  };
-
   const handleTrash = async (pageId: string) => {
     const replaceObject = { dataTrash: "" };
     dispatch(
@@ -51,12 +47,6 @@ export const Sidebar = (): React.ReactElement => {
       })
     );
     dispatch(updateArrayPage());
-    if (user) {
-      const response = await UserService.updatePages(user.pages);
-      if (response && response?.status === 200) {
-        message("updated", "success");
-      }
-    }
   };
 
   const handleMoveTo = async (pageIdTo: string) => {
@@ -64,11 +54,7 @@ export const Sidebar = (): React.ReactElement => {
       const pages = moveToPage(user.pages, activePage, pageIdTo);
       dispatch(updateUserState({ ...user, ...{ pages: pages } }));
       dispatch(updateArrayPage());
-
-      const response = await UserService.updatePages(pages);
-      if (response && response?.status === 200) {
-        message("updated", "success");
-      }
+      await UserService.updatePages(pages);
     }
   };
 
@@ -86,7 +72,6 @@ export const Sidebar = (): React.ReactElement => {
       const response = await UserService.updatePages(pages);
       if (response && response?.status === 200) {
         setIsRemoving(false);
-        message("updated", "success");
       }
     }
   };
@@ -101,7 +86,6 @@ export const Sidebar = (): React.ReactElement => {
       const response = await UserService.updatePages(pages);
       if (response && response?.status === 200) {
         dispatch(updateUserState({ pages: response.pages }));
-        message("updated", "success");
       }
     }
   };

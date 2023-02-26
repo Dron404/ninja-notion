@@ -5,7 +5,7 @@ import url from "../assets/img/cover/g_011.jpg";
 const dateHomePage: IPage = {
   _id: "home",
   content: "Example content. Welcome to my ninja notion clone!",
-  name: "Home page",
+  name: "Home page2",
   icon: "🏠",
   comment: "Example you comment",
   favorite: false,

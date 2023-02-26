@@ -28,7 +28,7 @@ export const ButtonCopyLink: React.FC<TpageId> = ({ pageId }) => {
   return (
     <>
       <div className={`${styles.button}`} onClick={onClick}>
-        <Button icon={<CopySVG />} text={text} hotkey="Ctrl+Alt+L" />
+        <Button icon={<CopySVG />} text={text} />
       </div>
     </>
   );
