@@ -20,16 +20,16 @@ import saveImage from "../../../store/user/saveImage";
 
 export const Settings: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { user, lang } = useAppSelector((store) => store.userReducer);
+  const { lang } = useAppSelector((store) => store.userReducer);
+  const user = useAppSelector((store) => store.userReducer.user) as IUserData;
+
   const defUser = useRef(user);
 
   const { updateUserState } = userSlice.actions;
 
   const data = main[lang];
-
-  const avatarUrl = user?.avatar || UserSVG;
-
-  const { name, email } = user as IUserData;
+  const name = user?.name;
+  const email = user?.email;
 
   const [tab, setTab] = React.useState<string>("account");
 
@@ -88,9 +88,14 @@ export const Settings: React.FC = () => {
   //) => {};
 
   const setAvatar = async (e: ChangeEvent<HTMLInputElement>) => {
-    setIsOpenModalAvatar(false);
-    const url = await saveImage(e);
-    dispatch(updateUserState({ avatar: url }));
+    const avatar: string = await saveImage(e);
+    const response = await UserService.updateUser({ ...user, avatar });
+    dispatch(updateUserState({ avatar }));
+    if (response?.status === 200) {
+      console.log(user.avatar === avatar);
+      setIsOpenModalAvatar(false);
+      await UserService.updatePages(user.pages);
+    }
   };
 
   let isLoading = false;
@@ -111,9 +116,8 @@ export const Settings: React.FC = () => {
 
   const handleCancelUser = () => {
     if (defaultUser) {
-      dispatch(updateUserState(defaultUser));
+      dispatch(updateUserState({ ...defaultUser, avatar: user.avatar }));
       setIsOpenModal(false);
-      //setUserName(defaultUser.name);
     }
   };
 
@@ -135,7 +139,9 @@ export const Settings: React.FC = () => {
                   <div className={styles.settings__name}>{email}</div>
                   <SettingsTab
                     text={data.text_account}
-                    icon={<UserAvatar url={avatarUrl} size={"15"} />}
+                    icon={
+                      <UserAvatar url={user?.avatar || UserSVG} size={"15"} />
+                    }
                     state={tab}
                     target="account"
                     handle={setTab}
@@ -177,7 +183,7 @@ export const Settings: React.FC = () => {
                       <div
                         className={`${styles.settings__row} ${styles.settings__avatar}`}
                       >
-                        <UserAvatar url={avatarUrl} size={"80"} />
+                        <UserAvatar url={user?.avatar || UserSVG} size={"80"} />
                       </div>
                       <div className={styles.settings__row}>
                         <Button
@@ -303,7 +309,7 @@ export const Settings: React.FC = () => {
                     </div>
                   </div>
                   <div className={styles.settings__footer}>
-                    {user !== defUser.current ? (
+                    {user === defUser.current ? (
                       ""
                     ) : (
                       <Button
