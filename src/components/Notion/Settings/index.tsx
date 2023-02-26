@@ -10,6 +10,7 @@ import { SettingsTab } from "./SettingsTab";
 import { Language } from "./Language";
 import { Theme } from "./Theme";
 import { main } from "../../../data/languages/main";
+import login from "../../../data/languages/login";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
 import UserService from "../../../store/user/user.action";
@@ -47,7 +48,10 @@ export const Settings: React.FC = () => {
 
   const openModalAvatar = () => setIsOpenModalAvatar(true);
 
-  const openModalPassword = () => setIsOpenModalPassword(true);
+  const openModalPassword = () => {
+    setIsOpenModalPassword(true);
+    setErrMess("");
+  };
 
   const closeModal = (e: React.MouseEvent<Element>) => {
     if ((e.target as Element).id === "settings") handleCancelUser();
@@ -67,40 +71,57 @@ export const Settings: React.FC = () => {
     dispatch(updateUserState({ name }));
   };
 
-  const isUpdatePassword = () =>
-    !!(
-      userPassword.pass1.length > 6 &&
-      userPassword.pass2.length > 6 &&
-      userPassword.pass2 === userPassword.pass1
-    );
+  const [errMess, setErrMess] = useState("");
+
+  const isUpdatePassword = () => {
+    console.log(userPassword);
+    if (userPassword.pass1.length < 5 || userPassword.pass2.length < 5)
+      return { check: false, mess: login[lang].password_errorMessage };
+
+    if (userPassword.pass2 !== userPassword.pass1)
+      return { check: false, mess: login[lang].password_errorMessage2 };
+
+    return { check: true, mess: "" };
+  };
+
   //! TO DO - переделать эту фигню
-  //const handleUpdatePassword = () => {
-  //  dispatch(updateUserState({ password: userPassword }));
-  //  handleUpdateUser(userPassword);
-  //  setUserPassword("");
-  //  setUserPasswordRepeat("");
-  //};
 
-  //const handleChangePassword = (event: ChangeEvent<HTMLInputElement>) => {};
+  const handleUpdatePassword = async () => {
+    const passed = isUpdatePassword();
+    if (passed.check) {
+      await UserService.updateUser({ ...user, password: userPassword.pass1 });
+      setErrMess(passed.mess);
+      setUserPassword({ pass1: "", pass2: "" });
+      setIsOpenModalPassword(false);
+    } else {
+      setErrMess(passed.mess);
+    }
+  };
 
-  //const handleChangePasswordRepeat = (
-  //  event: ChangeEvent<HTMLInputElement>
-  //) => {};
+  const handleChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setUserPassword({
+      ...userPassword,
+      [event.target.name]: event.target.value,
+    });
+    setErrMess("");
+    console.log({
+      ...userPassword,
+      [event.target.name]: event.target.value,
+    });
+  };
 
   const setAvatar = async (e: ChangeEvent<HTMLInputElement>) => {
+    setIsOpenModalAvatar(false);
     const avatar: string = await saveImage(e);
-    const response = await UserService.updateUser({ ...user, avatar });
+    UserService.updateUser({ ...user, avatar });
     dispatch(updateUserState({ avatar }));
-    if (response?.status === 200) {
-      console.log(user.avatar === avatar);
-      setIsOpenModalAvatar(false);
-      await UserService.updatePages(user.pages);
-    }
+    console.log(user.avatar === avatar);
+    await UserService.updatePages(user.pages);
   };
 
   let isLoading = false;
 
-  const handleUpdateUser = async (pass = "") => {
+  const handleUpdateUser = async () => {
     if (UserService && user && !isLoading) {
       isLoading = true;
       const response = await UserService.updateUser(user);
@@ -108,7 +129,6 @@ export const Settings: React.FC = () => {
         setIsOpenModal(false);
         setIsOpenModalPassword(false);
       }
-      await UserService.updatePages(user.pages);
     }
   };
 
@@ -262,29 +282,42 @@ export const Settings: React.FC = () => {
                                   {data.text_password}
                                 </div>
                                 <input
+                                  style={
+                                    errMess !== ""
+                                      ? { border: "1px solid red" }
+                                      : {}
+                                  }
                                   type="password"
-                                  name="password"
+                                  name="pass1"
+                                  value={userPassword.pass1}
                                   className={styles.settings__input}
-                                  //onChange={handleChangePassword}
+                                  onChange={handleChangePassword}
                                 />
                                 <div className={styles.settings__label}>
                                   {data.text_repeat_password}
                                 </div>
                                 <input
+                                  value={userPassword.pass2}
+                                  style={
+                                    errMess !== ""
+                                      ? { border: "1px solid red" }
+                                      : {}
+                                  }
                                   type="password"
-                                  name="password_repeat"
+                                  name="pass2"
                                   className={styles.settings__input}
-                                  //onChange={}
+                                  onChange={handleChangePassword}
                                 />
-                                {isUpdatePassword() && (
-                                  <div className={styles.settings__row}>
-                                    <Button
-                                      text={data.text_update_password}
-                                      cName={styles.button__primary}
-                                      //handle={}
-                                    />
-                                  </div>
+                                {errMess !== "" && (
+                                  <p style={{ color: "red" }}>{errMess}</p>
                                 )}
+                                <div className={styles.settings__row}>
+                                  <Button
+                                    text={data.text_update_password}
+                                    cName={styles.button__primary}
+                                    handle={handleUpdatePassword}
+                                  />
+                                </div>
                               </div>
                             </div>
                           </div>
