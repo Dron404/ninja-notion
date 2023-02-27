@@ -78,7 +78,6 @@ export const Settings: React.FC = () => {
   };
 
   const isUpdatePassword = () => {
-    console.log(userPassword);
     if (userPassword.pass1.length < 5 || userPassword.pass2.length < 5)
       return { check: false, mess: login[lang].password_errorMessage };
 
@@ -108,10 +107,6 @@ export const Settings: React.FC = () => {
       [event.target.name]: event.target.value,
     });
     setErrMess("");
-    console.log({
-      ...userPassword,
-      [event.target.name]: event.target.value,
-    });
   };
 
   const setAvatar = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -119,7 +114,6 @@ export const Settings: React.FC = () => {
     const avatar: string = await saveImage(e);
     UserService.updateUser({ ...user, avatar });
     dispatch(updateUserState({ avatar }));
-    console.log(user.avatar === avatar);
     await UserService.updatePages(user.pages);
   };
 

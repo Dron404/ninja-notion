@@ -4,7 +4,6 @@ import getTokens from "./getTokens";
 const deletUser = async () => {
   try {
     const accessToken = sessionStorage.getItem("accessToken");
-    console.log(`${API_HOST}user`);
     const resposne = await fetch(`${API_HOST}user`, {
       method: "DELETE",
       headers: {
@@ -22,7 +21,7 @@ const deletUser = async () => {
       deletUser();
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
