@@ -15,12 +15,22 @@
 
 .wrapper {
   position: absolute;
-  top: 15%;
+  top: 5%;
   left: 25%;
   width: 50%;
   max-width: 950px;
   border-radius: 10px;
   background-color: burlywood;
+
+  @media (max-width: 768px) {
+    width: 75%;
+    left: 15%;
+    top: 10%;
+  }
+
+  @media (max-width: 500px) {
+    top: 10%;
+  }
 }
 
 .container {
@@ -75,19 +85,19 @@
   border-radius: 10px;
 
   @media (max-width: 1000px) {
-    min-height: 150px;
+    min-height: 200px;
   }
 
   @media (max-width: 768px) {
-    min-height: 120px;
+    min-height: 250px;
   }
 
   @media (max-width: 640px) {
-    min-height: 100px;
+    min-height: 250px;
   }
 
   @media (max-width: 500px) {
-    min-height: 70px;
+    min-height: 300px;
   }
 }
 

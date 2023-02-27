@@ -88,7 +88,7 @@ function SignUpForm(props: {
                 {...register("userName", {
                   required: data.requiredMessage,
                   minLength: {
-                    value: 5,
+                    value: 3,
                     message: data.errorMessage,
                   },
                 })}
