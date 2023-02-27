@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { Button } from "../buttons/Button";
 import styles from "./Settings.module.scss";
 import { ReactComponent as SettingsSVG } from "../../../assets/img/svg/setting.svg";
@@ -19,6 +19,7 @@ import logout from "../../../utils/logout";
 import signup from "../../../data/languages/signup";
 import { UploadFile } from "../UploadFile";
 import saveImage from "../../../store/user/saveImage";
+import deletUser from "../../../store/user/deleteUser";
 
 export const Settings: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -122,10 +123,7 @@ export const Settings: React.FC = () => {
     await UserService.updatePages(user.pages);
   };
 
-  let isLoading = false;
-
   const updateName = async () => {
-    isLoading = true;
     if (name.length < 3) {
       setErrMessName(signup[lang].nameError);
       return;
@@ -375,6 +373,20 @@ export const Settings: React.FC = () => {
                           text={data.text_log_out}
                           cName={styles.button__warning}
                           handle={handleLogOut}
+                        />
+                      </div>
+                      <div className={styles.settings__section}>
+                        <Button
+                          text={main[lang].text_remove_user}
+                          cName={styles.button__warning}
+                          handle={async () => {
+                            const result = confirm(
+                              `${main[lang].text_remove_user}?`
+                            );
+                            if (result) {
+                              deletUser();
+                            }
+                          }}
                         />
                       </div>
                     </div>
