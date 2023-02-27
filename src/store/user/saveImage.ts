@@ -6,7 +6,6 @@ const saveImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
   }
   const formData = new FormData();
   formData.append("file", e.target.files[0]);
-  console.log(e.target.files[0]);
   const response = await fetch(`${API_HOST}image/`, {
     method: "POST",
     body: formData,

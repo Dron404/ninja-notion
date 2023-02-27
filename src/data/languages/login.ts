@@ -7,6 +7,7 @@ const login = {
     password_placeholder: "Enter your password...",
     requiredMessage: "Field must be filled in",
     password_errorMessage: "Minimum 5 characters",
+    password_errorMessage2: "Passwords don't match",
     login_linkToSignUp: "Sign Up",
     errorEmail_textOne: "Something went wrong!",
     errorEmail_textTwo:
@@ -31,6 +32,7 @@ const login = {
     password_placeholder: "Wpisz swoje hasło...",
     requiredMessage: "Pole należy wypełnić",
     password_errorMessage: "Minimum 5 znaków",
+    password_errorMessage2: "Hasła nie pasują",
     login_linkToSignUp: "Zapisz Się",
     errorEmail_textOne: "Coś poszło nie tak!",
     errorEmail_textTwo:
@@ -54,6 +56,7 @@ const login = {
     password_placeholder: "Введите пароль...",
     requiredMessage: "Поле обязательно к заполнению",
     password_errorMessage: "Минимум 5 символов",
+    password_errorMessage2: "Пароли не совпадают",
     login_linkToSignUp: "Регистраиця",
     errorEmail_textOne: "Упс!",
     errorEmail_textTwo:

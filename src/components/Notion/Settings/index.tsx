@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { Button } from "../buttons/Button";
 import styles from "./Settings.module.scss";
 import { ReactComponent as SettingsSVG } from "../../../assets/img/svg/setting.svg";
@@ -10,50 +10,60 @@ import { SettingsTab } from "./SettingsTab";
 import { Language } from "./Language";
 import { Theme } from "./Theme";
 import { main } from "../../../data/languages/main";
+import login from "../../../data/languages/login";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { userSlice } from "../../../store/user/user.slice";
 import UserService from "../../../store/user/user.action";
 import { IUserData } from "../../../types/interface";
 import logout from "../../../utils/logout";
+import signup from "../../../data/languages/signup";
 import { UploadFile } from "../UploadFile";
 import saveImage from "../../../store/user/saveImage";
+import deletUser from "../../../store/user/deleteUser";
 
 export const Settings: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { user, lang } = useAppSelector((store) => store.userReducer);
+  const { lang } = useAppSelector((store) => store.userReducer);
+  const user = useAppSelector((store) => store.userReducer.user) as IUserData;
 
   const { updateUserState } = userSlice.actions;
 
   const data = main[lang];
 
-  const avatarUrl = user?.avatar || UserSVG;
-  const email = user?.email || "";
-  const name = user?.name || "";
-  const password = user?.password || "";
+  const [name, setName] = useState(user?.name);
+
+  const email = user?.email;
 
   const [tab, setTab] = React.useState<string>("account");
 
-  const [userName, setUserName] = React.useState<string>(name);
-
-  const [userPassword, setUserPassword] = React.useState<string>("");
-  const [userPasswordRepeat, setUserPasswordRepeat] =
-    React.useState<string>("");
+  const [userPassword, setUserPassword] = useState({ pass1: "", pass2: "" });
 
   const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false);
+
   const [isOpenModalAvatar, setIsOpenModalAvatar] =
     React.useState<boolean>(false);
+
   const [isOpenModalPassword, setIsOpenModalPassword] =
     React.useState<boolean>(false);
+
+  const [errMessName, setErrMessName] = useState("");
+
+  const [errMess, setErrMess] = useState("");
+
   const openModal = () => setIsOpenModal(true);
+
   const openModalAvatar = () => setIsOpenModalAvatar(true);
-  const openModalPassword = () => setIsOpenModalPassword(true);
+
+  const openModalPassword = () => {
+    setIsOpenModalPassword(true);
+  };
+
   const closeModal = (e: React.MouseEvent<Element>) => {
     if ((e.target as Element).id === "settings") handleCancelUser();
     if ((e.target as Element).id === "avatar") setIsOpenModalAvatar(false);
     if ((e.target as Element).id === "reset-password") {
       setIsOpenModalPassword(false);
-      setUserPassword("");
-      setUserPasswordRepeat("");
+      setUserPassword({ pass1: "", pass2: "" });
     }
   };
 
@@ -63,61 +73,77 @@ export const Settings: React.FC = () => {
 
   const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
     const name = event.target.value;
-    setUserName(name);
-    dispatch(updateUserState({ name }));
+    setName(name);
+    setErrMessName("");
   };
 
-  const isUpdatePassword = () =>
-    !!(
-      userPassword.length > 6 &&
-      userPasswordRepeat.length > 6 &&
-      userPassword === userPasswordRepeat
-    );
+  const isUpdatePassword = () => {
+    if (userPassword.pass1.length < 5 || userPassword.pass2.length < 5)
+      return { check: false, mess: login[lang].password_errorMessage };
 
-  const handleUpdatePassword = () => {
-    dispatch(updateUserState({ password: userPassword }));
-    handleUpdateUser(userPassword);
-    setUserPassword("");
-    setUserPasswordRepeat("");
+    if (userPassword.pass2 !== userPassword.pass1)
+      return { check: false, mess: login[lang].password_errorMessage2 };
+
+    return { check: true, mess: "" };
+  };
+
+  //! Добавить кнопу удаления аккаунта, добавить обновление имени, добавить доваление картинок в notion, написать тесты на апи
+
+  const handleUpdatePassword = async () => {
+    const passed = isUpdatePassword();
+    if (passed.check) {
+      await UserService.updateUser({ ...user, password: userPassword.pass1 });
+      setErrMess(passed.mess);
+      setUserPassword({ pass1: "", pass2: "" });
+      setIsOpenModalPassword(false);
+    } else {
+      setErrMess(passed.mess);
+    }
   };
 
   const handleChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
-    setUserPassword(event.target.value);
-  };
-
-  const handleChangePasswordRepeat = (event: ChangeEvent<HTMLInputElement>) => {
-    setUserPasswordRepeat(event.target.value);
+    setUserPassword({
+      ...userPassword,
+      [event.target.name]: event.target.value,
+    });
+    setErrMess("");
   };
 
   const setAvatar = async (e: ChangeEvent<HTMLInputElement>) => {
     setIsOpenModalAvatar(false);
-    const url = await saveImage(e);
-    dispatch(updateUserState({ avatar: url }));
+    const avatar: string = await saveImage(e);
+    UserService.updateUser({ ...user, avatar });
+    dispatch(updateUserState({ avatar }));
+    await UserService.updatePages(user.pages);
   };
 
-  let isLoading = false;
-  const handleUpdateUser = async (pass = "") => {
-    if (UserService && user && !isLoading) {
-      const userData: IUserData = password
-        ? { ...user, ...{ password: pass } }
-        : user;
-      isLoading = true;
-      const response = await UserService.updateUser(userData);
-      if (response?.status === 200) {
-        setIsOpenModal(false);
-        setIsOpenModalPassword(false);
-      }
-      await UserService.updatePages(userData.pages);
+  const updateName = async () => {
+    if (name.length < 3) {
+      setErrMessName(signup[lang].nameError);
+      return;
     }
+    dispatch(updateUserState({ name }));
+    await UserService.updateUser({ ...user, name });
   };
 
-  const [defaultUser, setDefaultUser] = React.useState(user);
+  const cnacelName = () => {
+    setName(user.name);
+    setErrMessName("");
+  };
+
+  const [defaultUser, setDefaultUser] = useState(user);
 
   const handleCancelUser = () => {
     if (defaultUser) {
-      dispatch(updateUserState(defaultUser));
+      dispatch(
+        updateUserState({
+          ...defaultUser,
+          avatar: user.avatar,
+          name: user.name,
+        })
+      );
       setIsOpenModal(false);
-      setUserName(defaultUser.name);
+      setErrMess("");
     }
   };
 
@@ -139,7 +165,9 @@ export const Settings: React.FC = () => {
                   <div className={styles.settings__name}>{email}</div>
                   <SettingsTab
                     text={data.text_account}
-                    icon={<UserAvatar url={avatarUrl} size={"15"} />}
+                    icon={
+                      <UserAvatar url={user?.avatar || UserSVG} size={"15"} />
+                    }
                     state={tab}
                     target="account"
                     handle={setTab}
@@ -181,7 +209,7 @@ export const Settings: React.FC = () => {
                       <div
                         className={`${styles.settings__row} ${styles.settings__avatar}`}
                       >
-                        <UserAvatar url={avatarUrl} size={"80"} />
+                        <UserAvatar url={user?.avatar || UserSVG} size={"80"} />
                       </div>
                       <div className={styles.settings__row}>
                         <Button
@@ -219,12 +247,36 @@ export const Settings: React.FC = () => {
                           {data.text_preferred_name}
                         </div>
                         <input
+                          style={
+                            errMessName === ""
+                              ? {}
+                              : { border: "1px solid red", color: "red" }
+                          }
                           type="text"
                           name="name"
                           className={styles.settings__input}
-                          value={userName}
+                          value={name}
                           onChange={handleChangeName}
                         />
+                      </div>
+                      <div className={styles.settings__footer}>
+                        {name === user.name ? (
+                          ""
+                        ) : (
+                          <>
+                            <Button
+                              text={data.text_update}
+                              cName={styles.button__primary}
+                              handle={updateName}
+                            />
+                            <Button
+                              text={data.text_cancel}
+                              cName={styles.button__default}
+                              handle={cnacelName}
+                            />
+                            <p style={{ color: "red" }}>{errMessName}</p>
+                          </>
+                        )}
                       </div>
                     </div>
 
@@ -260,8 +312,14 @@ export const Settings: React.FC = () => {
                                   {data.text_password}
                                 </div>
                                 <input
+                                  style={
+                                    errMess !== ""
+                                      ? { border: "1px solid red" }
+                                      : {}
+                                  }
                                   type="password"
-                                  name="password"
+                                  name="pass1"
+                                  value={userPassword.pass1}
                                   className={styles.settings__input}
                                   onChange={handleChangePassword}
                                 />
@@ -269,20 +327,27 @@ export const Settings: React.FC = () => {
                                   {data.text_repeat_password}
                                 </div>
                                 <input
+                                  value={userPassword.pass2}
+                                  style={
+                                    errMess !== ""
+                                      ? { border: "1px solid red" }
+                                      : {}
+                                  }
                                   type="password"
-                                  name="password_repeat"
+                                  name="pass2"
                                   className={styles.settings__input}
-                                  onChange={handleChangePasswordRepeat}
+                                  onChange={handleChangePassword}
                                 />
-                                {isUpdatePassword() && (
-                                  <div className={styles.settings__row}>
-                                    <Button
-                                      text={data.text_update_password}
-                                      cName={styles.button__primary}
-                                      handle={handleUpdatePassword}
-                                    />
-                                  </div>
+                                {errMess !== "" && (
+                                  <p style={{ color: "red" }}>{errMess}</p>
                                 )}
+                                <div className={styles.settings__row}>
+                                  <Button
+                                    text={data.text_update_password}
+                                    cName={styles.button__primary}
+                                    handle={handleUpdatePassword}
+                                  />
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -304,19 +369,21 @@ export const Settings: React.FC = () => {
                           handle={handleLogOut}
                         />
                       </div>
+                      <div className={styles.settings__section}>
+                        <Button
+                          text={main[lang].text_remove_user}
+                          cName={styles.button__warning}
+                          handle={async () => {
+                            const result = confirm(
+                              `${main[lang].text_remove_user}?`
+                            );
+                            if (result) {
+                              deletUser();
+                            }
+                          }}
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className={styles.settings__footer}>
-                    <Button
-                      text={data.text_update}
-                      cName={styles.button__primary}
-                      handle={handleUpdateUser}
-                    />
-                    <Button
-                      text={data.text_cancel}
-                      cName={styles.button__default}
-                      handle={handleCancelUser}
-                    />
                   </div>
                 </div>
               )}

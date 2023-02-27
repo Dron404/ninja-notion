@@ -24,7 +24,7 @@ export const Gallery: React.FC = () => {
 
   const handleSetBackground = (url: string) => {
     if (url.length > 0) {
-      const replaceObject = { cover: { url: url } };
+      const replaceObject = { cover: { position: 100, url: url } };
       updatePageStateFn(replaceObject);
     }
   };
