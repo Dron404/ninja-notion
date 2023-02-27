@@ -202,6 +202,30 @@
         height: auto;
         filter: grayscale(100%);
         filter: contrast(10%);
+        animation-name: animation-wr;
+        animation-duration: 3s;
+        animation-fill-mode: forwards;
+        animation-iteration-count: 1;
+      }
+
+      .promo__brand:nth-child(1) {
+        animation-delay: 1s;
+      }
+
+      .promo__brand:nth-child(2) {
+        animation-delay: 2s;
+      }
+
+      .promo__brand:nth-child(3) {
+        animation-delay: 3s;
+      }
+
+      .promo__brand:nth-child(4) {
+        animation-delay: 4s;
+      }
+
+      .promo__brand:nth-child(5) {
+        animation-delay: 5s;
       }
     }
   }
@@ -210,6 +234,33 @@
     width: 45%;
     height: auto;
   }
+}
+
+@keyframes animation-wr {
+  0% {
+    opacity: 1;
+    transform: translateY(0px) skewX(0deg) skewY(0deg) rotateZ(0deg);
+    filter: blur(0px);
+  }
+
+  30% {
+    opacity: 1;
+    transform: translateY(0px) skewX(0deg) skewY(0deg) rotateZ(0deg);
+    filter: blur(0px);
+  }
+
+  60% {
+    opacity: 0;
+    transform: translateY(-30px) skewX(0deg) skewY(10deg) rotateZ(10deg);
+    filter: blur(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px) skewX(0deg) skewY(0deg) rotateZ(0deg);
+    filter: blur(0px);
+  }
+
 }
 
 // ---------------- FOOTER -----------------------------------
@@ -249,88 +300,33 @@
     padding: 0;
     margin: 20px 0 15px;
 
-    .social-container__image {
+    .social-container__image-facebook,
+    .social-container__image-insta,
+    .social-container__image-linked,
+    .social-container__image-twitter,
+    .social-container__image-youtube {
       display: block;
       width: 22px;
       height: 22px;
       margin-right: 5px;
-      fill: rgb(77, 70, 70);
+      fill: $social-color;
 
     }
 
-    .social-container__image:hover {
-      fill: rgb(40, 69, 231);
+    .social-container__image-facebook:hover,
+    .social-container__image-linked:hover,
+    .social-container__image-twitter:hover {
+      fill: $social-hover;
+    }
+
+    .social-container__image-insta:hover {
+      fill: $insta-hover;
+    }
+
+    .social-container__image-youtube:hover {
+      fill: $youtube-hover;
     }
   }
-
-  // .dropdown {
-  //   width: 150px;
-  //   position: relative;
-  //   user-select: none;
-
-  //   .dropdown-btn {
-  //     display: flex;
-  //     justify-content: space-around;
-  //     align-items: center;
-  //     padding: 7px 5px;
-  //     background-color: $lang-hover;
-  //     border: 1px solid $button-home-select;
-  //     border-radius: 5px;
-  //     @include font($style: normal,
-  //       $weight: 600,
-  //       $size: 1.5rem,
-  //       $height: 1.7rem);
-  //     letter-spacing: 0;
-  //     color: $color-grey-800;
-  //     cursor: pointer;
-
-  //     .geography {
-  //       display: block;
-  //       width: 14px;
-  //       height: 14px;
-  //       filter: contrast(70%);
-  //     }
-
-  //     .arrow-down {
-  //       display: block;
-  //       width: 12px;
-  //       height: 10px;
-  //       filter: contrast(50%);
-  //     }
-  //   }
-
-  //   // .dropdown-content {
-  //   //   position: absolute;
-  //   //   bottom: 120%;
-  //   //   left: 0;
-  //   //   width: 120%;
-  //   //   display: flex;
-  //   //   flex-direction: column;
-  //   //   align-items: flex-start;
-  //   //   padding: 10px;
-  //   //   background-color: $color-base-100;
-  //   //   border-radius: 5px;
-  //   //   box-shadow: 0 4px 18px rgba(0 0 0 / 4%), 0 2px 8px rgba(0 0 0 / 3%),
-  //   //     0 1px 3px rgba(0 0 0 / 2%), 0 0.5px 1px rgba(0 0 0 / 1%);
-  //   //   @include font($style: normal,
-  //   //     $weight: 400,
-  //   //     $size: 1.4rem,
-  //   //     $height: 1.5rem);
-  //   //   letter-spacing: 0;
-  //   //   color: $color-dark-400;
-
-  //     // .dropdown-item {
-  //     //   width: 100%;
-  //     //   margin-bottom: 15px;
-  //     //   cursor: pointer;
-  //     //   transition: all ease 0.2s;
-  //     // }
-
-  //     // .dropdown-item:hover {
-  //     //   background-color: $lang-hover;
-  //     // }
-  //   }
-  // }
 
   .cursor {
     cursor: pointer;
