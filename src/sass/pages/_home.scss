@@ -309,22 +309,22 @@
       width: 22px;
       height: 22px;
       margin-right: 5px;
-      fill: rgb(77, 70, 70);
+      fill: $social-color;
 
     }
 
     .social-container__image-facebook:hover,
     .social-container__image-linked:hover,
     .social-container__image-twitter:hover {
-      fill: rgb(40, 69, 231);
+      fill: $social-hover;
     }
 
     .social-container__image-insta:hover {
-      fill: rgb(46, 6, 70);
+      fill: $insta-hover;
     }
 
     .social-container__image-youtube:hover {
-      fill: rgb(196, 14, 38);
+      fill: $youtube-hover;
     }
   }
 
