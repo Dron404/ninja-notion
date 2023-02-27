@@ -16,6 +16,7 @@ import { userSlice } from "../../../store/user/user.slice";
 import UserService from "../../../store/user/user.action";
 import { IUserData } from "../../../types/interface";
 import logout from "../../../utils/logout";
+import signup from "../../../data/languages/signup";
 import { UploadFile } from "../UploadFile";
 import saveImage from "../../../store/user/saveImage";
 
@@ -24,12 +25,12 @@ export const Settings: React.FC = () => {
   const { lang } = useAppSelector((store) => store.userReducer);
   const user = useAppSelector((store) => store.userReducer.user) as IUserData;
 
-  const defUser = useRef(user);
-
   const { updateUserState } = userSlice.actions;
 
   const data = main[lang];
-  const name = user?.name;
+
+  const [name, setName] = useState(user?.name);
+
   const email = user?.email;
 
   const [tab, setTab] = React.useState<string>("account");
@@ -44,13 +45,16 @@ export const Settings: React.FC = () => {
   const [isOpenModalPassword, setIsOpenModalPassword] =
     React.useState<boolean>(false);
 
+  const [errMessName, setErrMessName] = useState("");
+
+  const [errMess, setErrMess] = useState("");
+
   const openModal = () => setIsOpenModal(true);
 
   const openModalAvatar = () => setIsOpenModalAvatar(true);
 
   const openModalPassword = () => {
     setIsOpenModalPassword(true);
-    setErrMess("");
   };
 
   const closeModal = (e: React.MouseEvent<Element>) => {
@@ -68,10 +72,9 @@ export const Settings: React.FC = () => {
 
   const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
     const name = event.target.value;
-    dispatch(updateUserState({ name }));
+    setName(name);
+    setErrMessName("");
   };
-
-  const [errMess, setErrMess] = useState("");
 
   const isUpdatePassword = () => {
     console.log(userPassword);
@@ -84,7 +87,7 @@ export const Settings: React.FC = () => {
     return { check: true, mess: "" };
   };
 
-  //! TO DO - переделать эту фигню
+  //! Добавить кнопу удаления аккаунта, добавить обновление имени, добавить доваление картинок в notion, написать тесты на апи
 
   const handleUpdatePassword = async () => {
     const passed = isUpdatePassword();
@@ -121,23 +124,34 @@ export const Settings: React.FC = () => {
 
   let isLoading = false;
 
-  const handleUpdateUser = async () => {
-    if (UserService && user && !isLoading) {
-      isLoading = true;
-      const response = await UserService.updateUser(user);
-      if (response?.status === 200) {
-        setIsOpenModal(false);
-        setIsOpenModalPassword(false);
-      }
+  const updateName = async () => {
+    isLoading = true;
+    if (name.length < 3) {
+      setErrMessName(signup[lang].nameError);
+      return;
     }
+    dispatch(updateUserState({ name }));
+    await UserService.updateUser({ ...user, name });
   };
 
-  const [defaultUser, setDefaultUser] = React.useState(user);
+  const cnacelName = () => {
+    setName(user.name);
+    setErrMessName("");
+  };
+
+  const [defaultUser, setDefaultUser] = useState(user);
 
   const handleCancelUser = () => {
     if (defaultUser) {
-      dispatch(updateUserState({ ...defaultUser, avatar: user.avatar }));
+      dispatch(
+        updateUserState({
+          ...defaultUser,
+          avatar: user.avatar,
+          name: user.name,
+        })
+      );
       setIsOpenModal(false);
+      setErrMess("");
     }
   };
 
@@ -241,12 +255,36 @@ export const Settings: React.FC = () => {
                           {data.text_preferred_name}
                         </div>
                         <input
+                          style={
+                            errMessName === ""
+                              ? {}
+                              : { border: "1px solid red", color: "red" }
+                          }
                           type="text"
                           name="name"
                           className={styles.settings__input}
                           value={name}
                           onChange={handleChangeName}
                         />
+                      </div>
+                      <div className={styles.settings__footer}>
+                        {name === user.name ? (
+                          ""
+                        ) : (
+                          <>
+                            <Button
+                              text={data.text_update}
+                              cName={styles.button__primary}
+                              handle={updateName}
+                            />
+                            <Button
+                              text={data.text_cancel}
+                              cName={styles.button__default}
+                              handle={cnacelName}
+                            />
+                            <p style={{ color: "red" }}>{errMessName}</p>
+                          </>
+                        )}
                       </div>
                     </div>
 
@@ -340,23 +378,6 @@ export const Settings: React.FC = () => {
                         />
                       </div>
                     </div>
-                  </div>
-                  <div className={styles.settings__footer}>
-                    {user === defUser.current ? (
-                      ""
-                    ) : (
-                      <Button
-                        text={data.text_update}
-                        cName={styles.button__primary}
-                        handle={handleUpdateUser}
-                      />
-                    )}
-
-                    <Button
-                      text={data.text_cancel}
-                      cName={styles.button__default}
-                      handle={handleCancelUser}
-                    />
                   </div>
                 </div>
               )}
