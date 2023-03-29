@@ -1,6 +1,6 @@
 // services
 export const API_HOST =
-  "https://ninja-notion-api-production-9ed7.up.railway.app";
+  "https://ninja-notion-api-production-9ed7.up.railway.app/";
 export const ROUT_USER = "user";
 export const ROUT_LOGIN = "login";
 export const ROUT_GETUSER = "getuser";
